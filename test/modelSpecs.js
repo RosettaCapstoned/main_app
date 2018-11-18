@@ -33,10 +33,10 @@ describe('Database test to ensure User model works', () => {
       expect(moe.students).to.equal(undefined)
     })
   })
-  it('a teacher can find thier students', () => {
+  it('a teacher can find their students', () => {
     return User.findOne({
       where: {
-        firstName: 'Prof'
+        role: 'Teacher'
       },
       include: [{
         model: User, as: 'students'
@@ -47,7 +47,7 @@ describe('Database test to ensure User model works', () => {
     })
   })
   it('A new student can be created and be assigned to a teacher and teacher can find new student', async () => {
-    const prof = data.users.find(user => user.firstName === 'Prof')
+    const prof = data.users.find(user => user.role === 'Teacher')
     await User.create({
       firstName: 'Harry',
       lastName: 'Chen',
@@ -56,7 +56,7 @@ describe('Database test to ensure User model works', () => {
       role: 'Student',
       teacherId: prof.id
     })
-    const updatedProf = await User.findById(prof.id, {
+    const updatedProf = await User.findByPk(prof.id, {
       include: [
         { model : User, as: 'students' }
       ]
@@ -77,7 +77,7 @@ describe('Database test to ensure User model works', () => {
       role: 'Teacher'
     })
     await pheyton.update({ teacherId: newTeacher.id })
-    const updatedTeacher = await User.findById(newTeacher.id, {
+    const updatedTeacher = await User.findByPk(newTeacher.id, {
       include: [
         { model: User, as: 'students' } 
       ]
