@@ -1,9 +1,13 @@
 {
-  "name": "rosettaCapstoned",
+  "name": "rosetta_capstoned",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
+    "test": "nodemon ./node_modules/mocha/bin/mocha",
     "start": "node ./server/app.js",
     "start:dev": "npm run webpack -- --watch --mode=development & nodemon ./server/app.js",
     "webpack": "./node_modules/webpack/bin/webpack.js"
@@ -20,7 +24,13 @@
     "babel-preset-stage-2": "^6.24.1",
     "express": "^4.16.4",
     "nodemon": "^1.18.6",
+    "pg": "^7.6.1",
+    "sequelize": "^4.41.2",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
   }
 }

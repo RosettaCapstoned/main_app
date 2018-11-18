@@ -1,5 +1,13 @@
 const express = require('express')
 const path = require('path')
+const { sync, seed } = require('./db/seed')
+
+const init = () => {
+  return sync()
+  .then(() => seed())
+}
+
+init()
 
 const app = express()
 
