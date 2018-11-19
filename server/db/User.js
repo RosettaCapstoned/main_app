@@ -23,7 +23,8 @@ const User = conn.define('user', {
   },
   role: {
     type: Sequelize.ENUM('Teacher', 'Student')
-  }
+  },
+  googleId: Sequelize.INTEGER
 })
 
 User.belongsTo(User, {as: 'teacher'})
