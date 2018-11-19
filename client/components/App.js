@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 
 export default class App extends Component {
 
@@ -6,7 +7,7 @@ export default class App extends Component {
 
   	return (
   	  <div>
-  	    <hr />
+  	    <Typography variant='display1' color='textPrimary'>Rosetta Capstone</Typography>
   	  </div>
   	)
   }

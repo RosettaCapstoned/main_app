@@ -1,7 +1,10 @@
 var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const User = require('../db/User');
- 
-module.exports = (passport) => {
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
+
+const authenticate = (passport) => {
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -27,3 +30,5 @@ module.exports = (passport) => {
   }
 ));
 }
+
+module.exports = { authenticate };
