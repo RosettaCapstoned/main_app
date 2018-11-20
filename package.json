@@ -58,6 +58,10 @@
     "mocha": "^5.2.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
+<<<<<<< HEAD
     "enzyme-to-json": "^3.3.4"
+=======
+    "enzyme-to-json": "^3.3.4",
+>>>>>>> fc378bd75e9e62d7890a3c78089eeeac9baba099
   }
 }
