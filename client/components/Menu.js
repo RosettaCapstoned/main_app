@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItem, ListItemText, Button } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 
 class Menu extends Component {
   state = {
@@ -15,21 +15,15 @@ class Menu extends Component {
 
     return (
         <List style={{ display: 'flex', flexDirection: 'column'}}>
-          <Button component={Link} to='/'>
-            <ListItem button key='Home'>
+            <ListItem button component={Link} to='/' key='Home'>
               <ListItemText primary='Home' />
             </ListItem>
-          </Button>
-          <Button component={Link} to='/login'>
-            <ListItem button key='Login'>
+            <ListItem button component={Link} to='/login' key='Login'>
               <ListItemText primary='Login' />
             </ListItem>
-          </Button>
-          <Button component={Link} to='/classroom'>
-            <ListItem button key='Classroom'>
+            <ListItem button component={Link} to='/classroom' key='Classroom'>
               <ListItemText primary='Join Classroom' />
             </ListItem>
-           </Button>
         </List>
     )
   }
