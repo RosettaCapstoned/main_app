@@ -8,7 +8,6 @@ import Classroom from './Classroom';
 export default class App extends Component {
 
   render() {
-  	console.log(window.localStorage.getItem('user'))
   	return (
   	<Router>
   	  <div>
