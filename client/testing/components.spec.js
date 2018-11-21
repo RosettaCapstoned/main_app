@@ -30,7 +30,9 @@ describe('<App /> Component', () => {
   	    <App />
   	  </MemoryRouter>)
 
-  	// expect(wrapper.find(Header)).toHaveLength(1);
+
+  	expect(wrapper.find(Header)).toHaveLength(1);
+
   	expect(wrapper.find(LandingPage)).toHaveLength(0);
   })
 
