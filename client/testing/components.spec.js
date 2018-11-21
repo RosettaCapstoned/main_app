@@ -12,7 +12,7 @@ import Header from '../components/Header';
 describe('<Header /> Component', () => {
   it('renders a div', () => {
   	const wrapper = shallow(<Header />);
-    expect(wrapper.find('div')).toHaveLength(1);
+    expect(wrapper.find('div')).toHaveLength(2);
   });
 
   it('has a material-ui <Typography /> component that says Rosetta Capstone', () => {

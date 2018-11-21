@@ -1,5 +1,5 @@
 const userRouter = require('./user');
-const auth = require('./auth');
-const authenticate = auth.authenticate
+const authRouter = require('./auth');
 
-module.exports = { userRouter, authenticate };
+
+module.exports = { userRouter, authRouter };

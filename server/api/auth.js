@@ -1,33 +1,31 @@
-var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
-const User = require('../db/User');
-const googleKey = require('../env');
-//const express = require('express');
-//const passport = require('passport');
-//const router = express.Router();
+const express = require('express');
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const { User } = require('../db/User');
+module.exports = router;
 
-const authenticate = (passport) => {
-  passport.serializeUser((user, done) => {
-    done(null, user);
-  });
+router.post('/', (req, res, next) => {
+  User.findOne({ 
+    where: {
+      email: req.body.email, 
+      password: req.body.password
+    } 
+  })
+  .then( user => {
+    if (!user) {
+      return next({ status: 401 })
+    }
+    const token = jwt.sign({ id: user.id }, 
+                process.env.JWT_SECRET)
+    console.log(token);
+    res.send({ token })
+  })
+  .catch(next)
+})
 
-  passport.deserializeUser((user, done) => {
-    done(null, user);
-  });
-
-  passport.use(new GoogleStrategy({
-    ...googleKey,
-    passReqToCallback   : true
-  },
-  (request, accessToken, refreshToken, profile, done) => {
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //   return done(err, user);
-    // });
-      return done(null, {
-        profile: profile,
-        token: accessToken
-      });
+router.get('/', (req, res, next)=> {
+  if (!req.user){
+    return next({ status: 401 })
   }
-));
-}
-
-module.exports = { authenticate };
+  res.status(200).send(req.user);
+})
