@@ -47,7 +47,6 @@ class Header extends Component {
         <Menu />
         <Divider />
   	  </Drawer>
-
   	  </div>
   	)
   }
