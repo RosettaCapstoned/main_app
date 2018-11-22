@@ -2,11 +2,11 @@ const express = require('express')
 const path = require('path')
 const passport = require('passport');
 var GoogleStrategy = require( 'passport-google-oauth20' );
-const User = require('./db/User');
+const User = require('./db/Models/User');
 const googleKey = require('./env');
 const cookieSession = require('cookie-session');
 const { userRouter, authRouter } = require('./api');
-const { sync, seed } = require('./db/seed');
+const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || 'rosetta';
@@ -114,5 +114,7 @@ const init = () => {
 }
 
 init()
+
+module.exports = app
 
 app.listen(port, () => console.log(`listening on port ${port}`))

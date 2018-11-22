@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const { User } = require('../db/User');
+const { User } = require('../db/Models/User');
 module.exports = router;
 
 router.post('/', (req, res, next) => {

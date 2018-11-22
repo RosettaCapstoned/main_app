@@ -1,6 +1,6 @@
 const expect = require('chai').expect
-const { sync, seed } = require ('../server/db/seed')
-const User = require ('../server/db/User')
+const { sync, seed } = require ('../index')
+const { User } = require ('../index').models
 
 describe('Database test to ensure User model works', () => {
   let data = {
