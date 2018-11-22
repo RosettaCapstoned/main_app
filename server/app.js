@@ -1,12 +1,16 @@
 const express = require('express')
 const path = require('path')
 const passport = require('passport');
-const cookieParser = require('cookie-parser');
+var GoogleStrategy = require( 'passport-google-oauth20' );
+const User = require('./db/User');
+const googleKey = require('./env');
 const cookieSession = require('cookie-session');
-const { userRouter, authenticate } = require('./api');
+const { userRouter, authRouter } = require('./api');
 const { sync, seed } = require('./db/seed');
 const app = express();
 const port = process.env.PORT || 3000;
+const secret = process.env.JWT_SECRET || 'rosetta';
+const jwt = require('jsonwebtoken');
 
 // Middleware
 app.use(express.json())
@@ -15,58 +19,93 @@ app.use(cookieSession({
     keys: ['123']
 }));
 
-app.use(cookieParser());
-
-// OAuth Middleware
-authenticate(passport);
-app.use(passport.initialize());
-
-app.get('/auth/google', 
-  passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/userinfo.profile']
-}));
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        successRedirect: '/auth/google/success',
-        failureRedirect: '/auth/google/failure'
-    }),
-    (req, res) => {
-        req.session.token = req.user.token;
-        res.redirect('/');
-    }
-);
-
-// Cookies for persistent login
-app.get('/', (req, res) => {
-    if (req.session.token) {
-        res.cookie('token', req.session.token);
-        res.json({
-            status: 'session cookie set'
-        });
-    } else {
-        res.cookie('token', '')
-        res.json({
-            status: 'session cookie not set'
-        });
-    }
-});
-
-app.get('/logout', (req, res) => {
-    req.logout();
-    req.session = null;
-    res.redirect('/');
-});
-
-
 // Static Files
 app.use('/public',express.static(path.join(__dirname, '../public')))
-app.get('*', (req, res, next) => {
+app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
 // Routers
 app.use('/api/user', userRouter)
+app.use('/api/auth', authRouter)
+
+// OAuth Middleware
+app.use(passport.initialize()); // Used to initialize passport
+app.use(passport.session()); // Used to persist login sessions
+
+// Strategy config
+passport.use(new GoogleStrategy({
+    ...googleKey,
+    passReqToCallback: true
+  },
+  async (request, accessToken, refreshToken, profile, done) => {
+  	console.log(profile)
+    const user = await User.findOrCreate({ where: { 
+        googleId: profile.id,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName
+      } 
+    })
+    .then(user => {
+      user = {...user, token: accessToken}
+      done(null, user);
+    });
+  }
+));
+
+// Used to stuff a piece of information into a cookie
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+// Used to decode the received cookie and persist session
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
+// Middleware to check if the user is authenticated
+function isUserAuthenticated(req, res, next) {
+  const token = req.headers.authorization;
+  if (req.user && !token) {
+    next();
+  } 
+  else {
+  	if(!req.user ){
+      res.send('You must login!');
+    }
+    else {
+      let id = jwt.verify(token, secret).id;
+      User.findById(id)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(next);
+    }
+  }
+}
+
+app.get('/auth/google', 
+  passport.authenticate('google', {
+    scope: ['profile']
+}));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/secret');
+});
+
+// Secret route
+app.get('/secret', isUserAuthenticated, (req, res) => {
+  res.redirect('/');
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+  req.logout(); 
+  res.redirect('/login');
+});
 
 
 const init = () => {

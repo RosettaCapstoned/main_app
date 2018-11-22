@@ -12,19 +12,19 @@ const User = conn.define('user', {
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       isEmail: true
     }
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   role: {
     type: Sequelize.ENUM('Teacher', 'Student')
   },
-  googleId: Sequelize.INTEGER
+  googleId: Sequelize.STRING
 })
 
 User.belongsTo(User, {as: 'teacher'})

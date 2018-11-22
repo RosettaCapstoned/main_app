@@ -34,10 +34,9 @@ class Header extends Component {
   	return (
   	  <div>
   	  <div style={{ display: 'flex',
-    				justifyContent: 'space-between',
+    				justifyContent: 'flex-end',
     				flexDirection: 'row'
   					}}>
-  	    <Typography variant='display1' color='textPrimary'>Rosetta Capstone</Typography>
   	    <IconButton onClick={this.handleDrawerToggle}><Icon>menu</Icon></IconButton>
   	  </div>
   	    <Drawer variant="temporary"
@@ -47,6 +46,7 @@ class Header extends Component {
         <Menu />
         <Divider />
   	  </Drawer>
+  	  <Typography variant='display4' color='textPrimary' style={{ fontFamily: 'Georgia, serif', position: 'fixed', bottom: '0' }}>Rosetta Capstone</Typography>
   	  </div>
   	)
   }
