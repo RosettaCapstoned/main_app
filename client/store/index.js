@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { gTranslateReducer } from './gtranslate';
-import { swrtcReducer } from './swrtc';
+import swrtcReducer from './webRTC/simplewebrtc/reducers'
 
 const reducer = combineReducers({
   translation: gTranslateReducer,

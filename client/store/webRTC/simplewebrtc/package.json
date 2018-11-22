@@ -1,0 +1,61 @@
+{
+  "_from": "@andyet/simplewebrtc",
+  "_id": "@andyet/simplewebrtc@1.7.4",
+  "_inBundle": false,
+  "_integrity": "sha512-1czLcLWMxTSe5or8TmgS8blqgROnTA7jug9PhMBBMHuZbOkehCVFmjP9lOqJzId/OvlMLQnlqcVn/NUBLI8GGw==",
+  "_location": "/@andyet/simplewebrtc",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@andyet/simplewebrtc",
+    "name": "@andyet/simplewebrtc",
+    "escapedName": "@andyet%2fsimplewebrtc",
+    "scope": "@andyet",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@andyet/simplewebrtc/-/simplewebrtc-1.7.4.tgz",
+  "_shasum": "efae9e37009a1fad623122dd827fd57b91529358",
+  "_spec": "@andyet/simplewebrtc",
+  "_where": "/Users/jenniferchen/capstone",
+  "bundleDependencies": false,
+  "dependencies": {
+    "@types/node": "^10.11.7",
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-redux": "^6.0.9",
+    "@types/uuid": "^3.4.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "realtime-text": "^1.0.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
+    "stanza.io": "^9.0.2",
+    "staydown": "^1.3.1",
+    "uuid": "^3.2.1",
+    "webrtc-adapter": "6.3.0"
+  },
+  "deprecated": false,
+  "description": "",
+  "devDependencies": {
+    "tslib": "^1.9.2",
+    "tslint": "^5.11.0",
+    "typedoc": "^0.12.0",
+    "typescript": "^3.1.3"
+  },
+  "jsnext:main": "./index.js",
+  "license": "MIT",
+  "main": "./index.js",
+  "name": "@andyet/simplewebrtc",
+  "private": false,
+  "typings": "./index",
+  "version": "1.7.4"
+}
