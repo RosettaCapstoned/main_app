@@ -12,9 +12,9 @@ export default class App extends Component {
   	<Router>
   	  <div>
   	      <Route component={Header}/>
+					<Route exact path='/classroom' component={Classroom}/>
+					<Route exact path='/login' component={Login}/>
   	      <Route path='/' component={LandingPage}/>
-  	      <Route exact path='/login' component={Login}/>
-  	      <Route exact path='/classroom' component={Classroom}/>
   	  </div>
     </Router>
   	)
