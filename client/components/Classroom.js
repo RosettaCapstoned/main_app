@@ -26,7 +26,7 @@ class Classroom extends React.Component{
         </div>
         <UserControls 
           render={({ isMuted, mute, unmute }) => {
-            return <button onClick={() => isMute? unmute() : mute()}>{isMuted? 'Unmuite' : 'Mute'}</button>
+            return <button onClick={() => isMute? unmute() : mute()}>{isMuted? 'Unmute' : 'Mute'}</button>
           }}
         />
       </div>
