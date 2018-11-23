@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import App from './components/App.js'
-//import * as SWRTC from '@andyet/simplewebrtc'
+import * as SWRTC from '@andyet/simplewebrtc'
 
 const API_KEY = 'ab446ae790d628e3b493ef90';
 
@@ -15,9 +15,9 @@ const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
 
 render(
   <Provider store={store}>
-    {/*<SWRTC.Provider configUrl={CONFIG_URL}>*/}	
+    <SWRTC.Provider configUrl={CONFIG_URL}>	
       <App />
-    {/*</SWRTC.Provider>*/}
+    </SWRTC.Provider>
   </Provider>,
   document.getElementById('app')
 )
