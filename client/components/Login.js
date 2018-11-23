@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { FormGroup, TextField, Button, Paper } from '@material-ui/core';
+import { login } from '../store/auth';
 
 class Login extends Component {
   constructor(props) {
@@ -20,16 +22,14 @@ class Login extends Component {
   handleClick(ev){
     ev.preventDefault();
     const { email, password } = this.state;
-    //this.props.login({ email, password })
-      //.catch(err => this.setState({ err: 'Invalid Login Credentials' }));
+    console.log(email, password);
+    this.props.login({ email, password })
+      .catch(err => this.setState({ err: 'Invalid Login Credentials' }));
   }
   render(){
-  	//const user = this.state;
+  	const { email, password } = this.state;
   	return (
-      <Paper style={{ display: 'flex', 
-                    justifyContent: 'center', 
-                    margin: '150px 350px 150px 350px',
-                    padding: '15px'}}>
+      <Paper className="loginContainer">
         <div >
           <FormGroup>
             <TextField
@@ -55,7 +55,7 @@ class Login extends Component {
             />
             <br />
             <Button
-              // disabled={{/*!(user.email && user.password)*/}}
+              disabled={!(email && password)}
               label="Submit"
               color="primary"
               variant="contained"
@@ -63,10 +63,10 @@ class Login extends Component {
             >
               Sign in
             </Button>
-            <Paper style={{ margin: '15px 0px 15px 0px' }}>
+            <Paper className='googleButton'>
               <Button href='/auth/google'>
               <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-              {'   Sign in with Google'}</Button>
+              Sign in with Google</Button>
             </Paper>
             {/*<div>Don't have an account? Sign Up {<Link to='/signup'>Here.</Link>}</div>*/}
           </FormGroup>
@@ -77,4 +77,10 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch, { history })=> {
+  return {
+    login: (credentials)=> dispatch(login(credentials, history))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Login);
