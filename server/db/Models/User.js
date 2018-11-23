@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const conn = require('./index')
+const conn = require('../conn')
 
 const User = conn.define('user', {
   firstName: {
@@ -26,8 +26,5 @@ const User = conn.define('user', {
   },
   googleId: Sequelize.STRING
 })
-
-User.belongsTo(User, {as: 'teacher'})
-User.hasMany(User,{as: 'students', foreignKey: 'teacherId'})
 
 module.exports = User

@@ -2,11 +2,11 @@ const express = require('express')
 const path = require('path')
 const passport = require('passport');
 var GoogleStrategy = require( 'passport-google-oauth20' );
-const User = require('./db/User');
+const User = require('./db/Models/User');
 const googleKey = require('./env');
 const cookieSession = require('cookie-session');
 const { userRouter, authRouter } = require('./api');
-const { sync, seed } = require('./db/seed');
+const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || 'rosetta';
@@ -21,13 +21,6 @@ app.use(cookieSession({
 
 // Static Files
 app.use('/public',express.static(path.join(__dirname, '../public')))
-app.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
-})
-
-// Routers
-app.use('/api/user', userRouter)
-app.use('/api/auth', authRouter)
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
@@ -108,11 +101,21 @@ app.get('/logout', (req, res) => {
 });
 
 
+// Routers
+app.use('/api/user', userRouter)
+app.use('/api/auth', authRouter)
+
+app.get('*', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'))
+})
+
 const init = () => {
   return sync()
   .then(() => seed())
 }
 
 init()
+
+module.exports = app
 
 app.listen(port, () => console.log(`listening on port ${port}`))
