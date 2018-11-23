@@ -22,14 +22,6 @@ app.use(cookieSession({
 // Static Files
 app.use('/public',express.static(path.join(__dirname, '../public')))
 
-app.get('*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
-})
-
-// Routers
-app.use('/api/user', userRouter)
-app.use('/api/auth', authRouter)
-
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
 app.use(passport.session()); // Used to persist login sessions
@@ -108,6 +100,14 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+
+// Routers
+app.use('/api/user', userRouter)
+app.use('/api/auth', authRouter)
+
+app.get('*', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'))
+})
 
 const init = () => {
   return sync()
