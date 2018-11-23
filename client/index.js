@@ -15,9 +15,7 @@ const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
 
 render(
   <Provider store={store}>
-    <SWRTC.Provider configUrl={CONFIG_URL}>	
       <App />
-    </SWRTC.Provider>
   </Provider>,
   document.getElementById('app')
 )
