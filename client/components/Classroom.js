@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Paper } from '@material-ui/core';
 
+
 class Classroom extends Component {
   render(){
-		console.log(this.state)
   	return (
-  	  <Paper style={{ margin: '50px' }}>
-  	  </Paper>
+  	  	<Paper style={{ margin: '50px' }}>
+				</Paper>
   	)
   }
 }

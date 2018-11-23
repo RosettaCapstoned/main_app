@@ -55,7 +55,7 @@ class Login extends Component {
             />
             <br />
             <Button
-              disabled={{/*!(user.email && user.password)*/}}
+              // disabled={{/*!(user.email && user.password)*/}}
               label="Submit"
               color="primary"
               variant="contained"
