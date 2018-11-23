@@ -4,7 +4,6 @@ import LandingPage from './LandingPage';
 import Login from './Login';
 import Header from './Header';
 import Connection from './Connection'
-// import Classroom from './Connection';
 
 export default class App extends Component {
 

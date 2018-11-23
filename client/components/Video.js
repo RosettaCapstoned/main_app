@@ -1,5 +1,5 @@
 import React from 'react'
-import { RemoteAudioPlayer, RequestUserMedia, Room }  from '@andyet/simplewebrtc'
+import { RequestUserMedia, Room }  from '@andyet/simplewebrtc'
 
 import Classroom from './Classroom'
 
@@ -24,10 +24,6 @@ class Video extends React.Component{
         <Room name='ROOM_NAME'>
         {
           ({room, peers, localMedia, remoteMedia}) => {
-            // console.log(room)
-            // console.log(peers)
-            // console.log(localMedia)
-            // console.log(remoteMedia)
             return <Classroom room={room} peers={peers} localMedia={localMedia} remoteMedia={remoteMedia}/>
           }
         }

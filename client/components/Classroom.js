@@ -1,21 +1,9 @@
 import React from 'react'
 import {
-  Provider,
-  Connected,
-  Connecting,
-  Disconnected,
-  Room,
-  RequestUserMedia,
-  RequestDisplayMedia,
-  RemoteAudioPlayer,
-  MediaControls,
+  MediaControls,  //might need
   UserControls,
   Video,
-  PeerList,
   GridLayout,
-  ChatComposers,
-  ChatList,
-  ChatInput
 } from '@andyet/simplewebrtc';
 
 class Classroom extends React.Component{
