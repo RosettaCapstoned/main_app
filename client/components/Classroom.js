@@ -6,7 +6,7 @@ import { Paper } from '@material-ui/core';
 class Classroom extends Component {
   render(){
   	return (
-  	  	<Paper style={{ margin: '50px' }}>
+  	  	<Paper className="classroomContainer">
 				</Paper>
   	)
   }

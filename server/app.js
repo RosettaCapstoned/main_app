@@ -19,8 +19,29 @@ app.use(cookieSession({
     keys: ['123']
 }));
 
-// Static Files
-app.use('/public',express.static(path.join(__dirname, '../public')))
+// JWT Token Auth Middleware
+app.use((req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return next();
+  }
+  let id;
+  try {
+    id = jwt.decode(token, secret).id;
+    User.findById(id)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(next);
+  } catch (ex) {
+    next({ status: 401 });
+  }
+});
+
+// Routers
+app.use('/api/user', userRouter)
+app.use('/api/auth', authRouter)
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
@@ -58,30 +79,24 @@ passport.deserializeUser((user, done) => {
 
 // Middleware to check if the user is authenticated
 function isUserAuthenticated(req, res, next) {
-  const token = req.headers.authorization;
-  if (req.user && !token) {
+  if (req.user) {
     next();
   } 
   else {
-  	if(!req.user ){
       res.send('You must login!');
     }
-    else {
-      let id = jwt.verify(token, secret).id;
-      User.findById(id)
-      .then(user => {
-        req.user = user;
-        next();
-      })
-      .catch(next);
-    }
-  }
 }
 
 app.get('/auth/google', 
   passport.authenticate('google', {
     scope: ['profile']
 }));
+
+app.post('/auth/google', (req, res, next) => {
+  console.log(req.user.token);
+  const { token } = req.user;
+  res.send({ token })
+})
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
@@ -100,11 +115,9 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-
-// Routers
-app.use('/api/user', userRouter)
-app.use('/api/auth', authRouter)
-
+// Static Files
+app.use(express.static(path.resolve(__dirname, '../public')))
+app.use('/public',express.static(path.join(__dirname, '../public')))
 app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
 })

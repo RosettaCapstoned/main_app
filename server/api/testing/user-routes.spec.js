@@ -5,10 +5,12 @@ const { sync } = require('../../db/')
 const User = require('../../db/Models/User')
 
 describe('user-routes', () => {
-  before(() => {
-    return sync()
-  })
+
   describe('/api/user/', () => {
+    beforeEach(() => {
+      return sync()
+    });
+
     it('gets all users', async() => {
       return supertest
       .get('/api/user')

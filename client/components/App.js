@@ -8,13 +8,15 @@ import Classroom from './Classroom';
 export default class App extends Component {
 
   render() {
+  	const renderLogin = ({ history }) => <Login history={history} />;
   	return (
   	<Router>
   	  <div>
   	      <Route component={Header}/>
-					<Route exact path='/classroom' component={Classroom}/>
-					<Route exact path='/login' component={Login}/>
+		  <Route exact path='/classroom' component={Classroom}/>
+		  <Route exact path='/login' render={renderLogin}/>
   	      <Route path='/' component={LandingPage}/>
+  	      <Route path='/auth/google'/>
   	  </div>
     </Router>
   	)
