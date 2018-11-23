@@ -3,7 +3,6 @@ import { Typography, Divider, Drawer, IconButton, Icon } from '@material-ui/core
 // import { withStyles } from '@material-ui/core/styles';
 import LandingPage from './LandingPage';
 import Login from './Login';
-import Classroom from './Classroom';
 import Menu from './Menu';
 
 // const styles = theme => ({

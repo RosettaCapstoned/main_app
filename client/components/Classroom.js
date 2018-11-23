@@ -1,45 +1,49 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { Paper } from '@material-ui/core';
+import React from 'react'
+import {
+  Provider,
+  Connected,
+  Connecting,
+  Disconnected,
+  Room,
+  RequestUserMedia,
+  RequestDisplayMedia,
+  RemoteAudioPlayer,
+  MediaControls,
+  UserControls,
+  Video,
+  PeerList,
+  GridLayout,
+  ChatComposers,
+  ChatList,
+  ChatInput
+} from '@andyet/simplewebrtc';
 
-import { Provider, Connected, Connecting, Disconnected, RequestUserMedia }  from '@andyet/simplewebrtc'
+class Classroom extends React.Component{
 
-const API_KEY = 'ab446ae790d628e3b493ef90';
-
-const ROOM_NAME = 'YOUR_ROOM_NAME';   //will change name based on teacher's id
-const ROOM_PASSWORD = 'YOUR_ROOM_PASSWORD'; //same with password
-const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
-
-
-
-class Classroom extends Component {
   render(){
-  	return (
-			<Provider configUrl={CONFIG_URL}>	
-  	  	{/* <Paper style={{ margin: '50px' }}>
-				</Paper> */}
-				<Connecting>									{/* renders the element between it when connecting user to turn/stun server*/}
-					<h3>Connecting</h3>					{/* render a loading wheel later */}
-				</Connecting>
+    const { room, peers, localMedia, remoteMedia } = this.props
 
-				<Connected>										{/* renders the element between it when user is connected*/}
-					<h3>Connected</h3>					{/* say hi to user */}
-				</Connected>
+    const remoteVideos = remoteMedia.filter(media => media.kind === 'video')
+    const localVideo = localMedia.filter(media => media.kind === 'video' && media.shared)
 
-				<Disconnected>
-					<h3>Disconnected</h3>
-				</Disconnected>
-
-			</Provider>
-  	)
+    return (
+      <div>
+        <h1>{room.providedName}</h1>
+        <span>Total people in classroom: {peers.length}</span>
+        <div>
+          <GridLayout       
+            items={[...localVideo, ...remoteVideos]}          /* renders videos in a list */
+            renderCell={(item) => (<Video media={item}/>)}
+          />
+        </div>
+        <UserControls 
+          render={({ isMuted, mute, unmute }) => {
+            return <button onClick={() => isMute? unmute() : mute()}>{isMuted? 'Unmuite' : 'Mute'}</button>
+          }}
+        />
+      </div>
+    )
   }
 }
 
-const mapStateToProps = state => {
-	console.log(state)
-	return {
-		state
-	}
-}
-
-export default connect(mapStateToProps, null)(Classroom)
+export default Classroom
