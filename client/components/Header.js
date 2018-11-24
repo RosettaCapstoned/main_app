@@ -31,21 +31,22 @@ class Header extends Component {
   	  'Join Classroom': '/classroom'
   	}
   	return (
-  	  <div>
-  	  <div style={{ display: 'flex',
-    				justifyContent: 'flex-end',
-    				flexDirection: 'row'
-  					}}>
+  	  <div className="menuIcon">
+  	  <div className="menuIcon">
   	    <IconButton onClick={this.handleDrawerToggle}><Icon>menu</Icon></IconButton>
   	  </div>
   	    <Drawer variant="temporary"
   	    		anchor='right'
-            open={mobileOpen}
-            onClose={handleDrawerToggle}>
+                open={mobileOpen}
+                onClose={handleDrawerToggle}>
         <Menu />
         <Divider />
   	  </Drawer>
-  	  <Typography variant='display4' color='textPrimary' style={{ fontFamily: 'Georgia, serif', position: 'fixed', bottom: '0' }}>Rosetta Capstone</Typography>
+  	  <Typography variant='display4' 
+  	  			  color='textPrimary' 
+  	  			  style={{ fontFamily: 'Georgia, serif', 
+						   position: 'fixed', 
+						   bottom: '0' }}>Rosetta Capstone</Typography>
   	  </div>
   	)
   }

@@ -9,10 +9,9 @@ import {
 class Classroom extends React.Component{
 
   render(){
-    const { room, peers, localMedia, remoteMedia } = this.props
-
-    const remoteVideos = remoteMedia.filter(media => media.kind === 'video')
-    const localVideo = localMedia.filter(media => media.kind === 'video' && media.shared)
+    const { room, peers, localMedia, remoteMedia } = this.props;
+    const remoteVideos = remoteMedia.filter(media => media.kind === 'video');
+    const localVideo = localMedia.filter(media => media.kind === 'video' && media.shared);
 
     return (
       <div>

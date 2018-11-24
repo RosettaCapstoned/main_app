@@ -2,3 +2,29 @@
   display: 'flex';
   justify-content: 'space-between';
 }
+
+.classroomContainer { 
+	margin: 50px 
+}
+
+.menuIcon {
+  display: 'flex';
+  justify-content: 'flex-end';
+}
+
+.loginContainer {
+  display: 'flex'; 
+  justify-content: 'center'; 
+  margin: 150px 350px 150px 350px;
+  padding: 15px;
+}
+
+.menuList {
+  display: 'flex'; 
+  flex-direction: 'column';
+}
+
+.googleButton {
+	width: 'auto';
+  margin: 15px 0px 15px 0px;
+}

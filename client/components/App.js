@@ -8,13 +8,15 @@ import Connection from './Connection'
 export default class App extends Component {
 
   render() {
+  	const renderLogin = ({ history }) => <Login history={history} />;
   	return (
   	<Router>
   	  <div>
   	      <Route component={Header}/>
 					<Route exact path='/classroom' component={Connection}/>
-					<Route exact path='/login' component={Login}/>
+		      <Route exact path='/login' render={renderLogin}/>
   	      <Route path='/' component={LandingPage}/>
+  	      <Route path='/auth/google'/>
   	  </div>
     </Router>
   	)

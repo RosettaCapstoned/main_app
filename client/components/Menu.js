@@ -14,7 +14,7 @@ class Menu extends Component {
   render(){
 
     return (
-        <List style={{ display: 'flex', flexDirection: 'column'}}>
+        <List className='menuList'>
             <ListItem button component={Link} to='/' key='Home'>
               <ListItemText primary='Home' />
             </ListItem>
