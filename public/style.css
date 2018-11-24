@@ -25,6 +25,15 @@
 }
 
 .googleButton {
-	width: 'auto';
+  width: 'auto';
   margin: 15px 0px 15px 0px;
+}
+
+.selected {
+  font-weight: 'bold';
+}
+
+.lngItem {
+  display: 'flex';
+  justify-content: 'space-between';
 }
