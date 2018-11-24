@@ -5,6 +5,7 @@ import LandingPage from './LandingPage';
 import Login from './Login';
 import Classroom from './Classroom';
 import Menu from './Menu';
+import LanguageSelection from './LanguageSelection';
 
 // const styles = theme => ({
 //   headerContainer: {
@@ -32,7 +33,7 @@ class Header extends Component {
   	  'Join Classroom': '/classroom'
   	}
   	return (
-  	  <div className="menuIcon">
+  	  <div>
   	  <div className="menuIcon">
   	    <IconButton onClick={this.handleDrawerToggle}><Icon>menu</Icon></IconButton>
   	  </div>
@@ -42,6 +43,7 @@ class Header extends Component {
                 onClose={handleDrawerToggle}>
         <Menu />
         <Divider />
+        <LanguageSelection />
   	  </Drawer>
   	  <Typography variant='display4' 
   	  			  color='textPrimary' 
