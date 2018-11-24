@@ -12,22 +12,21 @@ class Login extends Component {
       password: '',
       err: ''
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(ev){
+  handleChange = (ev) => {
     this.setState({ [ev.target.name]: ev.target.value });
   }
-  handleClick(ev){
+  handleClick = (ev) => {
     ev.preventDefault();
     const { email, password } = this.state;
-    console.log(email, password);
     this.props.login({ email, password })
       .catch(err => this.setState({ err: 'Invalid Login Credentials' }));
   }
+
   render(){
   	const { email, password } = this.state;
+  	const { handleChange, handleClick } = this;
   	return (
       <Paper className="loginContainer">
         <div >
@@ -40,7 +39,7 @@ class Login extends Component {
               margin="normal"
               required={true}
               variant="filled"
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
             &nbsp;
             <TextField
@@ -51,7 +50,7 @@ class Login extends Component {
               margin="normal"
               required={true}
               variant="filled"
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
             <br />
             <Button
@@ -59,7 +58,7 @@ class Login extends Component {
               label="Submit"
               color="primary"
               variant="contained"
-              onClick={this.handleClick}
+              onClick={handleClick}
             >
               Sign in
             </Button>

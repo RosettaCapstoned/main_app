@@ -14,10 +14,10 @@ class Classroom extends React.Component{
     const localVideo = localMedia.filter(media => media.kind === 'video' && media.shared);
 
     return (
-      <div>
+      <div className="screenContainer">
         <h1>{room.providedName}</h1>
         <span>Total people in classroom: {peers.length}</span>
-        <div>
+        <div className="screen">
           <GridLayout       
             items={[...localVideo, ...remoteVideos]}          /* renders videos in a list */
             renderCell={(item) => (<Video media={item}/>)}
