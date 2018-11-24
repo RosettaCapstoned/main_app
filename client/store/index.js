@@ -18,6 +18,6 @@ const initial = {
   translation: {}
 }
 
-const store = createStore(reducer, initial, applyMiddleware(logger, thunk));
+const store = createStore(reducer, initial, applyMiddleware(thunk));
 
 export default store;
