@@ -1,7 +1,27 @@
-.pageContainer {
+.chatButton {
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.chatContainer {
+  min-height: 50%;
+  width: auto;
+  border: 1px solid black;
+}
+
+.classroomContainer { 
+	margin: 50px 
+}
+
+.connection {
+  display: flex; 
+  justify-content: space-around; 
+  flex-direction: row;
+}
+
+.googleButton {
+  width: 'auto';
+  margin: 15px 0px 15px 0px;
 }
 
 .headerContainer {
@@ -9,13 +29,10 @@
   justify-content: space-between;
 }
 
-.classroomContainer { 
-	margin: 50px 
-}
-
-.menuIcon {
+.lngItem {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  flex-grow: 3;
 }
 
 .loginContainer {
@@ -25,35 +42,34 @@
   padding: 15px;
 }
 
+.menuIcon {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .menuList {
   display: flex; 
   flex-direction: column;
 }
 
-.googleButton {
-  width: 'auto';
-  margin: 15px 0px 15px 0px;
-}
-
-.selected {
-  font-weight: bold;
-}
-
-.lngItem {
+.pageContainer {
   display: flex;
   justify-content: space-between;
-  flex-grow: 3;
+  flex-direction: column;
 }
 
-.connection {
-  display: flex; 
-  justify-content: space-around; 
-  flex-direction: row;
+.screen {
+  width: 100%;
+  height: 100%;
 }
 
 .screenContainer {
   height: 80%;
   width: 90%;
+}
+
+.selected {
+  font-weight: bold;
 }
 
 .videoContainer {
@@ -62,19 +78,4 @@
   flex-direction: row;
 }
 
-.screen {
-  width: 100%;
-  height: 100%;
-}
-
-.chatContainer {
-  min-height: 50%;
-  width: auto;
-  border: 1px solid black;
-}
-
-.chatButton {
-  display: flex;
-  justify-content: flex-end;
-}
 
