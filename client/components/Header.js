@@ -3,6 +3,7 @@ import { Typography, Divider, Drawer, IconButton, Icon } from '@material-ui/core
 // import { withStyles } from '@material-ui/core/styles';
 import LandingPage from './LandingPage';
 import Login from './Login';
+import Classroom from './Classroom';
 import Menu from './Menu';
 import LanguageSelection from './LanguageSelection';
 
@@ -33,17 +34,19 @@ class Header extends Component {
   	}
   	return (
   	  <div>
-  	  <div className="menuIcon">
-  	    <IconButton onClick={this.handleDrawerToggle}><Icon>menu</Icon></IconButton>
-  	  </div>
+  	    <div>
+  	    <div className="menuIcon">
+  	      <IconButton onClick={this.handleDrawerToggle}><Icon>menu</Icon></IconButton>
+  	    </div>
   	    <Drawer variant="temporary"
-  	    		anchor='right'
+  	    	    anchor='right'
                 open={mobileOpen}
                 onClose={handleDrawerToggle}>
-        <Menu />
-        <Divider />
-        <LanguageSelection />
-  	  </Drawer>
+          <Menu />
+          <Divider />
+          <LanguageSelection />
+  	    </Drawer>
+  	    </div>
   	  <Typography variant='display4' 
   	  			  color='textPrimary' 
   	  			  style={{ fontFamily: 'Georgia, serif', 

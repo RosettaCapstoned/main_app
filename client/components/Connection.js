@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { Paper } from '@material-ui/core';
-
-import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc'
-
-import Video from './Video'
+import { connect } from 'react-redux';
+import { Paper, IconButton, Icon } from '@material-ui/core';
+import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc';
+import Video from './Video';
+import Chatbox from './Chatbox';
 
 const API_KEY = 'ab446ae790d628e3b493ef90';
 
@@ -17,25 +16,29 @@ const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
 class Connection extends Component {
   render(){
   	return (
-			<Provider configUrl={CONFIG_URL}>	
-  	  	{/* <Paper style={{ margin: '50px' }}>
-				</Paper> */}
-				<RemoteAudioPlayer />
-
-				<Connecting>									{/* renders the element between it when connecting user to turn/stun server*/}
-					<h3>Connecting</h3>					{/* render a loading wheel later */}
-				</Connecting>
-
-				<Connected>										{/* renders the element between it when user is connected*/}
-					<h3>Connected</h3>					{/* say hi to user */}
-					<Video />
-				</Connected>
-
-				<Disconnected>
-					<h3>Disconnected</h3>
-				</Disconnected>
-
-			</Provider>
+	<Provider configUrl={CONFIG_URL}>	
+	  <div>
+	    <div>
+		  <RemoteAudioPlayer />
+		  <Connecting>									{/* renders the element between it when connecting user to turn/stun server*/}
+			<h3>Connecting</h3>					{/* render a loading wheel later */}
+		  </Connecting>
+		  <Disconnected>
+			<h3>Disconnected</h3>
+		  </Disconnected>
+		</div>
+		<div className="connection">
+		  <Connected>
+		  	<Video />
+		    <div>										{/* renders the element between it when user is connected*/}
+			  <h3>Connected</h3>
+			  <Chatbox />
+			  <div className="chatButton"><IconButton><Icon>create</Icon></IconButton></div>
+			</div>					{/* say hi to user */}
+		  </Connected>
+		</div>
+	  </div>
+	</Provider>
   	)
   }
 }
