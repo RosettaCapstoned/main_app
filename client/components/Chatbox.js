@@ -48,6 +48,7 @@ class Chatbox extends Component {
 
 const mapStateToProps = ({ translation }) => {
   const { input, chatbox, speakingLng } = translation;
+  console.log(translation, chatbox);
   return {
   	input,
   	chatbox,
