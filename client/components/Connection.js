@@ -33,7 +33,6 @@ class Connection extends Component {
 		    <div>										{/* renders the element between it when user is connected*/}
 			  <h3>Connected</h3>
 			  <Chatbox />
-			  <div className="chatButton"><IconButton><Icon>create</Icon></IconButton></div>
 			</div>					{/* say hi to user */}
 		  </Connected>
 		</div>
