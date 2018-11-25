@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton, Icon } from '@material-ui/core'
-import { MicSharp, MicNone, MicNoneOutlined, MicOff, Mic, MicRounded} from '@material-ui/icons'
+import { MicOff, Mic } from '@material-ui/icons'
 import {
   MediaControls,  //might need
   UserControls,
@@ -21,20 +21,20 @@ class Classroom extends React.Component{
         <h1>{room.providedName}</h1>
         <span>Total people in classroom: {peers.length}</span>
         <div className="screen">
+          <UserControls 
+              render={({ isMuted, mute, unmute }) => {
+                return <IconButton id='muteButton' onClick={() => isMuted? unmute() : mute()}>{isMuted? <Mic></Mic> : <MicOff></MicOff>}</IconButton>
+              }}
+          />  
           <GridLayout   
             className='videoGrid'    
             items={[...localVideo, ...remoteVideos]}          /* renders videos in a list */
-            renderCell={(item) =>  {
+            renderCell={(item) =>  {         
               console.log(item)
               return (<Video media={item}/>)
             }}
           />
         </div> 
-        <UserControls 
-          render={({ isMuted, mute, unmute }) => {
-            return <IconButton id='muteButton' onClick={() => isMuted? unmute() : mute()}>{isMuted? <Mic></Mic> : <MicOff></MicOff>}</IconButton>
-          }}
-        />
       </div>
     )
   }
