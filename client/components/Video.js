@@ -19,7 +19,7 @@ class Video extends React.Component{
   render(){
     const { mediaOn } = this.state
     return (
-      <div style={{ display: 'flex', justifyContent: 'space-around'}}>
+      <div>
         <RequestUserMedia audio video auto/>    {/* set up a toggle later */}
         <Room name='ROOM_NAME'>
         {

@@ -20,6 +20,7 @@ class Classroom extends React.Component{
       <div className="screenContainer">
         <h1>{room.providedName}</h1>
         <span>Total people in classroom: {peers.length}</span>
+        <div>
         <div className="screen">
           <GridLayout   
             className='videoGrid'    
@@ -30,11 +31,14 @@ class Classroom extends React.Component{
             }}
           />
         </div> 
+        <div className="menuIcon">
         <UserControls 
           render={({ isMuted, mute, unmute }) => {
             return <IconButton id='muteButton' onClick={() => isMuted? unmute() : mute()}>{isMuted? <Mic></Mic> : <MicOff></MicOff>}</IconButton>
           }}
         />
+        </div>
+        </div>
       </div>
     )
   }
