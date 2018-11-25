@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Icon } from '@material-ui/core'
 import { MicOff, Mic } from '@material-ui/icons'
 import {
   MediaControls,  //might need
