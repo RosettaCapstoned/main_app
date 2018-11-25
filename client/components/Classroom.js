@@ -1,6 +1,6 @@
 import React from 'react'
-import { IconButton, Icon } from '@material-ui/core'
-import { MicSharp, MicNone, MicNoneOutlined, MicOff, Mic, MicRounded} from '@material-ui/icons'
+import { IconButton } from '@material-ui/core'
+import { MicOff, Mic } from '@material-ui/icons'
 import {
   MediaControls,  //might need
   UserControls,
