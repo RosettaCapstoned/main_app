@@ -78,4 +78,21 @@
   flex-direction: row;
 }
 
+.videoGrid {
+  height: 100%;
+  display: flex;
+}
 
+video{
+  object-fit: contain;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+  justify-self: center;
+  align-self: center;
+  outline-color: aqua;
+}
+
+#muteButton {
+  margin: 20px;
+}

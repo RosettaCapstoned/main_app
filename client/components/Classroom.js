@@ -1,10 +1,13 @@
 import React from 'react'
+import { IconButton, Icon } from '@material-ui/core'
+import { MicSharp, MicNone, MicNoneOutlined, MicOff, Mic, MicRounded} from '@material-ui/icons'
 import {
   MediaControls,  //might need
   UserControls,
   Video,
   GridLayout,
 } from '@andyet/simplewebrtc';
+
 
 class Classroom extends React.Component{
 
@@ -18,19 +21,24 @@ class Classroom extends React.Component{
         <h1>{room.providedName}</h1>
         <span>Total people in classroom: {peers.length}</span>
         <div className="screen">
-          <GridLayout       
+          <GridLayout   
+            className='videoGrid'    
             items={[...localVideo, ...remoteVideos]}          /* renders videos in a list */
-            renderCell={(item) => (<Video media={item}/>)}
+            renderCell={(item) =>  {
+              console.log(item)
+              return (<Video media={item}/>)
+            }}
           />
-        </div>
+        </div> 
         <UserControls 
           render={({ isMuted, mute, unmute }) => {
-            return <button onClick={() => isMute? unmute() : mute()}>{isMuted? 'Unmute' : 'Mute'}</button>
+            return <IconButton id='muteButton' onClick={() => isMuted? unmute() : mute()}>{isMuted? <Mic></Mic> : <MicOff></MicOff>}</IconButton>
           }}
         />
       </div>
     )
   }
 }
+
 
 export default Classroom

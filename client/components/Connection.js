@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Paper, IconButton, Icon } from '@material-ui/core';
+import { Paper, IconButton, Icon, CircularProgress } from '@material-ui/core';
 import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc';
 import Video from './Video';
 import Chatbox from './Chatbox';
@@ -20,14 +20,15 @@ class Connection extends Component {
 	  <div>
 	    <div>
 		  <RemoteAudioPlayer />
-		  <Connecting>									{/* renders the element between it when connecting user to turn/stun server*/}
-			<h3>Connecting</h3>					{/* render a loading wheel later */}
-		  </Connecting>
-		  <Disconnected>
+		  {/* <Disconnected>
 			<h3>Disconnected</h3>
-		  </Disconnected>
+		  </Disconnected> */}
 		</div>
 		<div className="connection">
+			<Connecting>									{/* renders the element between it when connecting user to turn/stun server*/}
+				<h3>Connecting</h3>					{/* render a loading wheel later */}
+				<CircularProgress />
+			</Connecting>
 		  <Connected>
 		  	<Video />
 		    <div>										{/* renders the element between it when user is connected*/}
@@ -43,7 +44,7 @@ class Connection extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
+	// console.log(state)
 	return {
 		state
 	}

@@ -4,6 +4,22 @@ const jwt = require('jsonwebtoken');
 const User = require('../db/Models/User');
 module.exports = router;
 
+router.post('/signup', (req, res, next) => {
+  const { firstName, lastName, password, email } = req.body
+  User.create({
+    firstName,
+    lastName,
+    password,
+    email,
+    role: 'Student'
+  })
+  .then(user => {
+    res.send(user)
+  })
+  .catch(next)
+
+})
+
 router.post('/', (req, res, next) => {
   User.findOne({ 
     where: {

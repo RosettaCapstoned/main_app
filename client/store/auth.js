@@ -35,13 +35,22 @@ const logout = () => {
 };
 
 const login = (credentials, history) => async dispatch => {
-  console.log(credentials);
+  // console.log(credentials);
     const response = await axios.post('/api/auth', credentials)
     const data = response.data;
     window.localStorage.setItem('token', data.token);
     const action = exchangeTokenForAuth(history);
     dispatch(action);
 };
+
+const signUp = (credentials, history) => {
+  // console.log(credentials)
+  return async dispatch => {
+    const response = await axios.post('/api/auth/signup', credentials)
+    return dispatch(login(response.data, history))
+  }
+
+}
 
 const authReducer = (state = {}, action) => {
     if (action.type === SET_AUTH) {
@@ -50,4 +59,4 @@ const authReducer = (state = {}, action) => {
     return state;
 };
 
-export { authReducer, login, logout, exchangeTokenForAuth };
+export { authReducer, login, logout, signUp, exchangeTokenForAuth };
