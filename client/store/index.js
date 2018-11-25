@@ -15,9 +15,10 @@ const reducer = combineReducers({
 
 const initial = {
   simplewebrtc: {},
-  translation: {}
+  translation: {},
+  auth: {}
 }
 
-const store = createStore(reducer, initial, applyMiddleware(thunk));
+const store = createStore(reducer, initial, applyMiddleware(logger, thunk));
 
 export default store;

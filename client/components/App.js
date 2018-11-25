@@ -4,6 +4,7 @@ import LandingPage from './LandingPage';
 import Login from './Login';
 import Header from './Header';
 import Connection from './Connection'
+import SignUp from './SignUp'
 
 export default class App extends Component {
 
@@ -13,10 +14,13 @@ export default class App extends Component {
   	<Router>
   	  <div>
   	      <Route component={Header}/>
-					<Route exact path='/classroom' component={Connection}/>
-		      <Route exact path='/login' render={renderLogin}/>
-  	      <Route path='/' component={LandingPage}/>
-  	      <Route path='/auth/google'/>
+					<Switch>
+						<Route exact path='/classroom' component={Connection}/>
+						<Route exact path='/login' render={renderLogin}/>
+						<Route exact path='/signup' component={SignUp}/>
+						<Route exact path='/' component={LandingPage}/>
+						<Route path='/auth/google'/>
+					</Switch>
   	  </div>
     </Router>
   	)

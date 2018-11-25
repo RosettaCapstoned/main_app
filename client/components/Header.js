@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Typography, Divider, Drawer, IconButton, Icon } from '@material-ui/core';
+import { Divider, Drawer, IconButton, Icon } from '@material-ui/core';
 // import { withStyles } from '@material-ui/core/styles';
 import LandingPage from './LandingPage';
 import Login from './Login';
 import Classroom from './Classroom';
 import Menu from './Menu';
 import LanguageSelection from './LanguageSelection';
+
 
 // const styles = theme => ({
 //   headerContainer: {
@@ -47,14 +48,9 @@ class Header extends Component {
           <LanguageSelection />
   	    </Drawer>
   	    </div>
-  	  <Typography variant='display4' 
-  	  			  color='textPrimary' 
-  	  			  style={{ fontFamily: 'Georgia, serif', 
-						   position: 'fixed', 
-						   bottom: '0' }}>Rosetta Capstone</Typography>
   	  </div>
   	)
   }
 }
 
-export default Header;
+export default Header
