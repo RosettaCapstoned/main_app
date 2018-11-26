@@ -9,7 +9,8 @@ class LandingPage extends Component {
   	  <div>
 				<Typography variant='display4' 
   	  						color='textPrimary' 
-  	  	  					className="footerLogo">
+  	  	  					className="footerLogo"
+  	  	  					style={{fontFamily: 'Georgia, serif'}}>
 					 Rosetta Capstone
 				</Typography>
   	  </div>

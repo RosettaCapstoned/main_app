@@ -103,9 +103,11 @@ app.get('/auth/google',
 }));
 
 app.post('/auth/google', (req, res, next) => {
-  console.log(req.user.token);
-  const { token } = req.user;
-  res.send({ token })
+  try {
+	console.log(req.user.token);
+	const { token } = req.user;
+	res.send({ token })
+  } catch(er) { next(er) }
 })
 
 app.get('/auth/google/callback',

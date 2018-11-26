@@ -16,6 +16,7 @@ const exchangeTokenForAuth = history => async dispatch => {
     try {
     const response = await axios.get('/api/auth', { headers: { authorization: token, } })
     const auth = response.data;
+    console.log('Token: ', auth);
     const action = _setAuth(auth);
     dispatch(action);
     //Things you should do when user first logs
@@ -29,9 +30,12 @@ const exchangeTokenForAuth = history => async dispatch => {
     }
 };
 
-const logout = () => {
+const logout = async () => {
+  try{
     window.localStorage.removeItem('token');
+    await axios.get('/logout');
     return _setAuth({});
+  } catch(er) { return er }
 };
 
 const login = (credentials, history) => async dispatch => {
@@ -42,6 +46,15 @@ const login = (credentials, history) => async dispatch => {
     const action = exchangeTokenForAuth(history);
     dispatch(action);
 };
+
+const checkOAuthToken = history => async dispatch => {
+  const response = await axios.post('/auth/google')
+  const data = response.data;
+  console.log('OAuth Token: ', data);
+  window.localStorage.setItem('token', data.token);
+  const action = _setAuth(data.token);
+  dispatch(action);
+}
 
 const signUp = (credentials, history) => {
   // console.log(credentials)
@@ -59,4 +72,12 @@ const authReducer = (state = {}, action) => {
     return state;
 };
 
-export { authReducer, login, logout, signUp, exchangeTokenForAuth };
+export { authReducer, 
+         login, 
+         logout, 
+         signUp, 
+         exchangeTokenForAuth, 
+         checkOAuthToken 
+       };
+
+

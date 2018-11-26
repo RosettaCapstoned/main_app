@@ -20,13 +20,13 @@
 }
 
 .footerLogo {
-  font-family: 'Georgia', serif; 
+  font-family: Georgia, serif; 
   position: fixed; 
   bottom: 0;
 }
 
 .googleButton {
-  width: 'auto';
+  width: auto;
   margin: 15px 0px 15px 0px;
 }
 

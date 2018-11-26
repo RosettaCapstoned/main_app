@@ -36,6 +36,7 @@ class Classroom extends React.Component{
             }}
           />
         </div> 
+        </div>
       </div>
     )
   }
