@@ -22,23 +22,20 @@ class Classroom extends React.Component{
         <span>Total people in classroom: {peers.length}</span>
         <div>
         <div className="screen">
+          <UserControls 
+              render={({ isMuted, mute, unmute }) => {
+                return <IconButton id='muteButton' onClick={() => isMuted? unmute() : mute()}>{isMuted? <Mic></Mic> : <MicOff></MicOff>}</IconButton>
+              }}
+          />  
           <GridLayout   
             className='videoGrid'    
             items={[...localVideo, ...remoteVideos]}          /* renders videos in a list */
-            renderCell={(item) =>  {
+            renderCell={(item) =>  {         
               console.log(item)
               return (<Video media={item}/>)
             }}
           />
         </div> 
-        <div className="menuIcon">
-        <UserControls 
-          render={({ isMuted, mute, unmute }) => {
-            return <IconButton id='muteButton' onClick={() => isMuted? unmute() : mute()}>{isMuted? <Mic></Mic> : <MicOff></MicOff>}</IconButton>
-          }}
-        />
-        </div>
-        </div>
       </div>
     )
   }
