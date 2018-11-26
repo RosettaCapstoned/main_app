@@ -20,6 +20,7 @@ class Classroom extends React.Component{
       <div className="screenContainer">
         <h1>{room.providedName}</h1>
         <span>Total people in classroom: {peers.length}</span>
+        <div>
         <div className="screen">
           <UserControls 
               render={({ isMuted, mute, unmute }) => {

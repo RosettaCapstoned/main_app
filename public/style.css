@@ -19,6 +19,12 @@
   flex-direction: row;
 }
 
+.footerLogo {
+  font-family: 'Georgia', serif; 
+  position: fixed; 
+  bottom: 0;
+}
+
 .googleButton {
   width: 'auto';
   margin: 15px 0px 15px 0px;
@@ -52,6 +58,10 @@
   flex-direction: column;
 }
 
+#muteButton {
+  margin: 20px;
+}
+
 .pageContainer {
   display: flex;
   justify-content: space-between;
@@ -64,12 +74,22 @@
 }
 
 .screenContainer {
-  height: 80%;
+  height: 60%;
   width: 90%;
 }
 
 .selected {
   font-weight: bold;
+}
+
+video{
+  object-fit: contain;
+  width: 100%;
+  height: 80%;
+  margin: 50px 20px 50px 20px;
+  justify-self: center;
+  align-self: center;
+  outline-color: aqua;
 }
 
 .videoContainer {
@@ -81,18 +101,4 @@
 .videoGrid {
   height: 100%;
   display: flex;
-}
-
-video{
-  object-fit: contain;
-  width: 60%;
-  height: 60%;
-  margin: 50px 20px 50px 20px;
-  justify-self: center;
-  align-self: center;
-  outline-color: aqua;
-}
-
-#muteButton {
-  margin: 20px;
 }
