@@ -5,15 +5,22 @@ var GoogleStrategy = require( 'passport-google-oauth20' );
 const User = require('./db/Models/User');
 const googleKey = require('./env');
 const cookieSession = require('cookie-session');
-const { userRouter, authRouter } = require('./api');
+const { userRouter, authRouter, translateRouter } = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || 'rosetta';
 const jwt = require('jsonwebtoken');
 
+const bodyParser = require('body-parser');
+
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Middleware
-app.use(express.json())
+// app.use(express.json())
 app.use(cookieSession({
     name: 'session',
     keys: ['123']
@@ -42,6 +49,7 @@ app.use((req, res, next) => {
 // Routers
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/translate', translateRouter)
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
