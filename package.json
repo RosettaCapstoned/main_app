@@ -7,6 +7,7 @@
     "test:client": "jest --watch",
     "test:user_models": "mocha -w ./server/db/testing/user-model.spec.js",
     "test:user_routes": "mocha -w ./server/api/testing/user-routes.spec.js",
+    "test:translate_routes": "mocha -w ./server/api/testing/translate-routes.spec.js",
     "start": "node ./server/app.js",
     "start:dev": "npm run webpack -- --watch --mode=development & JWT_SECRET=rosetta nodemon ./server/app.js",
     "webpack": "./node_modules/webpack/bin/webpack.js"
@@ -34,8 +35,10 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "jest": "^23.6.0",
     "jsonwebtoken": "^8.4.0",

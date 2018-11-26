@@ -3,3 +3,5 @@ package-lock.json
 public/bundle.js
 server/env.js
 client/testing/__snapshots__
+server/ACCOUNT_KEYS/
+.env
