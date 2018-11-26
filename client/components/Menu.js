@@ -24,7 +24,7 @@ class Menu extends Component {
               <ListItemText primary='Home' />
             </ListItem>
             { loggedIn? 
-            <ListItem button onClick={logOut} key='Logout'>
+            <ListItem button onClick={logOut} component={Link} to='/login' key='Logout'>
               <ListItemText primary='Log Out'/>
             </ListItem> :
             <ListItem button component={Link} to='/login' key='Login'>
