@@ -7,34 +7,36 @@ const _setAuth = auth => ({
   auth,
 });
 
-const exchangeTokenForAuth = history => async dispatch => {
+const exchangeTokenForAuth = (history) => async dispatch => {
     const token = window.localStorage.getItem('token');
 
     if (!token) {
       return;
     }
     try {
-    const response = await axios.get('/api/auth', { headers: { authorization: token, } })
-    const auth = response.data;
-    console.log('Token: ', auth);
-    const action = _setAuth(auth);
-    dispatch(action);
-    //Things you should do when user first logs
-    //Auth object is now in the Redux Store and can be accessed on any connected component
-    // I.E. dispatch a thunk to load user data
-    if (history) history.push('/');
-    } 
+      const response = await axios.get('/api/auth', { headers: { authorization: token, } })
+      const auth = response.data;
+      const action = _setAuth(auth);
+      dispatch(action);
+      //Things you should do when user first logs
+      //Auth object is now in the Redux Store and can be accessed on any connected component
+      // I.E. dispatch a thunk to load user data
+      if (history) history.push('/');
+    }
     catch(ex) {
       console.log(ex);
       window.localStorage.removeItem('token');
     }
 };
 
-const logout = async () => {
+const logout = (auth) => {
   try{
+    console.log('This is from logout: ', auth)
     window.localStorage.removeItem('token');
-    await axios.get('/logout');
-    return _setAuth({});
+    if(auth.password) {return _setAuth({})}
+    else { 
+      axios.get('/logout') 
+    }
   } catch(er) { return er }
 };
 
@@ -43,17 +45,19 @@ const login = (credentials, history) => async dispatch => {
     const response = await axios.post('/api/auth', credentials)
     const data = response.data;
     window.localStorage.setItem('token', data.token);
-    const action = exchangeTokenForAuth(history);
+    const action = exchangeTokenForAuth(history, 'jwt');
     dispatch(action);
 };
 
-const checkOAuthToken = history => async dispatch => {
-  const response = await axios.post('/auth/google')
-  const data = response.data;
-  console.log('OAuth Token: ', data);
-  window.localStorage.setItem('token', data.token);
-  const action = _setAuth(data.token);
-  dispatch(action);
+const checkOAuthToken = () => async dispatch => {
+  const response = await axios.get('/oauth')
+  if(response.data.user) {
+    window.localStorage.setItem('token', response.data.user.token);
+    console.log('Check OAuth token: ', response.data.user);
+    const auth = response.data.user
+    const action = _setAuth(auth)
+    dispatch(action);
+  }
 }
 
 const signUp = (credentials, history) => {
@@ -76,8 +80,8 @@ export { authReducer,
          login, 
          logout, 
          signUp, 
-         exchangeTokenForAuth, 
-         checkOAuthToken 
+         exchangeTokenForAuth,
+         checkOAuthToken      
        };
 
 

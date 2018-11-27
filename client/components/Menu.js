@@ -16,7 +16,7 @@ class Menu extends Component {
 
   render(){
     const { auth, logOut } = this.props
-    const loggedIn = auth.id || window.localStorage.getItem('token')
+    const loggedIn = auth.id || auth.token || window.localStorage.getItem('token')
     console.log(loggedIn)
     return (
         <List className='menuList'>
@@ -24,7 +24,7 @@ class Menu extends Component {
               <ListItemText primary='Home' />
             </ListItem>
             { loggedIn? 
-            <ListItem button onClick={logOut} component={Link} to='/login' key='Logout'>
+            <ListItem button onClick={()=>logOut(auth)} component={Link} to='/login' key='Logout'>
               <ListItemText primary='Log Out'/>
             </ListItem> :
             <ListItem button component={Link} to='/login' key='Login'>
@@ -46,7 +46,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-    logOut: () => dispatch(logout())
+    logOut: (auth) => dispatch(logout(auth))
 	}
 }
 
