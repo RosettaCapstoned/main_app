@@ -97,18 +97,15 @@ function isUserAuthenticated(req, res, next) {
     }
 }
 
+app.get('/oauth', (req, res) => {
+	console.log(req.user);
+	res.send({ user: req.user })
+})
+
 app.get('/auth/google', 
   passport.authenticate('google', {
     scope: ['profile']
 }));
-
-app.post('/auth/google', (req, res, next) => {
-  try {
-	console.log(req.user.token);
-	const { token } = req.user;
-	res.send({ token })
-  } catch(er) { next(er) }
-})
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),

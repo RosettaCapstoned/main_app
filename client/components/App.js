@@ -11,7 +11,8 @@ import { checkOAuthToken } from '../store/auth';
 class App extends Component {
 
   componentDidMount(){
-  	this.props.init();
+  	const { checkOAuthToken } = this.props;
+  	checkOAuthToken();
   }
 
   render() {
@@ -36,14 +37,13 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
+  console.log(auth)
   return {
-  	token: auth.auth
+  	token: auth ? auth.auth : false
   }
 }
 const mapDispatchToProps = dispatch => ({
-  init: () => {
-  	dispatch(checkOAuthToken());
-  }
+  checkOAuthToken: () => dispatch(checkOAuthToken()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
