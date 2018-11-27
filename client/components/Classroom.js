@@ -13,6 +13,7 @@ class Classroom extends React.Component{
 
   render(){
     const { room, peers, localMedia, remoteMedia } = this.props;
+    console.log(peers)
     const remoteVideos = remoteMedia.filter(media => media.kind === 'video');
     const localVideo = localMedia.filter(media => media.kind === 'video' && media.shared);
 
@@ -31,7 +32,7 @@ class Classroom extends React.Component{
             className='videoGrid'    
             items={[...localVideo, ...remoteVideos]}          /* renders videos in a list */
             renderCell={(item) =>  {         
-              console.log(item)
+              // console.log(item)
               return (<Video media={item}/>)
             }}
           />
