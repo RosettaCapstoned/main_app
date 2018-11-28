@@ -34,7 +34,7 @@ class Header extends Component {
   	  'Join Classroom': '/classroom'
   	}
   	return (
-  	  <div>
+  	  <div className="nav">
   	    <div>
   	    <div className="menuIcon">
   	      <IconButton onClick={this.handleDrawerToggle}><Icon>menu</Icon></IconButton>

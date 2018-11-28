@@ -1,3 +1,7 @@
+.chat {
+  padding: 20px;
+}
+
 .chatButton {
   display: flex;
   justify-content: flex-end;
@@ -62,6 +66,13 @@
   margin: 20px;
 }
 
+.nav {
+  background-image: url('https://imffa.org/wp-content/uploads/2017/06/english-chalkboard.jpg');
+  background-size: 100%;
+  width: 100%;
+  height: 40%;
+}
+
 .pageContainer {
   display: flex;
   justify-content: space-between;
@@ -70,11 +81,13 @@
 
 .screen {
   width: 100%;
-  height: 100%;
+  height: 60%;
 }
 
 .screenContainer {
-  height: 60%;
+  margin: 35px;
+  padding: 25px;
+  height: 100%;
   width: 90%;
 }
 
@@ -85,11 +98,17 @@
 video{
   object-fit: contain;
   width: 100%;
-  height: 80%;
-  margin: 50px 20px 50px 20px;
+  height: 100%;
+  margin: 0px;
+  padding: 10px;
   justify-self: center;
   align-self: center;
   outline-color: aqua;
+}
+
+.video {
+  padding: 0px;
+  margin: 0px;
 }
 
 .videoContainer {

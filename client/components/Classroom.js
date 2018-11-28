@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Icon } from '@material-ui/core';
+import { IconButton, Icon, Typography } from '@material-ui/core';
 import { MicOff, Mic } from '@material-ui/icons';
 import {
   MediaControls, //might need
@@ -39,11 +39,21 @@ class Classroom extends React.Component {
 
     return (
       <div className="screenContainer">
-        <h1>{room.providedName}</h1>
-        <span>Total people in classroom: {peers.length}</span>
         <div>
           <div className="screen">
-            <UserControls
+            <GridLayout
+              className="videoGrid"
+              items={[
+                ...localVideo,
+                ...remoteVideos,
+              ]} /* renders videos in a list */
+              renderCell={item => {
+                //console.log(item);
+                return <Video media={item}  />;
+              }}
+            />
+          </div>
+          <UserControls
               render={({ isMuted, mute, unmute }) => {
                 return (
                   <IconButton
@@ -55,19 +65,9 @@ class Classroom extends React.Component {
                 );
               }}
             />
-            <GridLayout
-              className="videoGrid"
-              items={[
-                ...localVideo,
-                ...remoteVideos,
-              ]} /* renders videos in a list */
-              renderCell={item => {
-                //console.log(item);
-                return <Video media={item} />;
-              }}
-            />
-          </div>
         </div>
+        <Typography variant="h3" alignCenter>{room.providedName}</Typography>
+        <Typography variant="h6" alignCenter>Total people in classroom: {peers.length}</Typography>
         {this.props.user.role === 'Teacher' ||
         this.props.auth.role === 'Teacher' ? (
           <VoiceRecognition
