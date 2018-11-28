@@ -20,7 +20,8 @@ class Chatbox extends Component {
   	const { input, chatbox } = this.props;
   	const { handleChange, handleClick } = this;
   	return (
-  	  <div>
+  	  <div className="chat">
+  	  	<Typography alignLeft variant="h5">Connected</Typography>
   	  	<div className="chatContainer">
   	  	{chatbox && chatbox.map(each => {
   	  	  return (
