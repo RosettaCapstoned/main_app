@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { TextField, Typography, IconButton, Icon } from '@material-ui/core';
 import io from 'socket.io-client';
 import { sendMessage, receiveMessage } from '../store/message';
+import SelectLanguage from './SelectLanguage';
 
 const socket = io();
 
@@ -42,15 +43,18 @@ class Chatbox extends Component {
   render(){
 		const { messages } = this.props;
 		const { handleChange, handleClick } = this;
-		
+		console.log(messages);
   	return (
   	  <div className="chat">
-  	  	<Typography alignLeft variant="h5">Connected</Typography>
+  	  <div className="chatHeadline">
+  	  	{/*<Typography align="left" variant="h5">Connected</Typography>*/}
+  	  	<SelectLanguage />
+  	  </div>
   	  	<div className="chatContainer">
-  	  	{messages && messages.map(each => {
+  	  	{messages && messages.map((each, idx) => {
   	  	  return (
   	  	  	<div>
-  	  	  	<Typography>{each.message}</Typography>
+  	  	  	<Typography key={idx}>{each.message}</Typography>
   	  	  	</div>
   	  	  )
   	  	})}

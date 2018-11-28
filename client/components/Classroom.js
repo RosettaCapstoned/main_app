@@ -66,8 +66,8 @@ class Classroom extends React.Component {
               }}
             />
         </div>
-        <Typography variant="h3" alignCenter>{room.providedName}</Typography>
-        <Typography variant="h6" alignCenter>Total people in classroom: {peers.length}</Typography>
+        <Typography variant="h3" align="center">{room.providedName}</Typography>
+        <Typography variant="h6" align="center">Total people in classroom: {peers.length}</Typography>
         {this.props.user.role === 'Teacher' ||
         this.props.auth.role === 'Teacher' ? (
           <VoiceRecognition

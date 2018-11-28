@@ -1,5 +1,8 @@
+
+
 .chat {
   padding: 20px;
+  margin: 35px;
 }
 
 .chatButton {
@@ -11,6 +14,12 @@
   min-height: 50%;
   width: auto;
   border: 1px solid black;
+}
+
+.chatHeadline {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0px 15px 0px;
 }
 
 .classroomContainer { 
@@ -25,8 +34,6 @@
 
 .footerLogo {
   font-family: Georgia, serif; 
-  position: fixed; 
-  bottom: 0;
 }
 
 .googleButton {
@@ -52,6 +59,12 @@
   padding: 15px;
 }
 
+div .landingContainer {
+  align-content: center;
+  height: 100%;
+  margin: 10% 0% 10% 0%;
+}
+
 .menuIcon {
   display: flex;
   justify-content: flex-end;
@@ -67,10 +80,13 @@
 }
 
 .nav {
-  background-image: url('https://imffa.org/wp-content/uploads/2017/06/english-chalkboard.jpg');
-  background-size: 100%;
+  background-image: url('https://lfheblog.files.wordpress.com/2018/02/diverse-hands.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 100%;
-  height: 40%;
+  height: 50%;
 }
 
 .pageContainer {
@@ -91,8 +107,18 @@
   width: 90%;
 }
 
+div .sectionContainer {
+  align-content: center;
+  height: 75%;
+  padding: 15% 10% 0% 10%;
+}
+
 .selected {
   font-weight: bold;
+}
+
+.selectLng {
+  width: 175px;
 }
 
 video{

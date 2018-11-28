@@ -4,15 +4,17 @@ const googleKey = require('../../server/env').apiKey;
 translate.engine = 'google';
 translate.key = googleKey;
 
-let initialState = {
+const initialState = {
   selectedIdx: 0,
   speakingLng: 'en',
   translateLng: '',
+  lngToIdx: 0,
   input: '',
   chatbox: ['Start typing..']
 };
 
 const LNG_SELECT = 'LNG_SELECT';
+const LNG_TO = 'LNG_TO';
 const INPUT = 'INPUT';
 const ADD_CHAT = 'ADD_CHAT';
 
@@ -21,6 +23,12 @@ export const lngSelect = (lng, idx) => ({
   idx,
   lng
 });
+
+export const lngTo = (lng, idx) => ({
+  type: LNG_TO,
+  lng,
+  idx
+})
 
 export const inputMsg = text => ({
   type: INPUT,
@@ -46,6 +54,14 @@ export const gTranslateReducer = (state=initialState, action) => {
   	  	...state,
   	  	speakingLng: action.lng,
   	  	selectedIdx: action.idx
+  	  }
+
+  	case LNG_TO:
+  	console.log(state);
+  	  return {
+  	  	...state,
+  	  	translateLng: action.lng,
+  	  	lngToIdx: action.idx
   	  }
 
   	case INPUT:
