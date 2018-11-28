@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import App from './components/App.js'
+import App from './components/App.js';
 import * as SWRTC from '@andyet/simplewebrtc'
 
 const API_KEY = 'ab446ae790d628e3b493ef90';

@@ -1,38 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, Typography, IconButton, Icon } from '@material-ui/core';
-import { inputMsg, _translate } from '../store/gtranslate';
+import io from 'socket.io-client';
+import { sendMessage, receiveMessage } from '../store/message';
+
+const socket = io();
 
 class Chatbox extends Component {
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			textInput: '',
+			langaugeSetting: {
+				to: 'es',
+				frome: 'en'
+			}
+		}
+	}
+
+	componentDidMount = () => {
+		socket.on('message', (message)=> {
+			console.log('message received: ', message);
+			this.props.receiveMessage(message);
+		})
+
+	}
 
   handleChange = (evt) => {
-  	const { inputMsg, input } = this.props;
-  	inputMsg(evt.target.value);
+  	this.setState({
+			textInput: evt.target.value
+		})
   }
 
   handleClick = () => {
-  	const { input, translate, speakingLng } = this.props;
-  	console.log(input);
-  	translate(input, speakingLng, 'es');
+		this.props.sendMessage(this.state.textInput, this.state.langaugeSetting);
+		this.setState({ textInput: '' });
+		TextField.value = '';
   }
 
   render(){
-  	const { input, chatbox } = this.props;
-  	const { handleChange, handleClick } = this;
+		const { messages } = this.props;
+		const { handleChange, handleClick } = this;
+		
   	return (
   	  <div className="chat">
   	  	<Typography alignLeft variant="h5">Connected</Typography>
   	  	<div className="chatContainer">
-  	  	{chatbox && chatbox.map(each => {
+  	  	{messages && messages.map(each => {
   	  	  return (
   	  	  	<div>
-  	  	  	<Typography variant="body">{each}</Typography>
+  	  	  	<Typography>{each.message}</Typography>
   	  	  	</div>
   	  	  )
   	  	})}
   	  	</div>
   	    <TextField placeholder="Write a message!"
-  				   multiline
+						 multiline
+						 value={this.state.textInput}
   				   rows={8}
   				   rowsMax={12}
   				   style={{ width:"300px" }}
@@ -40,26 +65,25 @@ class Chatbox extends Component {
           		   variant="outlined"
           		   onChange={handleChange}/>
 	    <div className="chatButton">
-	      <IconButton onClick={handleClick}><Icon>create</Icon></IconButton>
+	      <IconButton onClick={handleClick}><Icon>send</Icon></IconButton>
 	    </div>
   	  </div>
   	)
   }
 }
 
-const mapStateToProps = ({ translation }) => {
-  const { input, chatbox, speakingLng } = translation;
-  // console.log(translation, chatbox);
+const mapStateToProps = ({ message, user }) => {
   return {
-  	input,
-  	chatbox,
-  	speakingLng
+		messages: message,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  inputMsg: (text) => dispatch(inputMsg(text)),
-  translate: (text, from, to) => dispatch(_translate(text, from, to))
+	sendMessage: (message, langaugeSetting) => {
+		dispatch(sendMessage({message, langaugeSetting}));
+		socket.emit('message', {message, langaugeSetting});
+	},
+	receiveMessage: (message) => dispatch(sendMessage({ message }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatbox);
