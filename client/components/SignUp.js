@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FormGroup, TextField, Button, Paper } from '@material-ui/core';
 import { signUp } from '../store/auth';
@@ -12,31 +12,34 @@ class SignUp extends Component {
       lastName: '',
       email: '',
       password: '',
-      err: ''
+      err: '',
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange = (ev) => {
+  handleChange = ev => {
     this.setState({ [ev.target.name]: ev.target.value });
-  }
-  handleClick = (ev) => {
+  };
+  handleClick = ev => {
     ev.preventDefault();
     const { email, password, firstName, lastName } = this.state;
-    this.props.signUp({ email, password, firstName, lastName })
+    const { history } = this.props;
+    this.props
+      .signUp({ email, password, firstName, lastName })
+      .then(() => history.push('/login'))
       .catch(err => {
-        this.setState({ err: err.message })
+        this.setState({ err: err.message });
       });
-  }
+  };
 
-  render(){
-    const { email, password, firstName, lastName } = this.state;
+  render() {
+    const { email, password, firstName, lastName } = this.state;
     const { handleChange, handleClick } = this;
-    console.log(this.state)
-    return (
+    console.log(this.state);
+    return (
       <Paper className="loginContainer">
-        <div >
+        <div>
           <FormGroup>
             <TextField
               id="standard-name"
@@ -49,7 +52,7 @@ class SignUp extends Component {
               variant="filled"
               onChange={handleChange}
             />
-             <TextField
+            <TextField
               id="standard-required"
               label="Last Name"
               type="text"
@@ -91,19 +94,23 @@ class SignUp extends Component {
             >
               Sign Up
             </Button>
-            <div>Have an account? Sign in {<Link to='/login'>Here.</Link>}</div>
+            <div>Have an account? Sign in {<Link to="/login">Here.</Link>}</div>
           </FormGroup>
           <h2>{this.state.err}</h2>
         </div>
       </Paper>
-    )
+    );
   }
 }
 
-const mapDispatchToProps = (dispatch, { history })=> {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    signUp: (credentials)=> dispatch(signUp(credentials, history))
+    signUp: credentials => dispatch(signUp(credentials, history)),
+    history,
   };
-}
+};
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp);

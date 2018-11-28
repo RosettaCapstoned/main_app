@@ -1,30 +1,44 @@
-const Sequelize = require('sequelize')
-const conn = require('../conn')
+const Sequelize = require('sequelize');
+const conn = require('../conn');
 
 const User = conn.define('user', {
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
     allowNull: true,
     validate: {
-      isEmail: true
-    }
+      isEmail: true,
+    },
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
   },
   role: {
-    type: Sequelize.ENUM('Teacher', 'Student')
+    type: Sequelize.ENUM('Teacher', 'Student'),
   },
-  googleId: Sequelize.STRING
-})
+  googleId: Sequelize.STRING,
+});
 
-module.exports = User
+User.prototype.toJSON = function() {
+  var values = Object.assign({}, this.get());
+
+  delete values.password;
+  return values;
+};
+
+User.prototype.toJSON = function() {
+  var values = Object.assign({}, this.get());
+
+  delete values.password;
+  return values;
+};
+
+module.exports = User;

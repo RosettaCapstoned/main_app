@@ -44,7 +44,8 @@ class Chatbox extends Component {
 		const { handleChange, handleClick } = this;
 		
   	return (
-  	  <div>
+  	  <div className="chat">
+  	  	<Typography alignLeft variant="h5">Connected</Typography>
   	  	<div className="chatContainer">
   	  	{messages && messages.map(each => {
   	  	  return (
