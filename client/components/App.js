@@ -37,7 +37,7 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  console.log(auth)
+  // console.log(auth)
   return {
   	token: auth ? auth.auth : false
   }

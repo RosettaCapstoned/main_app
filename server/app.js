@@ -12,6 +12,45 @@ const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || 'rosetta';
 const jwt = require('jsonwebtoken');
 
+//Translation API
+const translate = require('translate');
+translate.engine = 'google';
+translate.key = process.env.GOOGLE_KEY;
+
+//Wrapping server in socket.io instance
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+const room = 'default';
+
+//Socket.io implementation
+io.on('connection', (socket)=> {
+  socket.join(room);
+  console.log(`${socket.id} joined: ${room}`);
+
+  //Action broadcasts to all clients attached, not including the current client 
+  io.to(room).emit('joined', { message: 'a user joined' });
+
+
+  //Action listener for 'message' action
+  socket.on('message', (_message)=> {
+    const { message, langaugeSetting} = _message;
+   
+    translate(message, langaugeSetting)
+    .then(result => {
+      console.log(result);
+      io.to(room).emit('message', result);
+    });
+  });
+
+  //Action listener for 'disconnection' action
+  socket.on('disconnect', ()=> {
+      io.emit('message', { message: 'a user signed off' });
+      console.log('Goodbye, ', socket.id, ' :(');
+    });
+});
+
+
 const bodyParser = require('body-parser');
 
 // configure app to use bodyParser()
@@ -143,6 +182,6 @@ const init = () => {
 
 init()
 
-module.exports = app
+module.exports = app;
 
-app.listen(port, () => console.log(`listening on port ${port}`))
+server.listen(port, () => console.log(`listening on port ${port}`));
