@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Typography, Divider } from '@material-ui/core';
 import AboutUs from './AboutUs';
 import WhatWeDo from './WhatWeDo';
+import OurTeam from './OurTeam';
 
 class LandingPage extends Component {
   
   render(){
 
   	return (
-  	  <div className="landingContainer">
+  	  <div >
   	    <div className="sectionContainer">
 				<Typography variant='display4' 
   	  						color='textPrimary' 
@@ -20,7 +21,6 @@ class LandingPage extends Component {
 				<Typography variant='h3' 
   	  						color='secondary' 
   	  						align="center"
-  	  	  					className="footerLogo"
   	  	  					style={{fontFamily: 'Georgia, serif'}}>
 					 Bringing English to you
 				</Typography>
@@ -32,6 +32,10 @@ class LandingPage extends Component {
 	    <Divider />
 	    <div className="sectionContainer">
 	      <WhatWeDo />
+	    </div>
+	    <Divider />
+	    <div className="sectionContainer">
+	      <OurTeam />
 	    </div>
 	    <Divider />
   	  </div>
