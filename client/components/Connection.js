@@ -5,7 +5,7 @@ import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  fro
 import Video from './Video';
 import Chatbox from './Chatbox';
 
-const API_KEY = 'ab446ae790d628e3b493ef90';
+const API_KEY = '75558107906217b9a6192969';
 
 const ROOM_NAME = 'YOUR_ROOM_NAME';   //will change name based on teacher's id
 const ROOM_PASSWORD = 'YOUR_ROOM_PASSWORD'; //same with password
@@ -19,24 +19,19 @@ class Connection extends Component {
   	return (
 			<Provider configUrl={CONFIG_URL} userData={auth}>	
 				<div>
-					<div>
 					<RemoteAudioPlayer />
-					{/* <Disconnected>
-					<h3>Disconnected</h3>
-					</Disconnected> */}
-				</div>
-				<div className="connection">
-					<Connecting>									{/* renders the element between it when connecting user to turn/stun server*/}
-						<h3>Connecting</h3>					{/* render a loading wheel later */}
+					<Connecting>									
+						<h3>Connecting</h3>				
 						<CircularProgress />
 					</Connecting>
-					<Connected>
-						<Video />
-						<div>										{/* renders the element between it when user is connected*/}
-						<Chatbox />
-					</div>					{/* say hi to user */}
-					</Connected>
-				</div>
+					<div className="connection">
+						<Connected>
+							<Video />
+							<div>									
+								<Chatbox />
+							</div>				
+						</Connected>
+					</div>
 				</div>
 			</Provider>
   	)

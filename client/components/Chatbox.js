@@ -45,11 +45,11 @@ class Chatbox extends Component {
 		
   	return (
   	  <div className="chat">
-  	  	<Typography alignLeft variant="h5">Connected</Typography>
+  	  	<Typography /*</div>alignleft currently breaks*/ variant="h5">Connected</Typography>
   	  	<div className="chatContainer">
   	  	{messages && messages.map(each => {
   	  	  return (
-  	  	  	<div>
+  	  	  	<div key={each.id}>
   	  	  	<Typography>{each.message}</Typography>
   	  	  	</div>
   	  	  )
