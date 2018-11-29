@@ -102,7 +102,6 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
   },
   async (request, accessToken, refreshToken, profile, done) => {
-  	console.log(profile)
     const user = await User.findOrCreate({ where: { 
         googleId: profile.id,
         firstName: profile.name.givenName,
@@ -137,7 +136,6 @@ function isUserAuthenticated(req, res, next) {
 }
 
 app.get('/oauth', (req, res) => {
-	console.log(req.user);
 	res.send({ user: req.user })
 })
 
@@ -171,7 +169,6 @@ app.get('*', (req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-  console.log(err)
   res.status(err.status || 500).send({message : err.message})
 })
 

@@ -17,7 +17,7 @@ export default class AboutUs extends Component {
 				<Typography variant='h5' 
   	  						color='textPrimary' 
   	  						align="left"
-  	  	  					className="footerLogo"
+  	  	  					className="description"
   	  	  					style={{fontFamily: 'Georgia, serif', padding: '15px 0px 0px 0px'}}>
 					 In today’s world, an education can be the difference between prosperity and poverty. With all of us being children of immigrants, we know this fact well. Moving to a new country and not knowing the native language is not only scary but it is also a barrier to one’s financial success. 
 					 <br/>
