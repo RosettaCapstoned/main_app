@@ -54,7 +54,7 @@ class Chatbox extends Component {
   	  	{messages && messages.map((each, idx) => {
   	  	  return (
   	  	  	<div>
-  	  	  	<Typography key={idx}>{each.message}</Typography>
+  	  	  	  <Typography key={idx}>{each.message}</Typography>
   	  	  	</div>
   	  	  )
   	  	})}

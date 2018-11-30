@@ -35,12 +35,12 @@ io.on('connection', (socket)=> {
   //Action listener for 'message' action
   socket.on('message', (_message)=> {
     const { message, langaugeSetting} = _message;
-   
-    translate(message, langaugeSetting)
-    .then(result => {
-      console.log(result);
-      io.to(room).emit('message', result);
-    });
+    io.to(room).emit('message', { message, langaugeSetting })
+    // translate(message, langaugeSetting)
+    // .then(result => {
+    //   console.log(result);
+    //   io.to(room).emit('message', result);
+    // });
   });
 
   //Action listener for 'disconnection' action
