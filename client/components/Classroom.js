@@ -1,14 +1,11 @@
 import React from 'react';
 import { IconButton, Icon, Typography } from '@material-ui/core';
 import { MicOff, Mic } from '@material-ui/icons';
-import {
-  MediaControls, //might need
-  UserControls,
-  Video,
-  GridLayout,
-} from '@andyet/simplewebrtc';
-import VoiceRecognition from './VoiceRecognition';
+import { MediaControls, UserControls, Video, GridLayout } from '@andyet/simplewebrtc';
 import { connect } from 'react-redux';
+
+import VoiceRecognition from './VoiceRecognition';
+import StudentList from './StudentList'
 
 class Classroom extends React.Component {
   constructor() {
@@ -31,15 +28,15 @@ class Classroom extends React.Component {
     console.log(text.finalTranscript);
   }
   render() {
-    const { room, peers, localMedia, remoteMedia } = this.props;
+    const { room, peers, localMedia, remoteMedia , auth } = this.props;
     const remoteVideos = remoteMedia.filter(media => media.kind === 'video');
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
     );
-
     return (
       <div className="screenContainer">
         <div>
+          {auth.role === 'Teacher' ? <StudentList /> : null}
           <div className="screen">
             <GridLayout
               className="videoGrid"
