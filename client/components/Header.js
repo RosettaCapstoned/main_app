@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Drawer, IconButton, Icon } from '@material-ui/core';
+import { Divider, Drawer, IconButton, Icon, Typography } from '@material-ui/core';
 // import { withStyles } from '@material-ui/core/styles';
 import LandingPage from './LandingPage';
 import Login from './Login';
@@ -46,7 +46,12 @@ class Header extends Component {
                 onClose={handleDrawerToggle}>
           <Menu />
           <Divider />
-          <LanguageSelection />
+          <div className="selectContainer">
+	          <div><Typography variant="h6">Translate From:</Typography>
+	          <SelectLanguage type="translateFrom" /></div>
+	          <div><Typography variant="h6">Translate To:</Typography>
+	          <SelectLanguage type="translateTo" /></div>
+          </div>
   	    </Drawer>
   	    </div>
   	  </div>

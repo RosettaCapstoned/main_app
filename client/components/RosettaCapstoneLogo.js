@@ -6,11 +6,10 @@ export default class RosettaCapstoneLogo extends Component {
   render() {
 
   	return(
-  	  <div>
+  	  <div className="sectionContainer">
 		<Typography variant='display4' 
 					color='textPrimary' 
 					align="center"
-					className="footerLogo"
 					style={{fontFamily: 'Georgia, serif'}}>
 			 Rosetta Capstone
 		</Typography>

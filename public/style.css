@@ -1,12 +1,26 @@
 
 .about {
   background-size: cover;
-  background-color: #F2E08B;
+  background-color: #FBCCA7;
+}
+
+.avatar {
+  height: 20px;
+  width: 20px;
+  margin: 5px;
+}
+
+.avatarContainer {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .bio {
   background-size: cover;
-  background-color: #F2E08B;
+  background-color: #FBCCA7;
 }
 
 .chat {
@@ -132,8 +146,9 @@ div .landingContainer {
 
 .profileContainer {
   width: 50%;
-  height: auto;
+  height: 650px;
   padding: 10px;
+  position: relative;
 }
 
 .profiles {
@@ -163,12 +178,20 @@ div .landingContainer {
   padding-right: 10%;
 }
 
+.selectContainer {
+  padding: 20px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .selected {
   font-weight: bold;
 }
 
 .selectLng {
-  width: 175px;
+  width: 125px;
 }
 
 video{

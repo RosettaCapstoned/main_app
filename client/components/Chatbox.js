@@ -47,8 +47,6 @@ class Chatbox extends Component {
   	return (
   	  <div className="chat">
   	  <div className="chatHeadline">
-  	  	{/*<Typography align="left" variant="h5">Connected</Typography>*/}
-  	  	<SelectLanguage />
   	  </div>
   	  	<div className="chatContainer">
   	  	{messages && messages.map((each, idx) => {

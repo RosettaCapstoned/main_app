@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { lngTo } from '../store/gtranslate';
+import { lngTo, lngFrom } from '../store/gtranslate';
 import { FormControl, InputLabel, Select, MenuItem, OutlinedInput } from '@material-ui/core';
 
 class SelectLanguage extends Component {
@@ -11,12 +11,18 @@ class SelectLanguage extends Component {
   }
   handleChange = (evt) => {
   	const { value } = evt.target;
+  	const { type, lngTo, lngFrom } = this.props;
+  	//state kept in react component
   	this.setState({ lngItem: value[0], lng: value[1], idx: value[2]})
+  	//state kept in redux store
+  	type === "translateTo" ?
+  	lngTo(value[1], value[2]) :
+  	lngFrom(value[1], value[2])
   }
 
   render () {
   	const { handleChange } = this;
-  	const { idx } = this.props;
+  	const { lng, idx } = this.props;
   	const lngMap = [{lngItem:'English', lng:'en'}, 
 			      {lngItem:'Spanish', lng: 'es'}, 
 			      {lngItem:'Chinese', lng: 'zh'}, 
@@ -28,11 +34,13 @@ class SelectLanguage extends Component {
 			      {lngItem:'Bengali', lng: 'bn'}, 
 			      {lngItem:'Japanese', lng: 'ja'}, 
 			      {lngItem:'Punjabi', lng: 'pa'}]
+	console.log(this.state);
   	return (
   	  <FormControl className="selectLng" variant="outlined" >
-          <InputLabel>Translate To</InputLabel>
+          <InputLabel>Select a Language</InputLabel>
           <Select
-            value={this.state.lngItem}
+            native={false}
+            renderValue={()=>this.state.lngItem}
             onChange={handleChange}
             input={
               <OutlinedInput
@@ -51,21 +59,25 @@ class SelectLanguage extends Component {
           })
       }
           </Select>
-        </FormControl>
+      </FormControl>
   	)
   }
 }
 
-const mapStateToProps = ({ translation }) => {
-  const { translateLng, lngToIdx } = translation;
+const mapStateToProps = ({ translation }, { type }) => {
+  const { translateLng, lngToIdx, speakingLng, lngFromIdx } = translation;
+  const lng = type === "translateTo" ? translateLng : speakingLng;
+  const idx = type === "translateTo" ? lngToIdx : lngFromIdx
   return {
-  	lng: translateLng,
-  	idx: lngToIdx
+  	lng,
+  	idx,
+  	type
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-	lngTo: (lng, idx) => dispatch(lngTo(lng, idx))
+	lngTo: (lng, idx) => dispatch(lngTo(lng, idx)),
+	lngFrom: (lng, idx) => dispatch(lngFrom(lng, idx))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectLanguage);

@@ -5,21 +5,17 @@ translate.engine = 'google';
 translate.key = googleKey;
 
 const initialState = {
-  selectedIdx: 0,
+  lngFromIdx: 0,
   speakingLng: 'en',
   translateLng: '',
-  lngToIdx: 0,
-  input: '',
-  chatbox: ['Start typing..']
+  lngToIdx: 0
 };
 
-const LNG_SELECT = 'LNG_SELECT';
+const LNG_FROM = 'LNG_FROM';
 const LNG_TO = 'LNG_TO';
-const INPUT = 'INPUT';
-const ADD_CHAT = 'ADD_CHAT';
 
-export const lngSelect = (lng, idx) => ({
-  type: LNG_SELECT,
+export const lngFrom = (lng, idx) => ({
+  type: LNG_FROM,
   idx,
   lng
 });
@@ -28,16 +24,6 @@ export const lngTo = (lng, idx) => ({
   type: LNG_TO,
   lng,
   idx
-})
-
-export const inputMsg = text => ({
-  type: INPUT,
-  text
-})
-
-export const addChat = msg => ({
-  type: ADD_CHAT,
-  msg
 })
 
 export const _translate = (text, from, to) => async dispatch => {
@@ -49,11 +35,11 @@ export const _translate = (text, from, to) => async dispatch => {
 
 export const gTranslateReducer = (state=initialState, action) => {
   switch (action.type){
-  	case LNG_SELECT:
+  	case LNG_FROM:
   	  return {
   	  	...state,
   	  	speakingLng: action.lng,
-  	  	selectedIdx: action.idx
+  	  	lngFromIdx: action.idx
   	  }
 
   	case LNG_TO:
@@ -62,19 +48,6 @@ export const gTranslateReducer = (state=initialState, action) => {
   	  	...state,
   	  	translateLng: action.lng,
   	  	lngToIdx: action.idx
-  	  }
-
-  	case INPUT:
-  	  return {
-  	  	...state,
-  	  	input: action.text
-  	  }
-
-  	case ADD_CHAT:
-  	console.log(state.chatbox, action.msg)
-  	  return {
-  	  	...state,
-  	  	chatbox: [...state.chatbox, action.msg]
   	  }
 
   	default:
