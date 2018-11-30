@@ -34,7 +34,6 @@ router.post('/', (req, res, next) => {
         return next({ status: 401 });
       }
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-      console.log(token);
       res.send({ token });
     })
     .catch(next);
