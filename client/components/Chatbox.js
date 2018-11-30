@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, Typography, IconButton, Icon } from '@material-ui/core';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
+import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage, receiveMessage } from '../store/message';
 import SelectLanguage from './SelectLanguage';
 
-const socket = io();
+// const socket = io();
+
+const socket = new SocketSingleton().socket;
 
 class Chatbox extends Component {
 	constructor (props) {
@@ -13,9 +16,9 @@ class Chatbox extends Component {
 
 		this.state = {
 			textInput: '',
-			langaugeSetting: {
+			languageSetting: {
 				to: 'es',
-				frome: 'en'
+				from: 'en'
 			}
 		}
 	}
@@ -35,7 +38,7 @@ class Chatbox extends Component {
   }
 
   handleClick = () => {
-		this.props.sendMessage(this.state.textInput, this.state.langaugeSetting);
+		this.props.sendMessage(this.state.textInput, this.state.languageSetting);
 		this.setState({ textInput: '' });
 		TextField.value = '';
   }
@@ -81,9 +84,9 @@ const mapStateToProps = ({ message, user }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	sendMessage: (message, langaugeSetting) => {
-		dispatch(sendMessage({message, langaugeSetting}));
-		socket.emit('message', {message, langaugeSetting});
+	sendMessage: (message, languageSetting) => {
+		dispatch(sendMessage({message, languageSetting}));
+		socket.emit('message', {message, languageSetting});
 	},
 	receiveMessage: (message) => dispatch(sendMessage({ message }))
 })

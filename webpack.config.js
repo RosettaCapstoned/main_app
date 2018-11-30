@@ -13,7 +13,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },{
-        test: /\.(png|jpg|gif)$/i,
+        test: /\.(png|jpg|gif|JPG)$/i,
         use: [
           {
             loader: 'url-loader',

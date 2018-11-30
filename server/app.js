@@ -34,13 +34,24 @@ io.on('connection', (socket)=> {
 
   //Action listener for 'message' action
   socket.on('message', (_message)=> {
+    // console.log(_message);
     const { message, langaugeSetting} = _message;
-   
+    // io.to(room).emit('message', { message, langaugeSetting })
     translate(message, langaugeSetting)
     .then(result => {
       console.log(result);
       io.to(room).emit('message', result);
     });
+  });
+
+  socket.on('teacherSpeech', (speechText)=> {
+    //Teachers message
+    const { message, langaugeSetting} = speechText;
+    translate(message, langaugeSetting)
+    .then(result => {
+      console.log(result);
+      io.to(room).emit('teacherSpeech', result);
+    })
   });
 
   //Action listener for 'disconnection' action

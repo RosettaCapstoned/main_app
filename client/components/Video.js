@@ -6,20 +6,7 @@ import { CircularProgress } from '@material-ui/core';
 import Classroom from './Classroom'
 
 class Video extends React.Component{
-  constructor(){
-    super()
-    this.state = {              /* Maybe set up a toggle for turning on and off media stream */
-      mediaOn: false
-    }           
-    // this.toggleMedia = this.toggleMedia.bind(this)
-  }
-  // toggleMedia(){
-  //   this.setState({
-  //     mediaOn: !this.state.mediaOn
-  //   })
-  // }
   render(){
-    const { mediaOn } = this.state
     return (
       <div className="video">
         <RequestUserMedia audio video auto/>    {/* set up a toggle later */}
@@ -29,8 +16,6 @@ class Video extends React.Component{
             if(!room.joined){
               return <CircularProgress />
             }
-            // console.log(peers)
-            // console.log(localMedia)
             return (
               <Classroom 
                 room={room} 

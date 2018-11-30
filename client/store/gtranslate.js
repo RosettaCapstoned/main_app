@@ -43,7 +43,6 @@ export const gTranslateReducer = (state=initialState, action) => {
   	  }
 
   	case LNG_TO:
-  	console.log(state);
   	  return {
   	  	...state,
   	  	translateLng: action.lng,
