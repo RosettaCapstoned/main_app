@@ -38,15 +38,18 @@
   margin: 35px;
 }
 
-.chatButton {
+.chatButtonContainer {
   display: flex;
   justify-content: flex-end;
 }
 
 .chatContainer {
-  min-height: 50%;
-  width: auto;
-  border: 1px solid black;
+  height: 400px;
+  width: 270px;
+  border: 2px solid black;
+  padding: 15px;
+  overflow: scroll;
+  overflow-wrap: break-word;
 }
 
 .chatHeadline {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Typography, IconButton, Icon } from '@material-ui/core';
+import { TextField, Typography, IconButton, Icon, Paper } from '@material-ui/core';
 // import io from 'socket.io-client';
 import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage, receiveMessage } from '../store/message';
@@ -51,7 +51,7 @@ class Chatbox extends Component {
   	  <div className="chat">
   	  <div className="chatHeadline">
   	  </div>
-  	  	<div className="chatContainer">
+  	  	<Paper className="chatContainer">
   	  	{messages && messages.map((each, idx) => {
   	  	  return (
   	  	  	<div>
@@ -59,7 +59,7 @@ class Chatbox extends Component {
   	  	  	</div>
   	  	  )
   	  	})}
-  	  	</div>
+  	  	</Paper>
   	    <TextField placeholder="Write a message!"
 						 multiline
 						 value={this.state.textInput}
@@ -69,7 +69,7 @@ class Chatbox extends Component {
   				   margin="normal"
           		   variant="outlined"
           		   onChange={handleChange}/>
-	    <div className="chatButton">
+	    <div className="chatButtonContainer">
 	      <IconButton onClick={handleClick}><Icon>send</Icon></IconButton>
 	    </div>
   	  </div>

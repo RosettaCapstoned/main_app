@@ -74,6 +74,7 @@ export default class OurTeam extends Component {
 				  </a>
 			  </div>	
 		  </div>
+	  </div>
     </div>
   	)
   }
