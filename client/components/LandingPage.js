@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Typography, Divider } from '@material-ui/core';
+import RosettaCapstoneLogo from './RosettaCapstoneLogo';
 import AboutUs from './AboutUs';
 import WhatWeDo from './WhatWeDo';
 import OurTeam from './OurTeam';
@@ -9,24 +10,12 @@ class LandingPage extends Component {
   render(){
 
   	return (
-  	  <div >
+  	  <Fragment>
   	    <div className="sectionContainer">
-				<Typography variant='display4' 
-  	  						color='textPrimary' 
-  	  						align="center"
-  	  	  					className="footerLogo"
-  	  	  					style={{fontFamily: 'Georgia, serif'}}>
-					 Rosetta Capstone
-				</Typography>
-				<Typography variant='h3' 
-  	  						color='secondary' 
-  	  						align="center"
-  	  	  					style={{fontFamily: 'Georgia, serif'}}>
-					 Bringing English to you
-				</Typography>
+  	      <RosettaCapstoneLogo />
 		  </div>
 		  <Divider />
-		<div className="sectionContainer">
+		<div className="sectionContainer about">
 	      <AboutUs />
 	    </div>
 	    <Divider />
@@ -34,11 +23,11 @@ class LandingPage extends Component {
 	      <WhatWeDo />
 	    </div>
 	    <Divider />
-	    <div className="sectionContainer">
+	    <div className="sectionContainer bio">
 	      <OurTeam />
 	    </div>
 	    <Divider />
-  	  </div>
+  	  </Fragment>
   	)
   }
 }

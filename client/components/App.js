@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LandingPage from './LandingPage';
@@ -20,7 +20,7 @@ class App extends Component {
     console.log('Token rendered from App: ', token);
     return (
       <Router>
-        <div>
+        <Fragment>
           <Route component={Header} />
           <Switch>
             <Route exact path="/classroom" component={Connection} />
@@ -29,7 +29,7 @@ class App extends Component {
             <Route exact path="/" component={LandingPage} />
             <Route path="/auth/google" />
           </Switch>
-        </div>
+        </Fragment>
       </Router>
     );
   }

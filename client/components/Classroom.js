@@ -36,7 +36,7 @@ class Classroom extends React.Component {
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
     );
-
+    console.log(localVideo);
     return (
       <div className="screenContainer">
         <div>

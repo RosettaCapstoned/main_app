@@ -1,4 +1,13 @@
 
+.about {
+  background-size: cover;
+  background-color: #F2E08B;
+}
+
+.bio {
+  background-size: cover;
+  background-color: #F2E08B;
+}
 
 .chat {
   padding: 20px;
@@ -51,17 +60,6 @@ div .description {
   justify-content: space-between;
 }
 
-.photo {
-  height: 40%;
-  width: 30%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.position {
-  object-position: 100% 0%;
-}
-
 .lngItem {
   display: flex;
   justify-content: space-between;
@@ -96,7 +94,7 @@ div .landingContainer {
 }
 
 .nav {
-  background-image: url('https://lfheblog.files.wordpress.com/2018/02/diverse-hands.jpg');
+  background-image: url('rosetta-capstone-img.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -111,11 +109,37 @@ div .landingContainer {
   flex-direction: column;
 }
 
+.photo {
+  height: 225px;
+  width: 210px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.photoPosition {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.position {
+  object-position: 100% 0%;
+}
+
+.position2 {
+  object-position: 50% 100%;
+}
+
+.profileContainer {
+  width: 50%;
+  height: auto;
+  padding: 10px;
+}
+
 .profiles {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 15px;
-  border: 1px solid black;
 }
 
 .screen {
@@ -130,11 +154,13 @@ div .landingContainer {
   width: 90%;
 }
 
-div .sectionContainer {
+.sectionContainer {
   align-content: center;
-  height: 80%;
+  height: 100%;
   max-height: 100%;
-  padding: 15% 20% 0% 20%;
+  padding-top: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .selected {
