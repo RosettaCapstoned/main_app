@@ -205,6 +205,20 @@ div .landingContainer {
   width: 125px;
 }
 
+.studentAvatars {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.studentInitials {
+  background-color: #FE5501;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+}
+
 video{
   object-fit: contain;
   width: 100%;
