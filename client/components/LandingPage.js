@@ -11,7 +11,7 @@ class LandingPage extends Component {
 
   	return (
   	  <Fragment>
-  	      <RosettaCapstoneLogo />
+  	    <RosettaCapstoneLogo />
 	      <AboutUs />
 	      <WhatWeDo />
 	      <OurTeam />
