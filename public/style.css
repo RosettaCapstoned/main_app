@@ -23,6 +23,16 @@
   background-color: #FBCCA7;
 }
 
+.about {
+  background-size: cover;
+  background-color: #F2E08B;
+}
+
+.bio {
+  background-size: cover;
+  background-color: #F2E08B;
+}
+
 .chat {
   padding: 20px;
   margin: 35px;

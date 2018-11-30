@@ -8,8 +8,8 @@ export default class OurTeam extends Component {
   	return (
       <div className="sectionContainer bio">
 		<Typography variant='h1' 
-  						color='primary' 
-  						align="left"
+  						  color='primary' 
+  						  align="left"
   	  					style={{fontFamily: 'Georgia, serif'}}>
 			 Our Team
 		</Typography>
@@ -74,8 +74,7 @@ export default class OurTeam extends Component {
 				  </a>
 			  </div>	
 		  </div>
-		</div>
-      </div>
+    </div>
   	)
   }
 }
