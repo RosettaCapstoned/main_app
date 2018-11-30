@@ -6,10 +6,10 @@ export default class OurTeam extends Component {
   render() {
 
   	return (
-      <div>
+    <div>
 		<Typography variant='h1' 
-  						color='primary' 
-  						align="left"
+  						  color='primary' 
+  						  align="left"
   	  					style={{fontFamily: 'Georgia, serif'}}>
 			 Our Team
 		</Typography>
@@ -35,8 +35,8 @@ export default class OurTeam extends Component {
 			  <Typography align="center" variant="h4" style={{fontFamily: 'Georgia, serif', padding: '10px'}}>Daniel Seeley</Typography>
 			  <Typography align="center" variant="body" style={{fontFamily: 'Georgia, serif', padding: '10px'}}>Bio pending....</Typography>
 		  </div>
-		</div>
       </div>
+    </div>
   	)
   }
 }

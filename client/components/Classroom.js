@@ -46,7 +46,7 @@ class Classroom extends React.Component {
               items={[
                 ...localVideo,
                 ...remoteVideos,
-              ]} /* renders videos in a list */
+              ]} 
               renderCell={item => {
                 //console.log(item);
                 return <Video media={item}  />;

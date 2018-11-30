@@ -1,4 +1,5 @@
 
+
 .about {
   background-size: cover;
   background-color: #F2E08B;
@@ -58,6 +59,17 @@ div .description {
 .headerContainer {
   display: flex;
   justify-content: space-between;
+}
+
+.photo {
+  height: 40%;
+  width: 30%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.position {
+  object-position: 100% 0%;
 }
 
 .lngItem {
