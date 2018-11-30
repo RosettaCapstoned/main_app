@@ -1,4 +1,5 @@
 const path = require('path');
+
 module.exports = {
   mode: 'production',
   entry: ['babel-polyfill', './client/index.js'],

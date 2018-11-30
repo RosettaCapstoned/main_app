@@ -6,6 +6,7 @@ import Login from './Login';
 import Classroom from './Classroom';
 import Menu from './Menu';
 import LanguageSelection from './LanguageSelection';
+import SelectLanguage from './SelectLanguage';
 
 
 // const styles = theme => ({
