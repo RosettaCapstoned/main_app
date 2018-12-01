@@ -24,6 +24,11 @@ const User = conn.define('user', {
   role: {
     type: Sequelize.ENUM('Teacher', 'Student'),
   },
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
+  },
   googleId: Sequelize.STRING,
 });
 
