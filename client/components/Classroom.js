@@ -33,6 +33,7 @@ class Classroom extends React.Component {
       media => media.kind === 'video' && media.shared
     );
     console.log(localVideo);
+    console.log('Remote:', remoteVideos)
     return (
       <div className="screenContainer">
         <div>

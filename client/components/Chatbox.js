@@ -53,9 +53,10 @@ class Chatbox extends Component {
   	  </div>
   	  	<Paper className="chatContainer">
   	  	{messages && messages.map((each, idx) => {
+					console.log(each)
   	  	  return (
-  	  	  	<div>
-  	  	  	<Typography key={idx}>{each.message}</Typography>
+  	  	  	<div key={idx}>
+  	  	  		{/* <Typography> {each.message}</Typography> */}
   	  	  	</div>
   	  	  )
   	  	})}
