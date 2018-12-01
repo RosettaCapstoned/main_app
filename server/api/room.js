@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { Room } = require('../db');
 
+router.get('/', (req, res, next) => {
+	Room.findAll()
+	.then(rooms => {
+		res.send(rooms);
+    }).catch(next);
+});
+
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   try{
