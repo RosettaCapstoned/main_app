@@ -6,7 +6,7 @@ export default class AboutUs extends Component {
   render(){
 
   	return (
-  	  <div className="sectionContainer">
+  	  <div className="sectionContainer whatwedo">
 				<Typography variant='h1' 
   	  						color='primary' 
   	  						align="left"

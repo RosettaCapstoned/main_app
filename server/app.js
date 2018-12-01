@@ -15,7 +15,7 @@ const jwt = require('jsonwebtoken');
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
-translate.key = process.env.GOOGLE_KEY;
+translate.key = googleKey.apiKey; //process.env.GOOGLE_KEY
 
 //Wrapping server in socket.io instance
 const server = require('http').Server(app);
@@ -33,23 +33,18 @@ io.on('connection', (socket)=> {
 
 
   //Action listener for 'message' action
-  socket.on('message', (_message)=> {
-    // console.log(_message);
-    const { message, langaugeSetting} = _message;
-    // io.to(room).emit('message', { message, langaugeSetting })
-    translate(message, langaugeSetting)
-    .then(result => {
-      console.log(result);
-      io.to(room).emit('message', result);
-    });
+  socket.on('message', async (_message)=> {
+    const { name, message, languageSetting} = _message;
+    const result = { name, message: await translate(message, languageSetting) }
+    console.log(result)
+    io.to(room).emit('message', result);
   });
 
   socket.on('teacherSpeech', (speechText)=> {
     //Teachers message
-    const { message, langaugeSetting} = speechText;
-    translate(message, langaugeSetting)
+    const { message, languageSetting} = speechText;
+    translate(message, languageSetting)
     .then(result => {
-      console.log(result);
       io.to(room).emit('teacherSpeech', result);
     })
   });
