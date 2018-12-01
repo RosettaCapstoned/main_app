@@ -24,9 +24,10 @@ class Chatbox extends Component {
 	}
 
 	componentDidMount = () => {
-		socket.on('message', (message)=> {
+		socket.on('message', (msg)=> {
+			const { name, message } = msg;
 			console.log('message received: ', message);
-			this.props.receiveMessage(message);
+			this.props.receiveMessage({message, name});
 		})
 
 	}
@@ -38,7 +39,10 @@ class Chatbox extends Component {
   }
 
   handleClick = () => {
-		this.props.sendMessage(this.state.textInput, this.state.languageSetting);
+  	const { from, to, user } = this.props;
+  	const name = user[0].firstName;
+  	const languageSetting = { to, from };
+		this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
 		this.setState({ textInput: '' });
 		TextField.value = '';
   }
@@ -53,9 +57,10 @@ class Chatbox extends Component {
   	  </div>
   	  	<Paper className="chatContainer">
   	  	{messages && messages.map((each, idx) => {
+					console.log('This is the new message and user: ', each)
   	  	  return (
-  	  	  	<div>
-  	  	  	<Typography key={idx}>{each.message}</Typography>
+  	  	  	<div key={idx}>
+  	  	  		<Typography><b>{each.name ? each.name : each.message.name}</b>: {each.name ? each.message : each.message.message}</Typography> 
   	  	  	</div>
   	  	  )
   	  	})}
@@ -77,16 +82,20 @@ class Chatbox extends Component {
   }
 }
 
-const mapStateToProps = ({ message, user }) => {
+const mapStateToProps = ({ message, auth, translation }) => {
+  const { speakingLng, translateLng } = translation;
   return {
 		messages: message,
+		from: speakingLng,
+		to: translateLng,
+		user: auth
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-	sendMessage: (message, languageSetting) => {
-		dispatch(sendMessage({message, languageSetting}));
-		socket.emit('message', {message, languageSetting});
+	sendMessage: (name, message, languageSetting) => {
+		dispatch(sendMessage({name, message, languageSetting}));
+		socket.emit('message', {name, message, languageSetting});
 	},
 	receiveMessage: (message) => dispatch(sendMessage({ message }))
 })

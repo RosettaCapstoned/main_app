@@ -6,7 +6,7 @@ export default class AboutUs extends Component {
   render(){
 
   	return (
-  	  <div className="sectionContainer">
+  	  <div className="sectionContainer whatwedo">
 				<Typography variant='h1' 
   	  						color='primary' 
   	  						align="left"
@@ -19,7 +19,7 @@ export default class AboutUs extends Component {
   	  						align="left"
   	  	  					className="description"
   	  	  					style={{fontFamily: 'Georgia, serif', padding: '15px 0px 0px 0px'}}>
-           Rosetta Capstoned is a <b>real time interactive learning platform</b>. It’s primarily used to teach users a language they want to learn via a real instructor. The instructor will stream themselves teaching and speaking a particular language. The audio stream will be translated in real time and displayed in the form of text on screen for the students. Each student will see text in the language they selected themselves.
+           Rosetta Capstone is a <b>real time interactive learning platform</b>. It’s primarily used to teach users a language they want to learn via a real instructor. The instructor will stream themselves teaching and speaking a particular language. The audio stream will be translated in real time and displayed in the form of text on screen for the students. Each student will see text in the language they selected themselves.
 					 <br />
 				</Typography>
   	  </div>

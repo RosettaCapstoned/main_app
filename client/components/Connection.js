@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Paper, IconButton, Icon, CircularProgress } from '@material-ui/core';
+import { Paper, IconButton, Icon, CircularProgress, Typography } from '@material-ui/core';
 import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc';
 import Video from './Video';
 import Chatbox from './Chatbox';
@@ -27,10 +27,14 @@ class Connection extends Component {
 					<div className="connection">
 						<Connected>
 							<Video />
-							<div>									
+							<div>
+								<Typography align='justify'>{auth.firstName || 'Anonymous'}</Typography>									
 								<Chatbox />
 							</div>				
 						</Connected>
+						<Disconnected>
+							<CircularProgress />
+						</Disconnected>
 					</div>
 				</div>
 			</Provider>
