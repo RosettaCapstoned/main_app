@@ -1,8 +1,9 @@
 const translate = require('translate');
-const googleKey = require('../../server/env').apiKey;
+// const googleKey = require('../../server/env').apiKey;
 
 translate.engine = 'google';
-translate.key = googleKey;
+// translate.key = googleKey ;
+translate.key = process.env.apiKey
 
 const initialState = {
   lngFromIdx: 0,
