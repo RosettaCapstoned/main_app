@@ -22,6 +22,6 @@ const initial = {
   message: []
 }
 
-const store = createStore(reducer, initial, applyMiddleware(thunk));
+const store = createStore(reducer, initial, applyMiddleware(logger, thunk));
 
 export default store;
