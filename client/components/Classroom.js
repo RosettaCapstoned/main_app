@@ -32,8 +32,8 @@ class Classroom extends React.Component {
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
     );
-    console.log(localVideo);
-    console.log('Remote:', remoteVideos)
+    // console.log(localVideo);
+    // console.log('Remote:', remoteVideos)
     return (
       <div className="screenContainer">
         <div>

@@ -24,11 +24,29 @@ class Chatbox extends Component {
 	}
 
 	componentDidMount = () => {
+		socket.on('joined', ({ message })=> {
+			console.log('user joined: ', message);
+		});
+
+		socket.on('socketId', id => {
+			console.log('SocketId received ', id)
+			//Set SocketId on User instance
+			const roomId = 'default';
+			const lng = this.props.user.language || 'en';
+			socket.emit('roomSettings', { roomId, lng });
+		});
+
+		
+
 		socket.on('message', (msg)=> {
 			const { name, message } = msg;
 			console.log('message received: ', message);
 			this.props.receiveMessage({message, name});
 		})
+
+		socket.on('joinChat', ()=> {
+
+		});
 
 	}
 
@@ -50,7 +68,7 @@ class Chatbox extends Component {
   render(){
 		const { messages } = this.props;
 		const { handleChange, handleClick } = this;
-		console.log(messages);
+		// console.log(messages);
   	return (
   	  <div className="chat">
   	  <div className="chatHeadline">
