@@ -33,13 +33,11 @@ io.on('connection', (socket)=> {
 
 
   //Action listener for 'message' action
-  socket.on('message', (_message)=> {
-    const { message, languageSetting} = _message;
-    // io.to(room).emit('message', { message, langaugeSetting })
-    translate(message, languageSetting)
-    .then(result => {
-      io.to(room).emit('message', result);
-    });
+  socket.on('message', async (_message)=> {
+    const { name, message, languageSetting} = _message;
+    const result = { name, message: await translate(message, languageSetting) }
+    console.log(result)
+    io.to(room).emit('message', result);
   });
 
   socket.on('teacherSpeech', (speechText)=> {
