@@ -38,13 +38,15 @@ class Chatbox extends Component {
   }
 
   handleClick = () => {
-		this.props.sendMessage(this.state.textInput, this.state.languageSetting);
+  	const { from, to } = this.props;
+  	const languageSetting = { to, from };
+		this.props.sendMessage(this.state.textInput, languageSetting || this.state.languageSetting);
 		this.setState({ textInput: '' });
 		TextField.value = '';
   }
 
   render(){
-		const { messages } = this.props;
+		const { messages, user } = this.props;
 		const { handleChange, handleClick } = this;
 		console.log(messages);
   	return (
@@ -56,7 +58,7 @@ class Chatbox extends Component {
 					console.log(each)
   	  	  return (
   	  	  	<div key={idx}>
-  	  	  		{/* <Typography> {each.message}</Typography> */}
+  	  	  		<Typography><b>{user[0].firstName}</b>: {each.message}</Typography>
   	  	  	</div>
   	  	  )
   	  	})}
@@ -78,9 +80,15 @@ class Chatbox extends Component {
   }
 }
 
-const mapStateToProps = ({ message, user }) => {
+const mapStateToProps = ({ message, auth, translation }) => {
+  const { speakingLng, translateLng } = translation;
+  // console.log(lngTo, lngFrom)
+  console.log(auth[0]);
   return {
 		messages: message,
+		from: speakingLng,
+		to: translateLng,
+		user: auth
   }
 }
 
