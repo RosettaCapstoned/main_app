@@ -7,7 +7,13 @@ const User = require('./db/Models/User');
 
 const googleKey = {};
 const cookieSession = require('cookie-session');
-const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
+const {
+  userRouter,
+  authRouter,
+  translateRouter,
+  roomRouter,
+  messagesRouter,
+} = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,7 +23,6 @@ const jwt = require('jsonwebtoken');
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
-
 translate.key = googleKey.apiKey || process.env.apiKey 
 
 //Wrapping server in socket.io instance
@@ -31,25 +36,24 @@ const uuidv1 = require('uuid/v1');
 let payload;
 
 //Socket.io implementation
-io.on('connection', (socket)=> {
-  let room; 
-  let languages = new Set(['zh', 'fr', 'es']);
+io.on('connection', socket => {
+  let room;
+  let languages = new Set(['zh', 'fr', 'es', 'ru']);
   const { id } = socket;
-  console.log('user joined: ', id)
+  console.log('user joined: ', id);
 
   ////Client may need to update the User instance to know socketID
   socket.emit('socketId', id);
 
-
-  //Receive Room ID and Language from Client, 
+  //Receive Room ID and Language from Client,
   // - join socket to room
   // - find teacher and language from room
   // - send teacherId to client
 
-  socket.on('roomSettings', ({ roomId, lng })=> {
+  socket.on('roomSettings', ({ roomId, lng }) => {
     console.log('room setting event: ', roomId, ' and ', lng);
     // Rooms.findById(roomId)
-    //  .then(_room => { 'use code below' 
+    //  .then(_room => { 'use code below'
     //  _room.languages.forEach(_lng => languages.add(_lng));
     //})
     room = roomId;
@@ -57,56 +61,75 @@ io.on('connection', (socket)=> {
 
     socket.join(room);
     console.log(`${socket.id} joined: ${room}`);
-  })
+  });
 
-  
-  //Action broadcasts to all clients attached, not including the current client 
+  //Action broadcasts to all clients attached, not including the current client
   io.to(room).emit('joined', { message: 'a user joined' });
 
-  socket.on('joinChat', (language) => {
-    currentLanguages[socket.id] = language
+  socket.on('joinChat', language => {
+    currentLanguages[socket.id] = language;
     console.log('current languages is: ', currentLanguages);
   });
   //Needs to establish user settings from client
   // - Send user payload, containing:
-  // -- Room 
+  // -- Room
   // -- Language
   // -- Teacher
 
   //Action listener for 'message' action
-  socket.on('message', async (_message)=> {
-    const { name, message, languageSetting} = _message;
+  socket.on('message', _message => {
+    const { name, message, languageSetting } = _message;
     const { from } = languageSetting;
 
-    return Promise.all(Array.from(languages).map(_lng => {
-      console.log('language is: ', _lng);
-      return translate(message, { to: _lng, from })
-    }))
-    .then(translations => {
-      let payload = {}, idx = 0;
-      languages.forEach(_lng => {
-        payload[_lng] = translations[idx]
-        idx++;
+    return Promise.all(
+      Array.from(languages).map(_lng => {
+        console.log('language is: ', _lng);
+        return translate(message, { to: _lng, from });
       })
+    )
+      .then(translations => {
+        let payload = {},
+          idx = 0;
+        languages.forEach(_lng => {
+          payload[_lng] = translations[idx];
+          idx++;
+        });
 
-      const translatedMessage = {
-        name,
-        message: payload
-      }
-      io.to(room).emit('message', translatedMessage)
-    })
-    .catch(err => console.error(err));
+        const translatedMessage = {
+          name,
+          message: payload,
+        };
+        io.to(room).emit('message', translatedMessage);
+      })
+      .catch(err => console.error(err));
   });
 
   socket.on('teacherSpeech', speechText => {
     //Teachers message
-    const { message, languageSetting} = speechText;
-    translate(message, languageSetting)
-    .then(result => {
-      io.to(room).emit('teacherSpeech', result);
-    });
+    //console.log(speechText);
+    const { name, message, languageSetting } = speechText;
+    const { from } = languageSetting;
+    return Promise.all(
+      Array.from(languages).map(_lng => {
+        //console.log('language is: ', _lng);
+        return translate(message, { to: _lng, from });
+      })
+    )
+      .then(translations => {
+        let payload = {},
+          idx = 0;
+        languages.forEach(_lng => {
+          payload[_lng] = translations[idx];
+          idx++;
+        });
+        const translatedMessage = {
+          name,
+          message: payload,
+        };
+        io.to(room).emit('teacherSpeech', translatedMessage);
+      })
+      .catch(err => console.error(err));
   });
-
 
   //Action listener for 'disconnection' action
   socket.on('disconnect', () => {
@@ -177,7 +200,7 @@ passport.use(
           googleId: profile.id,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
-          role: 'Student'
+          role: 'Student',
         },
       }).then(user => {
         user = { ...user, token: accessToken };
