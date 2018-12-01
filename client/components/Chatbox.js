@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, Typography, IconButton, Icon, Paper } from '@material-ui/core';
-// import io from 'socket.io-client';
 import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage } from '../store/message';
 import SelectLanguage from './SelectLanguage';
-
-// const socket = io();
 
 const socket = new SocketSingleton().socket;
 
