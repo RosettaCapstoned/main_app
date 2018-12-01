@@ -37,7 +37,7 @@ class SelectLanguage extends Component {
 	console.log(this.state);
   	return (
   	  <FormControl className="selectLng" variant="outlined" >
-          <InputLabel>Select a Language</InputLabel>
+          { this.state.lngItem? null : <InputLabel>Select a Language</InputLabel> }
           <Select
             native={false}
             renderValue={()=>this.state.lngItem}

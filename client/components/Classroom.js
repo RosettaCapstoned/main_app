@@ -25,8 +25,8 @@ class Classroom extends React.Component {
   }
 
   componentDidMount = () => {
-    socket.on('teacherSpeech', message => {
-      this.props.receiveSpeechText(message);
+    socket.on('teacherSpeech', speechText => {
+      this.props.receiveSpeechText(speechText);
     });
   };
 
@@ -40,18 +40,14 @@ class Classroom extends React.Component {
 
   handleResult({ interimTranscript, finalTranscript }) {
     const languageSetting = {
-      to: 'ru',
+      to: this.props.translation.translateLng,
       from: 'en',
     };
     socket.emit('teacherSpeech', {
       message: finalTranscript,
       languageSetting,
     });
-    console.log(
-      this.props.speechText.currMessage +
-        ' : ' +
-        this.props.speechText.prevMessage
-    );
+    //console.log(this.props.speechText.messageLog);
   }
   render() {
     const { room, peers, localMedia, remoteMedia, auth } = this.props;
@@ -59,8 +55,8 @@ class Classroom extends React.Component {
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
     );
-    console.log(localVideo);
-    console.log('Remote:', remoteVideos)
+    // console.log(localVideo);
+    // console.log('Remote:', remoteVideos)
     return (
       <div className="screenContainer">
         <div>
@@ -111,16 +107,17 @@ class Classroom extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth, user, speechText }) => {
+const mapStateToProps = ({ auth, user, speechText, translation }) => {
   return {
     auth,
     user,
     speechText,
+    translation,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  receiveSpeechText: message => dispatch(receiveSpeechText(message)),
+  receiveSpeechText: speechText => dispatch(receiveSpeechText(speechText)),
 });
 
 export default connect(
