@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, Typography, IconButton, Icon, Paper } from '@material-ui/core';
-// import io from 'socket.io-client';
 import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage } from '../store/message';
 import SelectLanguage from './SelectLanguage';
-
-// const socket = io();
 
 const socket = new SocketSingleton().socket;
 
@@ -34,8 +31,9 @@ class Chatbox extends Component {
 
   handleClick = () => {
 	let { from, to, user } = this.props;
-	to = to || 'es';
-	from = from || 'en';  
+	console.log('This is coming from click handler: ', to, from)
+	to = to //|| 'es';
+	from = from //|| 'en';  
   	const name = user[0] ? user[0].firstName : user.firstName;
   	const languageSetting = { to, from };
 	this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);

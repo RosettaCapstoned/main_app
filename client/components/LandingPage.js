@@ -4,6 +4,7 @@ import RosettaCapstoneLogo from './RosettaCapstoneLogo';
 import AboutUs from './AboutUs';
 import WhatWeDo from './WhatWeDo';
 import OurTeam from './OurTeam';
+import Header from './Header';
 
 class LandingPage extends Component {
   
@@ -11,7 +12,8 @@ class LandingPage extends Component {
 
   	return (
   	  <Fragment>
-  	    <RosettaCapstoneLogo />
+  	      <Header type="landingHeader"/>
+  	      <RosettaCapstoneLogo />
 	      <AboutUs />
 	      <WhatWeDo />
 	      <OurTeam />
