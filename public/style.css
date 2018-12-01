@@ -124,6 +124,17 @@ div .landingContainer {
   margin: 10% 0% 10% 0%;
 }
 
+.logoIcons {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.logoPic {
+  width: 30%;
+  height: 35%;
+}
+
 .menuIcon {
   display: flex;
   justify-content: flex-end;

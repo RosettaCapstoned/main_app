@@ -13,7 +13,7 @@ const ROOM_NAME = 'YOUR_ROOM_NAME';   //will change name based on teacher's id
 const ROOM_PASSWORD = 'YOUR_ROOM_PASSWORD'; //same with password
 const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
 
-const socket = new SocketSingleton()
+const socket = new SocketSingleton().socket
 
 class Connection extends Component {
   render(){

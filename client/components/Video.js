@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import { RequestUserMedia, Room }  from '@andyet/simplewebrtc'
 import { CircularProgress } from '@material-ui/core';
 
+import SocketSingleton from '../utils/SocketSingleton'
+
 import Classroom from './Classroom'
+
+const socket = new SocketSingleton().socket
 
 class Video extends React.Component{
   render(){
+    const { auth } = this.props
     return (
       <div className="video">
         <RequestUserMedia audio video auto/>    {/* set up a toggle later */}
@@ -37,4 +42,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default Video
+export default connect(mapStateToProps, null)(Video)

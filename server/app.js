@@ -4,9 +4,10 @@ const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
 const User = require('./db/Models/User');
 // const googleKey = require('./env');
+
 const googleKey = {};
 const cookieSession = require('cookie-session');
-const { userRouter, authRouter, translateRouter } = require('./api');
+const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -105,6 +106,7 @@ io.on('connection', (socket)=> {
     });
   });
 
+
   //Action listener for 'disconnection' action
   socket.on('disconnect', () => {
     io.emit('message', { message: 'a user signed off' });
@@ -152,31 +154,37 @@ app.use((req, res, next) => {
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/translate', translateRouter);
+app.use('/api/room', roomRouter);
+app.use('/api/messages', messagesRouter);
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
 app.use(passport.session()); // Used to persist login sessions
 
 // Strategy config
-passport.use(new GoogleStrategy({
-    clientID: googleKey.clientID || process.env.clientID,
-    clientSecret: googleKey.clientSecret || process.env.clientSecret,
-    callbackURL: googleKey.callbackURL || process.env.callbackURL,
-    passReqToCallback: true
-  },
-  async (request, accessToken, refreshToken, profile, done) => {
-    const user = await User.findOrCreate({ where: { 
-        googleId: profile.id,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName
-      } 
-    })
-    .then(user => {
-      user = {...user, token: accessToken}
-      done(null, user);
-    });
-  }
-));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: googleKey.clientID,
+      clientSecret: googleKey.clientSecret,
+      callbackURL: googleKey.callbackURL,
+      passReqToCallback: true,
+    },
+    async (request, accessToken, refreshToken, profile, done) => {
+      const user = await User.findOrCreate({
+        where: {
+          googleId: profile.id,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          role: 'Student'
+        },
+      }).then(user => {
+        user = { ...user, token: accessToken };
+        done(null, user);
+      });
+    }
+  )
+);
 
 // Used to stuff a piece of information into a cookie
 passport.serializeUser((user, done) => {
