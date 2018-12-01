@@ -30,7 +30,7 @@ let payload;
 //Socket.io implementation
 io.on('connection', (socket)=> {
   let room; 
-  let languages = new Set();
+  let languages = new Set(['zh', 'fr', 'es']);
   const { id } = socket;
   console.log('user joined: ', id)
 
@@ -44,6 +44,7 @@ io.on('connection', (socket)=> {
   // - send teacherId to client
 
   socket.on('roomSettings', ({ roomId, lng })=> {
+    console.log('room setting event: ', roomId, ' and ', lng);
     // Rooms.findById(roomId)
     //  .then(_room => { 'use code below' 
     //  _room.languages.forEach(_lng => languages.add(_lng));
@@ -72,9 +73,26 @@ io.on('connection', (socket)=> {
   //Action listener for 'message' action
   socket.on('message', async (_message)=> {
     const { name, message, languageSetting} = _message;
-    const result = { name, message: await translate(message, languageSetting) }
-    console.log(result)
-    io.to(room).emit('message', result);
+    const { from } = languageSetting;
+
+    return Promise.all(Array.from(languages).map(_lng => {
+      console.log('language is: ', _lng);
+      return translate(message, { to: _lng, from })
+    }))
+    .then(translations => {
+      let payload = {}, idx = 0;
+      languages.forEach(_lng => {
+        payload[_lng] = translations[idx]
+        idx++;
+      })
+
+      const translatedMessage = {
+        name,
+        message: payload
+      }
+      io.to(room).emit('message', translatedMessage)
+    })
+    .catch(err => console.error(err));
   });
 
   socket.on('teacherSpeech', speechText => {

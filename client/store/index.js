@@ -27,4 +27,5 @@ const initial = {
 
 const store = createStore(reducer, initial, applyMiddleware(thunk));
 
+export const { dispatch } = store;
 export default store;
