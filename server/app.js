@@ -15,7 +15,7 @@ const jwt = require('jsonwebtoken');
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
-translate.key = googleKey.apiKey; //process.env.GOOGLE_KEY
+translate.key = googleKey.apiKey || process.env.apiKey
 
 //Wrapping server in socket.io instance
 const server = require('http').Server(app);
@@ -23,14 +23,52 @@ const io = require('socket.io')(server);
 
 const room = 'default';
 
-//Socket.io implementation
-io.on('connection', socket => {
-  socket.join(room);
-  console.log(`${socket.id} joined: ${room}`);
+//Temporary UUID for messageId, eventually done in Postgres
+const uuidv1 = require('uuid/v1');
+let payload;
 
-  //Action broadcasts to all clients attached, not including the current client
+//Socket.io implementation
+io.on('connection', (socket)=> {
+  let room; 
+  let languages = new Set();
+  const { id } = socket;
+  console.log('user joined: ', id)
+
+  ////Client may need to update the User instance to know socketID
+  socket.emit('socketId', id);
+
+
+  //Receive Room ID and Language from Client, 
+  // - join socket to room
+  // - find teacher and language from room
+  // - send teacherId to client
+
+  socket.on('roomSettings', ({ roomId, lng })=> {
+    // Rooms.findById(roomId)
+    //  .then(_room => { 'use code below' 
+    //  _room.languages.forEach(_lng => languages.add(_lng));
+    //})
+    room = roomId;
+    languages.add(lng);
+
+    socket.join(room);
+    console.log(`${socket.id} joined: ${room}`);
+  })
+
+  
+  //Action broadcasts to all clients attached, not including the current client 
   io.to(room).emit('joined', { message: 'a user joined' });
 
+  socket.on('joinChat', (language) => {
+    currentLanguages[socket.id] = language
+    console.log('current languages is: ', currentLanguages);
+  });
+  //Needs to establish user settings from client
+  // - Send user payload, containing:
+  // -- Room 
+  // -- Language
+  // -- Teacher
+  
   //Action listener for 'message' action
   socket.on('message', async (_message)=> {
     const { name, message, languageSetting} = _message;
@@ -101,28 +139,25 @@ app.use(passport.initialize()); // Used to initialize passport
 app.use(passport.session()); // Used to persist login sessions
 
 // Strategy config
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: googleKey.clientID,
-      clientSecret: googleKey.clientSecret,
-      callbackURL: googleKey.callbackURL,
-      passReqToCallback: true,
-    },
-    async (request, accessToken, refreshToken, profile, done) => {
-      const user = await User.findOrCreate({
-        where: {
-          googleId: profile.id,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-        },
-      }).then(user => {
-        user = { ...user, token: accessToken };
-        done(null, user);
-      });
-    }
-  )
-);
+passport.use(new GoogleStrategy({
+    clientID: googleKey.clientID || process.env.clientID,
+    clientSecret: googleKey.clientSecret || process.env.clientSecret,
+    callbackURL: googleKey.callbackURL || process.env.callbackURL,
+    passReqToCallback: true
+  },
+  async (request, accessToken, refreshToken, profile, done) => {
+    const user = await User.findOrCreate({ where: { 
+        googleId: profile.id,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName
+      } 
+    })
+    .then(user => {
+      user = {...user, token: accessToken}
+      done(null, user);
+    });
+  }
+));
 
 // Used to stuff a piece of information into a cookie
 passport.serializeUser((user, done) => {

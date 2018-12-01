@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Paper, IconButton, Icon, CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Typography } from '@material-ui/core';
 import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc';
+
 import Video from './Video';
 import Chatbox from './Chatbox';
+import SocketSingleton from '../utils/SocketSingleton'
 
 const API_KEY = '75558107906217b9a6192969';
 
@@ -11,7 +13,7 @@ const ROOM_NAME = 'YOUR_ROOM_NAME';   //will change name based on teacher's id
 const ROOM_PASSWORD = 'YOUR_ROOM_PASSWORD'; //same with password
 const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
 
-
+const socket = new SocketSingleton()
 
 class Connection extends Component {
   render(){

@@ -47,7 +47,7 @@ class Classroom extends React.Component {
       message: finalTranscript,
       languageSetting,
     });
-    console.log(this.props.speechText.messageLog);
+    //console.log(this.props.speechText.messageLog);
   }
   render() {
     const { room, peers, localMedia, remoteMedia, auth } = this.props;
@@ -55,8 +55,8 @@ class Classroom extends React.Component {
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
     );
-    //console.log(localVideo);
-    //console.log('Remote:', remoteVideos);
+    // console.log(localVideo);
+    // console.log('Remote:', remoteVideos)
     return (
       <div className="screenContainer">
         <div>
