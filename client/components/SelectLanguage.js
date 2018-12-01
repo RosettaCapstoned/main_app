@@ -23,17 +23,19 @@ class SelectLanguage extends Component {
   render () {
   	const { handleChange } = this;
   	const { lng, idx } = this.props;
-  	const lngMap = [{lngItem:'English', lng:'en'}, 
-			      {lngItem:'Spanish', lng: 'es'}, 
-			      {lngItem:'Chinese', lng: 'zh'}, 
-			      {lngItem:'French', lng: 'fr'}, 
-			      {lngItem:'Russian', lng: 'ru'}, 
-			      {lngItem:'Hindi', lng: 'hi'}, 
-			      {lngItem:'Arabic', lng: 'ar'}, 
-			      {lngItem:'Portuguese', lng: 'pt'}, 
-			      {lngItem:'Bengali', lng: 'bn'}, 
-			      {lngItem:'Japanese', lng: 'ja'}, 
-			      {lngItem:'Punjabi', lng: 'pa'}]
+  	const lngMap = [
+						{lngItem:'English', lng:'en'}, 
+			      {lngItem:'Español', lng: 'es'}, 
+			      {lngItem:'中文', lng: 'zh'}, 
+			      {lngItem:'Français', lng: 'fr'}, 
+			      {lngItem:'Pусский', lng: 'ru'}, 
+			      {lngItem:'हिंदी', lng: 'hi'}, 
+			      {lngItem:'عربى', lng: 'ar'}, 
+			      {lngItem:'Português', lng: 'pt'}, 
+			      {lngItem:'বাঙালি', lng: 'bn'}, 
+			      {lngItem:'日本人', lng: 'ja'}, 
+						{lngItem:'ਪੰਜਾਬੀ', lng: 'pa'}
+					]
 	console.log(this.state);
   	return (
   	  <FormControl className="selectLng" variant="outlined" >
