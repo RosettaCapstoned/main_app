@@ -16,18 +16,28 @@ import { receiveSpeechText } from '../store/speechText';
 const socket = new SocketSingleton().socket;
 
 class Classroom extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
+    this.state = {
+      localStream: {}
+    }
 
     this.handleStart = this.handleStart.bind(this);
     this.handleEnd = this.handleEnd.bind(this);
     this.handleResult = this.handleResult.bind(this);
   }
 
-  componentDidMount = () => {
-    socket.on('teacherSpeech', message => {
-      this.props.receiveSpeechText(message);
-    });
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevState.localStream.id !== this.state.localStream.id){
+      console.log(this.state)
+      console.log(this.props)
+      const { auth } = this.props
+      if(auth.role === 'Teacher'){
+        //socket.emit('teacherStreamId', this.state.localStream.id)
+      } else if(auth.role === 'Student'){
+        //socket.emit('studentStreamId', this.state.localStream.id)
+      }
+    }
   };
 
   handleStart() {
@@ -58,8 +68,11 @@ class Classroom extends React.Component {
     const remoteVideos = remoteMedia.filter(media => media.kind === 'video');
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
-    );
-    // console.log(localVideo);
+    )
+    if(localVideo.length > 0 && this.state.localStream.id !== localVideo[0].id){
+      this.setState({ localStream: localVideo[0] })
+    }
+    //  console.log(localVideo);
     // console.log('Remote:', remoteVideos)
     return (
       <div className="screenContainer">
@@ -96,7 +109,7 @@ class Classroom extends React.Component {
           {room.providedName}
         </Typography>
         <Typography variant="h6" align="center">
-          Total people in classroom: {peers.length}
+          Total people in classroom: {peers.length + 1}
         </Typography>
         {this.props.user.role === 'Teacher' ||
         this.props.auth.role === 'Teacher' ? (

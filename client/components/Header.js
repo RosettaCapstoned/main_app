@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, Drawer, IconButton, Icon, Typography } from '@material-ui/core';
-import LandingPage from './LandingPage';
-import Login from './Login';
-import Classroom from './Classroom';
 import Menu from './Menu';
-import LanguageSelection from './LanguageSelection';
 import SelectLanguage from './SelectLanguage';
-import StudentList from './StudentList'
 
 class Header extends Component {
   state = {
