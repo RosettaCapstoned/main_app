@@ -28,7 +28,6 @@ const uuidv1 = require('uuid/v1');
 let payload;
 
 //Socket.io implementation
-<<<<<<< HEAD
 io.on('connection', (socket)=> {
   let room; 
   let languages = new Set();
@@ -70,16 +69,6 @@ io.on('connection', (socket)=> {
   // -- Language
   // -- Teacher
 
-
-=======
-io.on('connection', socket => {
-  socket.join(room);
-  console.log(`${socket.id} joined: ${room}`);
-
-  //Action broadcasts to all clients attached, not including the current client
-  io.to(room).emit('joined', { message: 'a user joined' });
-
->>>>>>> 6c2b2841532bfbcda2200269ed39afe640015b3b
   //Action listener for 'message' action
   socket.on('message', async (_message)=> {
     const { name, message, languageSetting} = _message;
