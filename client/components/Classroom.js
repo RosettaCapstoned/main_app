@@ -1,10 +1,19 @@
 import React from 'react';
 import { IconButton, Icon, Typography } from '@material-ui/core';
 import { MicOff, Mic } from '@material-ui/icons';
-import { MediaControls, UserControls, Video, GridLayout } from '@andyet/simplewebrtc';
+import {
+  MediaControls,
+  UserControls,
+  Video,
+  GridLayout,
+} from '@andyet/simplewebrtc';
 import { connect } from 'react-redux';
 import VoiceRecognition from './VoiceRecognition';
-import StudentList from './StudentList'
+import StudentList from './StudentList';
+import SocketSingleton from '../utils/SocketSingleton';
+import { receiveSpeechText } from '../store/speechText';
+
+const socket = new SocketSingleton().socket;
 
 class Classroom extends React.Component {
   constructor() {
@@ -15,6 +24,12 @@ class Classroom extends React.Component {
     this.handleResult = this.handleResult.bind(this);
   }
 
+  componentDidMount = () => {
+    socket.on('teacherSpeech', message => {
+      this.props.receiveSpeechText(message);
+    });
+  };
+
   handleStart() {
     console.log('Speech recognition started');
   }
@@ -23,11 +38,23 @@ class Classroom extends React.Component {
     console.log('Speech recognition ended');
   }
 
-  handleResult(text) {
-    console.log(text.finalTranscript);
+  handleResult({ interimTranscript, finalTranscript }) {
+    const languageSetting = {
+      to: 'ru',
+      from: 'en',
+    };
+    socket.emit('teacherSpeech', {
+      message: finalTranscript,
+      languageSetting,
+    });
+    console.log(
+      this.props.speechText.currMessage +
+        ' : ' +
+        this.props.speechText.prevMessage
+    );
   }
   render() {
-    const { room, peers, localMedia, remoteMedia , auth } = this.props;
+    const { room, peers, localMedia, remoteMedia, auth } = this.props;
     const remoteVideos = remoteMedia.filter(media => media.kind === 'video');
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
@@ -41,31 +68,35 @@ class Classroom extends React.Component {
           <div className="screen">
             <GridLayout
               className="videoGrid"
-              items={[
-                ...localVideo,
-                ...remoteVideos,
-              ]} 
+              items={[...localVideo, ...remoteVideos]}
               renderCell={item => {
                 //console.log(item);
-                return <Video media={item}  />;
+                return <Video media={item} />;
               }}
             />
           </div>
           <UserControls
-              render={({ isMuted, mute, unmute }) => {
-                return (
-                  <IconButton
-                    id="muteButton"
-                    onClick={() => (isMuted ? unmute() : mute())}
-                  >
-                    {isMuted ? <Mic /> : <MicOff />}
-                  </IconButton>
-                );
-              }}
-            />
+            render={({ isMuted, mute, unmute }) => {
+              return (
+                <IconButton
+                  id="muteButton"
+                  onClick={() => (isMuted ? unmute() : mute())}
+                >
+                  {isMuted ? <Mic /> : <MicOff />}
+                </IconButton>
+              );
+            }}
+          />
         </div>
-        <Typography variant="h3" align="center">{room.providedName}</Typography>
-        <Typography variant="h6" align="center">Total people in classroom: {peers.length}</Typography>
+        <Typography variant="h4" align="center">
+          {this.props.speechText.currMessage}
+        </Typography>
+        <Typography variant="h3" align="center">
+          {room.providedName}
+        </Typography>
+        <Typography variant="h6" align="center">
+          Total people in classroom: {peers.length}
+        </Typography>
         {this.props.user.role === 'Teacher' ||
         this.props.auth.role === 'Teacher' ? (
           <VoiceRecognition
@@ -79,11 +110,19 @@ class Classroom extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth, user }) => {
+const mapStateToProps = ({ auth, user, speechText }) => {
   return {
     auth,
     user,
+    speechText,
   };
 };
 
-export default connect(mapStateToProps)(Classroom);
+const mapDispatchToProps = dispatch => ({
+  receiveSpeechText: message => dispatch(receiveSpeechText(message)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Classroom);
