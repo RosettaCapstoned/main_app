@@ -21,6 +21,7 @@ const messageReducer = (state=initialState, action) => {
 	switch (action.type){
       case RECEIVE_MESSAGE:
         console.log('receive message dispatch')
+        console.log('From store: ', action.message)
 	    return state = [ ...state, action.message ];
       case SEND_MESSAGE:
         return state = [ ...state, action.message ];

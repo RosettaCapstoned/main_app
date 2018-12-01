@@ -24,9 +24,10 @@ class Chatbox extends Component {
 	}
 
 	componentDidMount = () => {
-		socket.on('message', (message)=> {
+		socket.on('message', (msg)=> {
+			const { name, message } = msg;
 			console.log('message received: ', message);
-			this.props.receiveMessage(message);
+			this.props.receiveMessage({message, name});
 		})
 
 	}
@@ -38,15 +39,16 @@ class Chatbox extends Component {
   }
 
   handleClick = () => {
-  	const { from, to } = this.props;
+  	const { from, to, user } = this.props;
+  	const name = user[0].firstName;
   	const languageSetting = { to, from };
-		this.props.sendMessage(this.state.textInput, languageSetting || this.state.languageSetting);
+		this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
 		this.setState({ textInput: '' });
 		TextField.value = '';
   }
 
   render(){
-		const { messages, user } = this.props;
+		const { messages } = this.props;
 		const { handleChange, handleClick } = this;
 		console.log(messages);
   	return (
@@ -55,10 +57,10 @@ class Chatbox extends Component {
   	  </div>
   	  	<Paper className="chatContainer">
   	  	{messages && messages.map((each, idx) => {
-					console.log(each)
+					console.log('This is the new message and user: ', each)
   	  	  return (
   	  	  	<div key={idx}>
-  	  	  		<Typography><b>{user[0].firstName}</b>: {each.message}</Typography>
+  	  	  		<Typography><b>{each.name ? each.name : each.message.name}</b>: {each.name ? each.message : each.message.message}</Typography> 
   	  	  	</div>
   	  	  )
   	  	})}
@@ -82,8 +84,6 @@ class Chatbox extends Component {
 
 const mapStateToProps = ({ message, auth, translation }) => {
   const { speakingLng, translateLng } = translation;
-  // console.log(lngTo, lngFrom)
-  console.log(auth[0]);
   return {
 		messages: message,
 		from: speakingLng,
@@ -93,9 +93,9 @@ const mapStateToProps = ({ message, auth, translation }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	sendMessage: (message, languageSetting) => {
-		dispatch(sendMessage({message, languageSetting}));
-		socket.emit('message', {message, languageSetting});
+	sendMessage: (name, message, languageSetting) => {
+		dispatch(sendMessage({name, message, languageSetting}));
+		socket.emit('message', {name, message, languageSetting});
 	},
 	receiveMessage: (message) => dispatch(sendMessage({ message }))
 })
