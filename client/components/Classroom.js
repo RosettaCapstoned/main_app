@@ -71,8 +71,8 @@ class Classroom extends React.Component {
     //  console.log(localVideo);
     // console.log('Remote:', remoteVideos)
     return (
-      <div className="screenContainer">
-        <div>
+      <div >
+        <div className="screenContainer">
           {/*{auth.role === 'Teacher' ? <StudentList /> : null}*/}
           <StudentList />
           <div className="screen">

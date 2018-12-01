@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Typography, Paper } from '@material-ui/core';
 import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc';
-
+import Header from './Header';
 import Video from './Video';
 import Chatbox from './Chatbox';
 import SocketSingleton from '../utils/SocketSingleton'
@@ -19,8 +19,10 @@ class Connection extends Component {
   render(){
 		const { auth } = this.props
   	return (
-			<Provider configUrl={CONFIG_URL} userData={auth}>	
+			<Provider configUrl={CONFIG_URL} userData={auth}>
 				<div>
+				<Header type="classroomHeader"/>
+				<Paper className="paperContainer">	
 					<RemoteAudioPlayer />
 					<Connecting>									
 						<h3>Connecting</h3>				
@@ -38,6 +40,7 @@ class Connection extends Component {
 							<CircularProgress />
 						</Disconnected>
 					</div>
+					</Paper>
 				</div>
 			</Provider>
   	)

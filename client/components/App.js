@@ -23,7 +23,6 @@ class App extends Component {
     return (
       <Router>
         <Fragment>
-          <Route component={Header} />
           <Switch>
             <Route exact path="/classroom" component={Connection} />
             <Route exact path="/login" render={renderLogin} />
