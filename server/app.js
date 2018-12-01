@@ -159,9 +159,9 @@ app.use(passport.session()); // Used to persist login sessions
 
 // Strategy config
 passport.use(new GoogleStrategy({
-    clientID: googleKey.clientID || process.env.clientID,
-    clientSecret: googleKey.clientSecret || process.env.clientSecret,
-    callbackURL: googleKey.callbackURL || process.env.callbackURL,
+    clientID: process.env.clientID,
+    clientSecret: process.env.clientSecret,
+    callbackURL: process.env.callbackURL,
     passReqToCallback: true
   },
   async (request, accessToken, refreshToken, profile, done) => {
