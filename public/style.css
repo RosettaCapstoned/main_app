@@ -21,11 +21,18 @@
 .bio {
   background-size: cover;
   background-color: #FBCCA7;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .about {
   background-size: cover;
   background-color: #F2E08B;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .bio {
@@ -195,11 +202,8 @@ div .landingContainer {
 
 .sectionContainer {
   align-content: center;
-  height: 100%;
-  max-height: 100%;
-  padding-top: 5%;
-  padding-left: 10%;
-  padding-right: 10%;
+  height: 90%;
+  padding: 10%;
 }
 
 .selectContainer {
@@ -257,4 +261,10 @@ video{
 .videoGrid {
   height: 100%;
   display: flex;
+}
+
+.whatwedo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
