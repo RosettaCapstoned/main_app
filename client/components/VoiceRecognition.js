@@ -23,7 +23,7 @@ class VoiceRecognition extends Component {
   createRecognition = SpeechRecognition => {
     const defaults = {
       continuous: true,
-      interimResults: false,
+      interimResults: true,
       lang: 'en-US',
     };
 
@@ -35,7 +35,7 @@ class VoiceRecognition extends Component {
   };
 
   handleEnd = event => {
-    this.recognition.start();
+    this.start();
   };
 
   bindResult = event => {
@@ -55,6 +55,7 @@ class VoiceRecognition extends Component {
 
   start = () => {
     this.recognition.start();
+    setTimeout(this.stop, 40000);
     this.props.onStart();
   };
 
@@ -70,6 +71,25 @@ class VoiceRecognition extends Component {
 
   abort = () => {
     this.recognition.abort();
+  };
+
+  audioStart = () => {
+    console.log('audiostart');
+  };
+  soundStart = () => {
+    console.log('soundstart');
+  };
+  speechStart = () => {
+    console.log('speechstart');
+  };
+  audioEnd = () => {
+    console.log('audioend');
+  };
+  soundEnd = () => {
+    console.log('soundend');
+  };
+  speechEnd = () => {
+    console.log('speechend');
   };
 
   componentWillReceiveProps({ stop }) {
@@ -92,6 +112,13 @@ class VoiceRecognition extends Component {
     this.recognition.addEventListener('result', this.bindResult);
 
     this.recognition.addEventListener('end', this.handleEnd);
+
+    this.recognition.addEventListener('audiostart', this.audioStart);
+    this.recognition.addEventListener('soundstart', this.soundStart);
+    this.recognition.addEventListener('speechstart', this.speechStart);
+    this.recognition.addEventListener('audioend', this.audioEnd);
+    this.recognition.addEventListener('soundsend', this.soundEnd);
+    this.recognition.addEventListener('speechend', this.speechEnd);
 
     this.start();
   }

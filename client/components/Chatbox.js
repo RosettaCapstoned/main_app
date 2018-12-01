@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { TextField, Typography, IconButton, Icon, Paper } from '@material-ui/core';
 // import io from 'socket.io-client';
 import SocketSingleton from '../utils/SocketSingleton';
-import { sendMessage, receiveMessage } from '../store/message';
+import { sendMessage } from '../store/message';
 import SelectLanguage from './SelectLanguage';
 
 // const socket = io();
@@ -24,12 +24,6 @@ class Chatbox extends Component {
 	}
 
 	componentDidMount = () => {
-		socket.on('message', (msg)=> {
-			const { name, message } = msg;
-			console.log('message received: ', message);
-			this.props.receiveMessage({message, name});
-		})
-
 	}
 
   handleChange = (evt) => {
@@ -39,18 +33,20 @@ class Chatbox extends Component {
   }
 
   handleClick = () => {
-  	const { from, to, user } = this.props;
+	let { from, to, user } = this.props;
+	to = to || 'es';
+	from = from || 'en';  
   	const name = user[0] ? user[0].firstName : user.firstName;
   	const languageSetting = { to, from };
-		this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
-		this.setState({ textInput: '' });
-		TextField.value = '';
+	this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
+	this.setState({ textInput: '' });
+	TextField.value = '';
   }
 
   render(){
 		const { messages } = this.props;
 		const { handleChange, handleClick } = this;
-		console.log(messages);
+		// console.log(messages);
   	return (
   	  <div className="chat">
   	  <div className="chatHeadline">
@@ -96,8 +92,8 @@ const mapDispatchToProps = dispatch => ({
 	sendMessage: (name, message, languageSetting) => {
 		dispatch(sendMessage({name, message, languageSetting}));
 		socket.emit('message', {name, message, languageSetting});
-	},
-	receiveMessage: (message) => dispatch(sendMessage({ message }))
+	}
+	// receiveMessage: (message) => dispatch(sendMessage({ message }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatbox);
