@@ -19,6 +19,9 @@ export default class RosettaCapstoneLogo extends Component {
   				style={{fontFamily: 'Georgia, serif'}}>
 			  Bringing English to you
 		    </Typography>
+		  <div className="logoIcons">
+		    <img className="logoPic" src='../../public/world_icon.png'/>
+		  </div>
   	  </div>
   	)
   }

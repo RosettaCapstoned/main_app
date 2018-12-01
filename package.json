@@ -6,6 +6,7 @@
   "scripts": {
     "test:client": "jest --watch",
     "test:user_models": "mocha -w ./server/db/testing/user-model.spec.js",
+    "test:room_models": "mocha -w ./server/db/testing/room-model.spec.js",
     "test:user_routes": "mocha -w ./server/api/testing/user-routes.spec.js",
     "test:translate_routes": "mocha -w ./server/api/testing/translate-routes.spec.js",
     "start": "node ./server/app.js",
