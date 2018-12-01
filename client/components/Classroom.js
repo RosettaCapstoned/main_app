@@ -50,18 +50,14 @@ class Classroom extends React.Component {
 
   handleResult({ interimTranscript, finalTranscript }) {
     const languageSetting = {
-      to: 'ru',
+      to: this.props.translation.translateLng,
       from: 'en',
     };
     socket.emit('teacherSpeech', {
       message: finalTranscript,
       languageSetting,
     });
-    console.log(
-      this.props.speechText.currMessage +
-        ' : ' +
-        this.props.speechText.prevMessage
-    );
+    //console.log(this.props.speechText.messageLog);
   }
   render() {
     const { room, peers, localMedia, remoteMedia, auth } = this.props;
@@ -124,16 +120,17 @@ class Classroom extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth, user, speechText }) => {
+const mapStateToProps = ({ auth, user, speechText, translation }) => {
   return {
     auth,
     user,
     speechText,
+    translation,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  receiveSpeechText: message => dispatch(receiveSpeechText(message)),
+  receiveSpeechText: speechText => dispatch(receiveSpeechText(speechText)),
 });
 
 export default connect(

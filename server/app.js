@@ -5,7 +5,7 @@ var GoogleStrategy = require('passport-google-oauth20');
 const User = require('./db/Models/User');
 const googleKey = require('./env');
 const cookieSession = require('cookie-session');
-const { userRouter, authRouter, translateRouter } = require('./api');
+const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -30,7 +30,7 @@ let payload;
 //Socket.io implementation
 io.on('connection', (socket)=> {
   let room; 
-  let languages = new Set();
+  let languages = new Set(['zh', 'fr', 'es']);
   const { id } = socket;
   console.log('user joined: ', id)
 
@@ -44,6 +44,7 @@ io.on('connection', (socket)=> {
   // - send teacherId to client
 
   socket.on('roomSettings', ({ roomId, lng })=> {
+    console.log('room setting event: ', roomId, ' and ', lng);
     // Rooms.findById(roomId)
     //  .then(_room => { 'use code below' 
     //  _room.languages.forEach(_lng => languages.add(_lng));
@@ -68,13 +69,30 @@ io.on('connection', (socket)=> {
   // -- Room 
   // -- Language
   // -- Teacher
-  
+
   //Action listener for 'message' action
   socket.on('message', async (_message)=> {
     const { name, message, languageSetting} = _message;
-    const result = { name, message: await translate(message, languageSetting) }
-    console.log(result)
-    io.to(room).emit('message', result);
+    const { from } = languageSetting;
+
+    return Promise.all(Array.from(languages).map(_lng => {
+      console.log('language is: ', _lng);
+      return translate(message, { to: _lng, from })
+    }))
+    .then(translations => {
+      let payload = {}, idx = 0;
+      languages.forEach(_lng => {
+        payload[_lng] = translations[idx]
+        idx++;
+      })
+
+      const translatedMessage = {
+        name,
+        message: payload
+      }
+      io.to(room).emit('message', translatedMessage)
+    })
+    .catch(err => console.error(err));
   });
 
   socket.on('teacherSpeech', speechText => {
@@ -134,31 +152,37 @@ app.use((req, res, next) => {
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/translate', translateRouter);
+app.use('/api/room', roomRouter);
+app.use('/api/messages', messagesRouter);
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
 app.use(passport.session()); // Used to persist login sessions
 
 // Strategy config
-passport.use(new GoogleStrategy({
-    clientID: googleKey.clientID || process.env.clientID,
-    clientSecret: googleKey.clientSecret || process.env.clientSecret,
-    callbackURL: googleKey.callbackURL || process.env.callbackURL,
-    passReqToCallback: true
-  },
-  async (request, accessToken, refreshToken, profile, done) => {
-    const user = await User.findOrCreate({ where: { 
-        googleId: profile.id,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName
-      } 
-    })
-    .then(user => {
-      user = {...user, token: accessToken}
-      done(null, user);
-    });
-  }
-));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: googleKey.clientID,
+      clientSecret: googleKey.clientSecret,
+      callbackURL: googleKey.callbackURL,
+      passReqToCallback: true,
+    },
+    async (request, accessToken, refreshToken, profile, done) => {
+      const user = await User.findOrCreate({
+        where: {
+          googleId: profile.id,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          role: 'Student'
+        },
+      }).then(user => {
+        user = { ...user, token: accessToken };
+        done(null, user);
+      });
+    }
+  )
+);
 
 // Used to stuff a piece of information into a cookie
 passport.serializeUser((user, done) => {

@@ -22,9 +22,14 @@ const initial = {
   translation: {},
   auth: {},
   message: [],
-  speechText: {},
+  speechText: {
+    prevMessage: '',
+    currMessage: '',
+    messageLog: [],
+  },
 };
 
 const store = createStore(reducer, initial, applyMiddleware(thunk));
 
+export const { dispatch } = store;
 export default store;
