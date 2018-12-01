@@ -5,7 +5,7 @@ var GoogleStrategy = require('passport-google-oauth20');
 const User = require('./db/Models/User');
 const googleKey = require('./env');
 const cookieSession = require('cookie-session');
-const { userRouter, authRouter, translateRouter } = require('./api');
+const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -95,6 +95,8 @@ app.use((req, res, next) => {
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/translate', translateRouter);
+app.use('/api/room', roomRouter);
+app.use('/api/messages', messagesRouter);
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
@@ -115,6 +117,7 @@ passport.use(
           googleId: profile.id,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
+          role: 'Student'
         },
       }).then(user => {
         user = { ...user, token: accessToken };
