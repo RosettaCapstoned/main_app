@@ -22,10 +22,10 @@ export default class OurTeam extends Component {
 				As a Software Developer, I spend most of my time writing text in the NERDS stack but also dabble with Google tools and technologies. 
 				As a freelance writer, I spend most of my time writing in the Asian American writing space. </Typography>
 				<div className="avatarContainer">
-				  <a href='https://www.linkedin.com/in/kevin-hu-82673529/'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://www.linkedin.com/in/kevin-hu-82673529/'>
 				    <Avatar className="avatar" src="../../public/linkedin_circle.png"></Avatar>
 				  </a>
-				  <a href='https://github.com/pkvinhu'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://github.com/pkvinhu'>
 				    <Avatar className="avatar" src="../../public/github_circle.png"></Avatar>
 				  </a>
 				</div>				
@@ -37,10 +37,10 @@ export default class OurTeam extends Component {
 			    I am a part-time procrastinator, part-time connoisseur of memes, and full-time web architect of anything agile, clean, and scalable. 
 					I am always on the lookout for up and coming technologies. Currently dabbling with the WebRTC api. </Typography>
 			    <div className="avatarContainer">
-				  <a href='https://www.linkedin.com/in/harrychenhc/'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://www.linkedin.com/in/harrychenhc/'>
 				    <Avatar className="avatar" src="../../public/linkedin_circle.png"></Avatar>
 				  </a>
-				  <a href='https://github.com/phaseharry'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://github.com/phaseharry'>
 				    <Avatar className="avatar" src="../../public/github_circle.png"></Avatar>
 				  </a>
 				</div>	
@@ -55,7 +55,7 @@ export default class OurTeam extends Component {
 				  <a>
 				    <Avatar className="avatar" src="../../public/linkedin_circle.png"></Avatar>
 				  </a>
-				  <a href='https://github.com/Kazniyaz'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://github.com/Kazniyaz'>
 				    <Avatar className="avatar" src="../../public/github_circle.png"></Avatar>
 				  </a>
 				</div>	
@@ -66,10 +66,10 @@ export default class OurTeam extends Component {
 			  <Typography align="center" variant="body1" style={{fontFamily: 'Georgia, serif', padding: '10px'}}>
 			    Bio pending....</Typography>
 			  <div className="avatarContainer">
-				  <a href='https://www.linkedin.com/in/daniel-seeley-54650813/'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://www.linkedin.com/in/daniel-seeley-54650813/'>
 				    <Avatar className="avatar" src="../../public/linkedin_circle.png"></Avatar>
 				  </a>
-				  <a href='https://github.com/D-Seeley'>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://github.com/D-Seeley'>
 				    <Avatar className="avatar" src="../../public/github_circle.png"></Avatar>
 				  </a>
 			  </div>	
