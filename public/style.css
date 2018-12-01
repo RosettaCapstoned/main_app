@@ -265,6 +265,15 @@ div .landingContainer {
   padding: 10px;
 }
 
+.transcriptionContainer {
+  height: 400px;
+  width: 60%;
+  border: 2px solid black;
+  padding: 15px;
+  overflow: scroll;
+  overflow-wrap: break-word;
+}
+
 video{
   object-fit: contain;
   width: 100%;

@@ -5,6 +5,7 @@ import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  fro
 import Header from './Header';
 import Video from './Video';
 import Chatbox from './Chatbox';
+import Transcription from './Transcription';
 import SocketSingleton from '../utils/SocketSingleton'
 
 const API_KEY = '75558107906217b9a6192969';
@@ -40,6 +41,7 @@ class Connection extends Component {
 							<CircularProgress />
 						</Disconnected>
 					</div>
+					<Transcription/>
 					</Paper>
 				</div>
 			</Provider>
