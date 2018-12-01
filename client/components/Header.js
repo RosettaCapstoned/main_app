@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import { Divider, Drawer, IconButton, Icon } from '@material-ui/core';
-// import { withStyles } from '@material-ui/core/styles';
+import { Divider, Drawer, IconButton, Icon, Typography } from '@material-ui/core';
 import LandingPage from './LandingPage';
 import Login from './Login';
 import Classroom from './Classroom';
 import Menu from './Menu';
 import LanguageSelection from './LanguageSelection';
 import SelectLanguage from './SelectLanguage';
-
-
-// const styles = theme => ({
-//   headerContainer: {
-//   	display: 'flex',
-//     justifyContent: 'space-between',
-//     flexDirection: 'row'
-//   },
-// });
+import StudentList from './StudentList'
 
 class Header extends Component {
   state = {
@@ -46,7 +37,12 @@ class Header extends Component {
                 onClose={handleDrawerToggle}>
           <Menu />
           <Divider />
-          <LanguageSelection />
+          <div className="selectContainer">
+	          <div><Typography variant="h6">Translate From:</Typography>
+	          <SelectLanguage type="translateFrom" /></div>
+	          <div><Typography variant="h6">Translate To:</Typography>
+	          <SelectLanguage type="translateTo" /></div>
+          </div>
   	    </Drawer>
   	    </div>
   	  </div>

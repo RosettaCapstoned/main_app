@@ -11,22 +11,10 @@ class LandingPage extends Component {
 
   	return (
   	  <Fragment>
-  	    <div className="sectionContainer">
-  	      <RosettaCapstoneLogo />
-		  </div>
-		  <Divider />
-		<div className="sectionContainer about">
+  	    <RosettaCapstoneLogo />
 	      <AboutUs />
-	    </div>
-	    <Divider />
-	    <div className="sectionContainer">
 	      <WhatWeDo />
-	    </div>
-	    <Divider />
-	    <div className="sectionContainer bio">
 	      <OurTeam />
-	    </div>
-	    <Divider />
   	  </Fragment>
   	)
   }

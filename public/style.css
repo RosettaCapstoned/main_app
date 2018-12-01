@@ -1,4 +1,27 @@
 
+.about {
+  background-size: cover;
+  background-color: #FBCCA7;
+}
+
+.avatar {
+  height: 20px;
+  width: 20px;
+  margin: 5px;
+}
+
+.avatarContainer {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.bio {
+  background-size: cover;
+  background-color: #FBCCA7;
+}
 
 .about {
   background-size: cover;
@@ -15,15 +38,18 @@
   margin: 35px;
 }
 
-.chatButton {
+.chatButtonContainer {
   display: flex;
   justify-content: flex-end;
 }
 
 .chatContainer {
-  min-height: 50%;
-  width: auto;
-  border: 1px solid black;
+  height: 400px;
+  width: 270px;
+  border: 2px solid black;
+  padding: 15px;
+  overflow: scroll;
+  overflow-wrap: break-word;
 }
 
 .chatHeadline {
@@ -144,8 +170,9 @@ div .landingContainer {
 
 .profileContainer {
   width: 50%;
-  height: auto;
+  height: 650px;
   padding: 10px;
+  position: relative;
 }
 
 .profiles {
@@ -175,12 +202,34 @@ div .landingContainer {
   padding-right: 10%;
 }
 
+.selectContainer {
+  padding: 20px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .selected {
   font-weight: bold;
 }
 
 .selectLng {
-  width: 175px;
+  width: 125px;
+}
+
+.studentAvatars {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.studentInitials {
+  background-color: #FE5501;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
 }
 
 video{

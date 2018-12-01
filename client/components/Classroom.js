@@ -3,7 +3,6 @@ import { IconButton, Icon, Typography } from '@material-ui/core';
 import { MicOff, Mic } from '@material-ui/icons';
 import { MediaControls, UserControls, Video, GridLayout } from '@andyet/simplewebrtc';
 import { connect } from 'react-redux';
-
 import VoiceRecognition from './VoiceRecognition';
 import StudentList from './StudentList'
 
@@ -33,10 +32,12 @@ class Classroom extends React.Component {
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
     );
+    console.log(localVideo);
     return (
       <div className="screenContainer">
         <div>
-          {auth.role === 'Teacher' ? <StudentList /> : null}
+          {/*{auth.role === 'Teacher' ? <StudentList /> : null}*/}
+          <StudentList />
           <div className="screen">
             <GridLayout
               className="videoGrid"
