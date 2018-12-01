@@ -5,7 +5,7 @@ const { Message } = require('../db');
 router.get('/', (req, res, next) => {
 	Message.findAll()
 	.then(messages => {
-		res.send(room);
+		res.send(messages);
     }).catch(next);
 });
 
