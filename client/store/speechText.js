@@ -2,23 +2,30 @@
 const initialState = {
   prevMessage: '',
   currMessage: '',
+  messageLog: [],
 };
 
 // constants
-const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+const RECEIVED_MESSAGE = 'RECEIVED_MESSAGE';
 
 // action creators
-const receiveSpeechText = message => ({
-  type: RECEIVE_MESSAGE,
-  message,
+const receiveSpeechText = speechText => ({
+  type: RECEIVED_MESSAGE,
+  speechText,
 });
 
 // reducer
 const speechTextReducer = (state = initialState, action) => {
   switch (action.type) {
-    case RECEIVE_MESSAGE:
+    case RECEIVED_MESSAGE:
       console.log('receive message dispatch');
-      return { prevMessage: state.currMessage, currMessage: action.message };
+      if (action.speechText !== '') {
+        return {
+          prevMessage: state.currMessage,
+          currMessage: action.speechText,
+          messageLog: [...state.messageLog, action.speechText],
+        };
+      }
     default:
       return state;
   }
