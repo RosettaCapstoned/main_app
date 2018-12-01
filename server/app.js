@@ -4,7 +4,7 @@ const passport = require('passport');
 var GoogleStrategy = require( 'passport-google-oauth20' );
 const User = require('./db/Models/User');
 // const googleKey = require('./env');
-let googleKey 
+let googleKey = {}
 const cookieSession = require('cookie-session');
 const { userRouter, authRouter, translateRouter } = require('./api');
 const { sync, seed } = require('./db/');
@@ -16,7 +16,7 @@ const jwt = require('jsonwebtoken');
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
-translate.key = googleKey.apiKey || process.env.GOOGLE_KEY
+translate.key = googleKey.apiKey || process.env.apiKey
 
 //Wrapping server in socket.io instance
 const server = require('http').Server(app);
