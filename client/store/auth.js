@@ -32,7 +32,6 @@ const exchangeTokenForAuth = history => async dispatch => {
 
 const logout = auth => {
   try {
-    console.log('This is from logout: ', auth);
     window.localStorage.removeItem('token');
     if (auth.password) {
       return _setAuth({});
@@ -64,13 +63,11 @@ const checkOAuthToken = () => async dispatch => {
   }
 };
 
-const signUp = (credentials, history) => {
-  // console.log(credentials)
-  return async dispatch => {
+const signUp = (credentials, history) => async dispatch => {
     const response = await axios.post('/api/auth/signup', credentials);
     //return dispatch(login(response.data, history))
-  };
 };
+
 
 const authReducer = (state = {}, action) => {
   if (action.type === SET_AUTH) {
