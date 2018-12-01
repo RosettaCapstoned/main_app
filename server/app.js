@@ -17,6 +17,7 @@ const jwt = require('jsonwebtoken');
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
+
 translate.key = googleKey.apiKey || process.env.apiKey 
 
 //Wrapping server in socket.io instance
