@@ -13,14 +13,6 @@ const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || 'rosetta';
 const jwt = require('jsonwebtoken');
 
-
-const init = () => {
-  return sync()
-  .then(() => seed())
-}
-
-init()
-
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
@@ -187,6 +179,12 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send({message : err.message})
 })
 
+const init = () => {
+  return sync()
+  .then(() => seed())
+}
+
+init()
 
 module.exports = app;
 
