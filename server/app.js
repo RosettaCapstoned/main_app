@@ -15,7 +15,7 @@ const jwt = require('jsonwebtoken');
 //Translation API
 const translate = require('translate');
 translate.engine = 'google';
-translate.key = googleKey.apiKey; //process.env.GOOGLE_KEY
+translate.key = googleKey.apiKey || process.env.apiKey
 
 //Wrapping server in socket.io instance
 const server = require('http').Server(app);
@@ -101,28 +101,25 @@ app.use(passport.initialize()); // Used to initialize passport
 app.use(passport.session()); // Used to persist login sessions
 
 // Strategy config
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: googleKey.clientID,
-      clientSecret: googleKey.clientSecret,
-      callbackURL: googleKey.callbackURL,
-      passReqToCallback: true,
-    },
-    async (request, accessToken, refreshToken, profile, done) => {
-      const user = await User.findOrCreate({
-        where: {
-          googleId: profile.id,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-        },
-      }).then(user => {
-        user = { ...user, token: accessToken };
-        done(null, user);
-      });
-    }
-  )
-);
+passport.use(new GoogleStrategy({
+    clientID: googleKey.clientID || process.env.clientID,
+    clientSecret: googleKey.clientSecret || process.env.clientSecret,
+    callbackURL: googleKey.callbackURL || process.env.callbackURL,
+    passReqToCallback: true
+  },
+  async (request, accessToken, refreshToken, profile, done) => {
+    const user = await User.findOrCreate({ where: { 
+        googleId: profile.id,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName
+      } 
+    })
+    .then(user => {
+      user = {...user, token: accessToken}
+      done(null, user);
+    });
+  }
+));
 
 // Used to stuff a piece of information into a cookie
 passport.serializeUser((user, done) => {

@@ -34,7 +34,7 @@ export default class OurTeam extends Component {
 			  <div className="photoPosition"><img className="photo position2" src={require("../../public/harry_headshot.JPG")}/></div>
 			  <Typography align="center" variant="h4" style={{fontFamily: 'Georgia, serif', padding: '10px'}}>Harry Chen</Typography>
 			  <Typography align="center" variant="body1" style={{fontFamily: 'Georgia, serif', padding: '10px'}}>
-			    I am a part-time procrastinator, part-time connoisseur of memes, and full-time web architect of anything agile, clean, and scalable. 
+			    I am a part-time procrastinator, part-time meme connoisseur, and full-time web architect of anything agile, clean, and scalable. 
 					I am always on the lookout for up and coming technologies. Currently dabbling with the WebRTC api. </Typography>
 			    <div className="avatarContainer">
 				  <a target="_blank" and rel="noopener noreferrer" href='https://www.linkedin.com/in/harrychenhc/'>
