@@ -10,7 +10,8 @@
     "test:translate_routes": "mocha -w ./server/api/testing/translate-routes.spec.js",
     "start": "node ./server/app.js",
     "start:dev": "npm run webpack -- --watch --mode=development & JWT_SECRET=rosetta nodemon --ignore './public/' ./server/app.js",
-    "webpack": "./node_modules/webpack/bin/webpack.js"
+    "webpack": "./node_modules/webpack/bin/webpack.js",
+    "postinstall": "npm run webpack"
   },
   "jest": {
     "snapshotSerializers": [
