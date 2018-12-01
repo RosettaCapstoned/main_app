@@ -1,9 +1,9 @@
-const express = require('express')
-const path = require('path')
+const express = require('express');
+const path = require('path');
 const passport = require('passport');
-var GoogleStrategy = require( 'passport-google-oauth20' );
+var GoogleStrategy = require('passport-google-oauth20');
 const User = require('./db/Models/User');
-// const googleKey = require('./env');
+const googleKey = require('./env');
 let googleKey = {}
 const cookieSession = require('cookie-session');
 const { userRouter, authRouter, translateRouter } = require('./api');
@@ -25,13 +25,12 @@ const io = require('socket.io')(server);
 const room = 'default';
 
 //Socket.io implementation
-io.on('connection', (socket)=> {
+io.on('connection', socket => {
   socket.join(room);
   console.log(`${socket.id} joined: ${room}`);
 
-  //Action broadcasts to all clients attached, not including the current client 
+  //Action broadcasts to all clients attached, not including the current client
   io.to(room).emit('joined', { message: 'a user joined' });
-
 
   //Action listener for 'message' action
   socket.on('message', async (_message)=> {
@@ -41,22 +40,21 @@ io.on('connection', (socket)=> {
     io.to(room).emit('message', result);
   });
 
-  socket.on('teacherSpeech', (speechText)=> {
+  socket.on('teacherSpeech', speechText => {
     //Teachers message
     const { message, languageSetting} = speechText;
     translate(message, languageSetting)
     .then(result => {
       io.to(room).emit('teacherSpeech', result);
-    })
+    });
   });
 
   //Action listener for 'disconnection' action
-  socket.on('disconnect', ()=> {
-      io.emit('message', { message: 'a user signed off' });
-      console.log('Goodbye, ', socket.id, ' :(');
-    });
+  socket.on('disconnect', () => {
+    io.emit('message', { message: 'a user signed off' });
+    console.log('Goodbye, ', socket.id, ' :(');
+  });
 });
-
 
 const bodyParser = require('body-parser');
 
@@ -67,10 +65,12 @@ app.use(bodyParser.json());
 
 // Middleware
 // app.use(express.json())
-app.use(cookieSession({
+app.use(
+  cookieSession({
     name: 'session',
-    keys: ['123']
-}));
+    keys: ['123'],
+  })
+);
 
 // JWT Token Auth Middleware
 app.use((req, res, next) => {
@@ -93,9 +93,9 @@ app.use((req, res, next) => {
 });
 
 // Routers
-app.use('/api/user', userRouter)
-app.use('/api/auth', authRouter)
-app.use('/api/translate', translateRouter)
+app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/translate', translateRouter);
 
 // OAuth Middleware
 app.use(passport.initialize()); // Used to initialize passport
@@ -124,38 +124,41 @@ passport.use(new GoogleStrategy({
 
 // Used to stuff a piece of information into a cookie
 passport.serializeUser((user, done) => {
-    done(null, user);
+  done(null, user);
 });
 
 // Used to decode the received cookie and persist session
 passport.deserializeUser((user, done) => {
-    done(null, user);
+  done(null, user);
 });
 
 // Middleware to check if the user is authenticated
 function isUserAuthenticated(req, res, next) {
   if (req.user) {
     next();
-  } 
-  else {
-      res.send('You must login!');
-    }
+  } else {
+    res.send('You must login!');
+  }
 }
 
 app.get('/oauth', (req, res) => {
-	res.send({ user: req.user })
-})
+  res.send({ user: req.user });
+});
 
-app.get('/auth/google', 
+app.get(
+  '/auth/google',
   passport.authenticate('google', {
-    scope: ['profile']
-}));
+    scope: ['profile'],
+  })
+);
 
-app.get('/auth/google/callback',
+app.get(
+  '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/secret');
-});
+  }
+);
 
 // Secret route
 app.get('/secret', isUserAuthenticated, (req, res) => {
@@ -164,27 +167,26 @@ app.get('/secret', isUserAuthenticated, (req, res) => {
 
 // Logout route
 app.get('/logout', (req, res) => {
-  req.logout(); 
+  req.logout();
   res.redirect('/login');
 });
 
 // Static Files
-app.use(express.static(path.resolve(__dirname, '../public')))
-app.use('/public',express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.resolve(__dirname, '../public')));
+app.use('/public', express.static(path.join(__dirname, '../public')));
 app.get('*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
-})
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 app.use((err, req, res, next) => {
-  res.status(err.status || 500).send({message : err.message})
-})
+  res.status(err.status || 500).send({ message: err.message });
+});
 
 const init = () => {
-  return sync()
-  .then(() => seed())
-}
+  return sync().then(() => seed());
+};
 
-init()
+init();
 
 module.exports = app;
 

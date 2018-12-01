@@ -40,7 +40,7 @@ class Chatbox extends Component {
 
   handleClick = () => {
   	const { from, to, user } = this.props;
-  	const name = user[0].firstName;
+  	const name = user[0] ? user[0].firstName : user.firstName;
   	const languageSetting = { to, from };
 		this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
 		this.setState({ textInput: '' });
