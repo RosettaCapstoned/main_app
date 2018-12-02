@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const jwt2 = require('jwt-simple');
-const User = require('../db/Models/User');
+const { User } = require('../db').models
 module.exports = router;
 
 router.post('/signup', (req, res, next) => {
@@ -16,13 +16,16 @@ router.post('/signup', (req, res, next) => {
     password: signedPassword,
   })
     .then(user => {
-      res.send(user);
+      console.log(user)
+      const send = {...user, password: jwt2.decode(user.password, process.env.JWT_SECRET)}
+      res.send(send);
     })
     .catch(next);
 });
 
 router.post('/', (req, res, next) => {
   const signedPassword = jwt2.encode(req.body.password, process.env.JWT_SECRET);
+
   User.findOne({
     where: {
       email: req.body.email,

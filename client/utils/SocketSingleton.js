@@ -55,10 +55,11 @@ class SocketSingleton {
         });
 
         conn.on('teacher-stream', teacherStreamId => {
-          //will be used to filter video
+          console.log('Teacher ID:', teacherStreamId)
         });
         conn.on('student-stream', studentStreamId => {
-          //will be used to tell which students are logged in
+          console.log(studentStreamId)
+          //if this hits then we emit the teacherStreamId again
         });
       });
     }

@@ -4,9 +4,6 @@ const User = require('./Models/User');
 const Message = require('./Models/Message');
 const jwt = require('jwt-simple');
 
-Room.hasMany(User)
-Room.hasOne(User, { as: 'Teacher', foreignKey: 'classTeacherId' })
-User.belongsTo(Room)
 
 User.belongsTo(User, { as: 'teacher' });
 User.hasMany(User, { as: 'students', foreignKey: 'teacherId' });
@@ -16,6 +13,10 @@ Message.belongsTo(User);
 
 Room.hasMany(Message);
 Message.belongsTo(Room);
+
+Room.hasMany(User)
+Room.hasOne(User, { as: 'Teacher', foreignKey: 'classTeacherId' })
+User.belongsTo(Room)
 
 const sync = () => {
   return conn.sync({ force: true });

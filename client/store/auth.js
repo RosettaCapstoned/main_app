@@ -44,7 +44,7 @@ const logout = auth => {
 };
 
 const login = (credentials, history) => async dispatch => {
-  // console.log(credentials);
+  console.log(credentials);
   const response = await axios.post('/api/auth', credentials);
   const data = response.data;
   window.localStorage.setItem('token', data.token);
@@ -65,7 +65,10 @@ const checkOAuthToken = () => async dispatch => {
 
 const signUp = (credentials, history) => async dispatch => {
     const response = await axios.post('/api/auth/signup', credentials);
-    //return dispatch(login(response.data, history))
+    console.log(response.data)
+    const { email, password } = response.data
+    console.log('email', email)
+    return dispatch(login({ email, password }, history))
 };
 
 
