@@ -4,11 +4,11 @@ import { lngTo, lngFrom } from '../store/gtranslate';
 import { FormControl, InputLabel, Select, MenuItem, OutlinedInput } from '@material-ui/core';
 
 class SelectLanguage extends Component {
-  state = {
-  	lngItem: '',
-  	lng: '',
-  	idx: 0,
-  }
+  // state = {
+  // 	lngItem: '',
+  // 	lng: '',
+  // 	idx: 0,
+  // }
   handleChange = (evt) => {
   	const { value } = evt.target;
   	const { type, lngTo, lngFrom } = this.props;
@@ -39,15 +39,15 @@ class SelectLanguage extends Component {
 	console.log(this.state);
   	return (
   	  <FormControl className="selectLng" variant="outlined" >
-          { this.state.lngItem? null : <InputLabel>Select a Language</InputLabel> }
+          { this.props.idx >= 0 ? null : <InputLabel>Select a Language</InputLabel> }
           <Select
             native={false}
-            renderValue={()=>this.state.lngItem}
+						renderValue={()=>lngMap[this.props.idx].lngItem || 'Select a Language'}
             onChange={handleChange}
             input={
               <OutlinedInput
                 name="lngItem"
-                value={this.state.lngItem}
+                value={lngMap[this.props.idx].lngItem}
                 id="outlined-age-simple"
                 labelWidth={0}
               />
