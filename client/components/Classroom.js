@@ -19,8 +19,8 @@ class Classroom extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      localStream: {}
-    }
+      localStream: {},
+    };
 
     this.handleStart = this.handleStart.bind(this);
     this.handleEnd = this.handleEnd.bind(this);
@@ -28,13 +28,13 @@ class Classroom extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if(prevState.localStream.id !== this.state.localStream.id){
-      console.log(this.state)
-      console.log(this.props)
-      const { auth } = this.props
-      if(auth.role === 'Teacher'){
+    if (prevState.localStream.id !== this.state.localStream.id) {
+      console.log(this.state);
+      console.log(this.props);
+      const { auth } = this.props;
+      if (auth.role === 'Teacher') {
         //socket.emit('teacherStreamId', this.state.localStream.id)
-      } else if(auth.role === 'Student'){
+      } else if (auth.role === 'Student') {
         //socket.emit('studentStreamId', this.state.localStream.id)
       }
     }
@@ -49,11 +49,15 @@ class Classroom extends React.Component {
   }
 
   handleResult({ interimTranscript, finalTranscript }) {
+    //console.log(finalTranscript);
     const languageSetting = {
-      to: this.props.translation.translateLng,
+      to: 'ru',
       from: 'en',
     };
+    const auth = this.props.auth;
+    const name = auth[0] ? auth[0].firstName : auth.firstName;
     socket.emit('teacherSpeech', {
+      name,
       message: finalTranscript,
       languageSetting,
     });
@@ -64,9 +68,12 @@ class Classroom extends React.Component {
     const remoteVideos = remoteMedia.filter(media => media.kind === 'video');
     const localVideo = localMedia.filter(
       media => media.kind === 'video' && media.shared
-    )
-    if(localVideo.length > 0 && this.state.localStream.id !== localVideo[0].id){
-      this.setState({ localStream: localVideo[0] })
+    );
+    if (
+      localVideo.length > 0 &&
+      this.state.localStream.id !== localVideo[0].id
+    ) {
+      this.setState({ localStream: localVideo[0] });
     }
     //  console.log(localVideo);
     // console.log('Remote:', remoteVideos)

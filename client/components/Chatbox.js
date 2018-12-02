@@ -6,8 +6,6 @@ import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage } from '../store/message';
 import SelectLanguage from './SelectLanguage';
 
-// const socket = io();
-
 const socket = new SocketSingleton().socket;
 
 class Chatbox extends Component {
