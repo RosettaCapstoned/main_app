@@ -1,14 +1,14 @@
-const translate = require('translate');
+// const translate = require('translate');
 // const googleKey = require('../../server/env').apiKey;
 
-translate.engine = 'google';
-// translate.key = googleKey ;
-translate.key = process.env.apiKey
+// translate.engine = 'google';
+// // translate.key = googleKey ;
+// translate.key = process.env.apiKey
 
 const initialState = {
   lngFromIdx: 0,
-  speakingLng: 'en',
-  translateLng: '',
+  lngFrom: 'en',
+  lngTo: 'es',
   lngToIdx: 0
 };
 
@@ -39,14 +39,14 @@ export const gTranslateReducer = (state=initialState, action) => {
   	case LNG_FROM:
   	  return {
   	  	...state,
-  	  	speakingLng: action.lng,
-  	  	lngFromIdx: action.idx
+  	  	lngFrom: action.lng,
+        lngFromIdx: action.idx
   	  }
 
   	case LNG_TO:
   	  return {
   	  	...state,
-  	  	translateLng: action.lng,
+  	  	lngTo: action.lng,
   	  	lngToIdx: action.idx
   	  }
 
