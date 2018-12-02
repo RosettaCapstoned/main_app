@@ -28,7 +28,8 @@ class Classroom extends React.Component {
       const { auth } = this.props;
       if (auth.role === 'Teacher') {
         socket.emit('teacherStreamId', { teacherStreamId: this.state.localStream.id, /* roomId: auth.room.id */})
-      } else if (auth.role === 'Student') {
+      } else {
+        console.log(this.state.localStream.id)
         socket.emit('studentStreamId', { studentStreamId: this.state.localStream.id })
       }
     }

@@ -58,7 +58,7 @@ class SocketSingleton {
           console.log('Teacher ID:', teacherStreamId)
         });
         conn.on('student-stream', studentStreamId => {
-          console.log(studentStreamId)
+          console.log('Student ID:', studentStreamId)
           //if this hits then we emit the teacherStreamId again
         });
       });
