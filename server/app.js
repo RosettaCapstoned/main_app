@@ -2,18 +2,12 @@ const express = require('express');
 const path = require('path');
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
-const User = require('./db/Models/User');
+const { User, Room } = require('./db/').models;
 const googleKey = require('./env');
 
 // const googleKey = {};
 const cookieSession = require('cookie-session');
-const {
-  userRouter,
-  authRouter,
-  translateRouter,
-  roomRouter,
-  messagesRouter,
-} = require('./api');
+const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -37,7 +31,7 @@ let payload;
 
 //Socket.io implementation
 io.on('connection', socket => {
-  let room;
+  socket.join(room);
   let languages = new Set(['zh', 'fr', 'es', 'ru']);
   const { id } = socket;
   console.log('user joined: ', id);
@@ -50,16 +44,13 @@ io.on('connection', socket => {
   // - find teacher and language from room
   // - send teacherId to client
 
-  socket.on('roomSettings', ({ roomId, lng }) => {
-    console.log('room setting event: ', roomId, ' and ', lng);
+  socket.on('roomSettings', ({ lng }) => {
+    console.log('room setting event: ', lng);
     // Rooms.findById(roomId)
     //  .then(_room => { 'use code below'
     //  _room.languages.forEach(_lng => languages.add(_lng));
     //})
-    room = roomId;
     languages.add(lng);
-
-    socket.join(room);
     console.log(`${socket.id} joined: ${room}`);
   });
 
@@ -131,6 +122,20 @@ io.on('connection', socket => {
       .catch(err => console.error(err));
   });
 
+  socket.on('teacherStreamId', payload => {
+    const { teacherStreamId } = payload
+    console.log('TEACHER ID', teacherStreamId)
+    // return Room.findByPk(roomId)
+    // .then(room => room.update({ teacherStreamId }))
+    // .then(() => socket.broadcast.emit('teacher-stream', teacherStreamId))
+    socket.broadcast.emit('teacher-stream', teacherStreamId)
+  })
+  socket.on('studentStreamId', payload => {
+    const { studentStreamId } = payload
+    console.log('STUDENT ID', studentStreamId)
+    socket.broadcast.emit('student-stream', studentStreamId)
+  })
+
   //Action listener for 'disconnection' action
   socket.on('disconnect', () => {
     io.emit('message', { message: 'a user signed off' });
@@ -163,7 +168,9 @@ app.use((req, res, next) => {
   let id;
   try {
     id = jwt.decode(token, secret).id;
-    User.findById(id)
+    User.findByPk(id, {
+      include: { model: Room }
+    })
       .then(user => {
         req.user = user;
         next();

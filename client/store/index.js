@@ -6,6 +6,7 @@ import { userReducer } from './user';
 import { messageReducer } from './message';
 import { gTranslateReducer } from './gtranslate';
 import { speechTextReducer } from './speechText';
+import streamIdReducer from './teacherStreamId'
 import swrtcReducer from '../../node_modules/@andyet/simplewebrtc/reducers/';
 
 const reducer = combineReducers({
@@ -15,21 +16,14 @@ const reducer = combineReducers({
   simplewebrtc: swrtcReducer,
   message: messageReducer,
   speechText: speechTextReducer,
+  streamId: streamIdReducer
 });
 
 const initial = {
   simplewebrtc: {},
-  translation: {},
-  auth: {},
-  message: [],
-  speechText: {
-    prevMessage: '',
-    currMessage: '',
-    messageLog: [],
-  },
 };
 
-const store = createStore(reducer, initial, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export const { dispatch } = store;
 export default store;
