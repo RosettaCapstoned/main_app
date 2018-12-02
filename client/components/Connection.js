@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CircularProgress, Typography, Paper } from '@material-ui/core';
+import { CircularProgress, Typography, Paper, Grid } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Provider, Connected, Connecting, Disconnected, RemoteAudioPlayer }  from '@andyet/simplewebrtc';
 import Header from './Header';
 import Video from './Video';
@@ -16,6 +18,14 @@ const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
 
 const socket = new SocketSingleton().socket
 
+const styles = theme => ({
+  container: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(12, 1fr)',
+    gridGap: `${theme.spacing.unit * 3}px`,
+  },
+});
+
 class Connection extends Component {
   render(){
 		const { auth } = this.props
@@ -23,25 +33,28 @@ class Connection extends Component {
 			<Provider configUrl={CONFIG_URL} userData={auth}>
 				<div>
 				<Header type="classroomHeader"/>
-				<Paper className="paperContainer">	
+				<Paper className="paperContainer">
+				<Grid container direction='row'>
+				  <Grid item className="gridConnection">	
 					<RemoteAudioPlayer />
 					<Connecting>									
 						<h3>Connecting</h3>				
 						<CircularProgress />
 					</Connecting>
-					<div className="connection">
-						<Connected>
-							<Video />
-							<div>
-								<Typography align='justify'>{auth.firstName || 'Anonymous'}</Typography>									
-								<Chatbox />
-							</div>				
-						</Connected>
-						<Disconnected>
-							<CircularProgress />
-						</Disconnected>
+					<Connected>
+						<Video />
+					</Connected>
+					</Grid>
+					<Grid item className="gridTranscript">				
+					<div>
+					  <Typography align='justify'>{auth.firstName || 'Anonymous'}</Typography>
+					  <Transcription/>									
 					</div>
-					<Transcription/>
+					<Disconnected>
+					  <CircularProgress />
+					</Disconnected>
+				  </Grid>
+				</Grid>
 					</Paper>
 				</div>
 			</Provider>
@@ -49,10 +62,14 @@ class Connection extends Component {
   }
 }
 
+Connection.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = state => {
 	return {
 		auth: state.auth
 	}
 }
 
-export default connect(mapStateToProps, null)(Connection)
+export default connect(mapStateToProps, null)(withStyles(styles)(Connection))

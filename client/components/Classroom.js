@@ -73,7 +73,6 @@ class Classroom extends React.Component {
     return (
       <div >
         <div className="screenContainer">
-          {/*{auth.role === 'Teacher' ? <StudentList /> : null}*/}
           <StudentList />
           <div className="screen">
             <GridLayout
@@ -98,9 +97,6 @@ class Classroom extends React.Component {
             }}
           />
         </div>
-        <Typography variant="h4" align="center">
-          {this.props.speechText.currMessage}
-        </Typography>
         <Typography variant="h3" align="center">
           {room.providedName}
         </Typography>
