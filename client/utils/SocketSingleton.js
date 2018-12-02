@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import store, { dispatch } from '../store';
 import { sendMessage, receiveMessage } from '../store/message';
 import { receiveSpeechText } from '../store/speechText';
+import { addStreamId } from '../store/teacherStreamId'
 
 let conn = null;
 
@@ -56,10 +57,15 @@ class SocketSingleton {
 
         conn.on('teacher-stream', teacherStreamId => {
           console.log('Teacher ID:', teacherStreamId)
+          store.dispatch(addStreamId(teacherStreamId))
         });
         conn.on('student-stream', studentStreamId => {
           console.log('Student ID:', studentStreamId)
-          //if this hits then we emit the teacherStreamId again
+          const { auth, streamId } = store.getState()  //look into simplewebrtc
+          if(auth.role === 'Teacher'){   //if this hits then we emit the teacherStreamId again
+            conn.emit('teacherStreamId', { teacherStreamId: streamId })
+          }
+         
         });
       });
     }
