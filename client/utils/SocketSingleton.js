@@ -5,25 +5,23 @@ import { receiveSpeechText } from '../store/speechText';
 
 let conn = null;
 let state = store.getState();
-let {lngFrom, lngTo } = state.translation;
+let { lngFrom, lngTo } = state.translation;
 const roomId = 'default';
 
 console.log('languages are: ', lngFrom, lngTo);
 
 console.log('SocketSingleton state is: ', state);
 
-store.subscribe(()=> { 
-    // console.log('state was updated: ', state);
-    let newState = store.getState();
-    if (newState.translation != state.translation) {
-      state = newState;
-      lngTo = state.translation.lngTo;
-      lngFrom = state.translation.lngFrom;
-      conn.emit('roomSettings', { lng: lngTo });
-      conn.emit('roomSettings', { lng: lngFrom });
-      
-    }
- 
+store.subscribe(() => {
+  // console.log('state was updated: ', state);
+  let newState = store.getState();
+  if (newState.translation != state.translation) {
+    state = newState;
+    lngTo = state.translation.lngTo;
+    lngFrom = state.translation.lngFrom;
+    conn.emit('roomSettings', { lng: lngTo });
+    conn.emit('roomSettings', { lng: lngFrom });
+  }
 });
 
 //Identify Room
@@ -73,7 +71,7 @@ class SocketSingleton {
 
         conn.on('teacherSpeech', speechText => {
           let { name, message } = speechText;
-          message = message['ru'];
+          message = message[lngTo];
           _receiveSpeechText(message);
         });
 
