@@ -15,8 +15,8 @@ class Chatbox extends Component {
 		this.state = {
 			textInput: '',
 			languageSetting: {
-				to: 'es',
-				from: 'en'
+				to: this.props.to,
+				from: this.props.from
 			}
 		}
 	}
@@ -78,11 +78,11 @@ class Chatbox extends Component {
 }
 
 const mapStateToProps = ({ message, auth, translation }) => {
-  const { speakingLng, translateLng } = translation;
+  const { lngTo, lngFrom } = translation;
   return {
 		messages: message,
-		from: speakingLng,
-		to: translateLng,
+		from: lngFrom,
+		to: lngTo,
 		user: auth
   }
 }

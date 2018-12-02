@@ -19,17 +19,17 @@ const reducer = combineReducers({
 
 const initial = {
   simplewebrtc: {},
-  translation: {},
-  auth: {},
-  message: [],
-  speechText: {
-    prevMessage: '',
-    currMessage: '',
-    messageLog: [],
-  },
+  // translation: {},
+  // auth: {},
+  // message: [],
+  // speechText: {
+  //   prevMessage: '',
+  //   currMessage: '',
+  //   messageLog: [],
+  // },
 };
 
-const store = createStore(reducer, initial, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export const { dispatch } = store;
 export default store;

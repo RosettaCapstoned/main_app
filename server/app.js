@@ -37,7 +37,7 @@ let payload;
 
 //Socket.io implementation
 io.on('connection', socket => {
-  let room;
+  socket.join(room);
   let languages = new Set(['zh', 'fr', 'es', 'ru']);
   const { id } = socket;
   console.log('user joined: ', id);
@@ -50,16 +50,13 @@ io.on('connection', socket => {
   // - find teacher and language from room
   // - send teacherId to client
 
-  socket.on('roomSettings', ({ roomId, lng }) => {
-    console.log('room setting event: ', roomId, ' and ', lng);
+  socket.on('roomSettings', ({ lng }) => {
+    console.log('room setting event: ', lng);
     // Rooms.findById(roomId)
     //  .then(_room => { 'use code below'
     //  _room.languages.forEach(_lng => languages.add(_lng));
     //})
-    room = roomId;
     languages.add(lng);
-
-    socket.join(room);
     console.log(`${socket.id} joined: ${room}`);
   });
 
