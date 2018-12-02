@@ -3,9 +3,9 @@ const path = require('path');
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
 const User = require('./db/Models/User');
-// const googleKey = require('./env');
+const googleKey = require('./env');
 
-const googleKey = {};
+// const googleKey = {};
 const cookieSession = require('cookie-session');
 const {
   userRouter,
@@ -189,9 +189,9 @@ app.use(passport.session()); // Used to persist login sessions
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.clientID,
-      clientSecret: process.env.clientSecret,
-      callbackURL: process.env.callbackURL,
+      clientID: googleKey.clientID || process.env.clientID,
+      clientSecret: googleKey.clientSecret || process.env.clientSecret,
+      callbackURL: googleKey.callbackURL || process.env.callbackURL,
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {

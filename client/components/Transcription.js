@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Divider } from '@material-ui/core';
 
 class Transcription extends Component {
 
@@ -8,7 +8,9 @@ class Transcription extends Component {
   	const { messageLog } = this.props;
   	return (
   	  <Paper className="transcriptionContainer">
-  	  <hr />
+  	  <Typography variant="h4"
+  	  			  style={{fontFamily: 'Georgia, serif'}}>Lecture</Typography>
+  	  <Divider />
   	  {messageLog && messageLog.map(each => {
   	  	return (
   	  	  <div>

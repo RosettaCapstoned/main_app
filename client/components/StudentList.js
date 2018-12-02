@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
 import StudentAvatars from './StudentAvatars';
 import Chatbox from './Chatbox';
 
-const drawerWidth = 350;
+const drawerWidth = 400;
 
 const styles = theme => ({
   drawer: {
     width: drawerWidth,
-    color: '#414C56',
+    backgroundColor: '#414C56',
   },
   message: {
     color: '#FD9764'
@@ -65,7 +65,7 @@ class StudentList extends Component{
                       anchor='left'
                       open={open}
                       onClose={handleChatToggle}
-                      className={classes.drawer}>
+                      classes={{ paper: classes.drawer}}>
                 <Chatbox />
               </Drawer>
               </div>

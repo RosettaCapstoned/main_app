@@ -79,7 +79,7 @@ const seed = async () => {
     await Promise.all([
           moe.update({ teacherId: prof.id, roomId: room1.id }),
           larry.update({ teacherId: prof.id, roomId: room1.id }),
-          curly.update({ teacherId: prof.id, roomId: englishRoom.id }),
+          curly.update({ role: 'Teacher', roomId: englishRoom.id }),
           mike.update({ teacherId: prof.id, roomId: englishRoom.id }),
           prof.update({ roomId: englishRoom.id }),
           pheyton.update({ teacherId: prof.id, roomId: englishRoom.id }),
