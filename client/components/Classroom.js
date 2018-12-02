@@ -8,6 +8,7 @@ import StudentList from './StudentList';
 import ModifiedVideo from './ModifiedVideo'
 import SocketSingleton from '../utils/SocketSingleton';
 import { receiveSpeechText } from '../store/speechText';
+import { addStreamId } from '../store/teacherStreamId'
 
 const socket = new SocketSingleton().socket;
 
@@ -25,8 +26,9 @@ class Classroom extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.localStream.id !== this.state.localStream.id) {
-      const { auth } = this.props;
+      const { auth, addStreamId } = this.props;
       if (auth.role === 'Teacher') {
+        addStreamId(this.state.localStream.id)
         socket.emit('teacherStreamId', { teacherStreamId: this.state.localStream.id, /* roomId: auth.room.id */})
       } else {
         console.log(this.state.localStream.id)
@@ -129,6 +131,7 @@ const mapStateToProps = ({ auth, user, speechText, translation }) => {
 
 const mapDispatchToProps = dispatch => ({
   receiveSpeechText: speechText => dispatch(receiveSpeechText(speechText)),
+  addStreamId: id => dispatch(addStreamId(id))
 });
 
 export default connect(
