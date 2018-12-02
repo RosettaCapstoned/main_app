@@ -2,18 +2,12 @@ const express = require('express');
 const path = require('path');
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
-const User = require('./db/Models/User');
-// const googleKey = require('./env');
+const { User, Room } = require('./db/').models;
+const googleKey = require('./env');
 
-const googleKey = {};
+// const googleKey = {};
 const cookieSession = require('cookie-session');
-const {
-  userRouter,
-  authRouter,
-  translateRouter,
-  roomRouter,
-  messagesRouter,
-} = require('./api');
+const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
 const { sync, seed } = require('./db/');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -128,6 +122,20 @@ io.on('connection', socket => {
       .catch(err => console.error(err));
   });
 
+  socket.on('teacherStreamId', payload => {
+    const { teacherStreamId } = payload
+    console.log('TEACHER ID', teacherStreamId)
+    // return Room.findByPk(roomId)
+    // .then(room => room.update({ teacherStreamId }))
+    // .then(() => socket.broadcast.emit('teacher-stream', teacherStreamId))
+    socket.broadcast.emit('teacher-stream', teacherStreamId)
+  })
+  socket.on('studentStreamId', payload => {
+    const { studentStreamId } = payload
+    console.log('STUDENT ID', studentStreamId)
+    socket.broadcast.emit('student-stream', studentStreamId)
+  })
+
   //Action listener for 'disconnection' action
   socket.on('disconnect', () => {
     io.emit('message', { message: 'a user signed off' });
@@ -160,7 +168,9 @@ app.use((req, res, next) => {
   let id;
   try {
     id = jwt.decode(token, secret).id;
-    User.findById(id)
+    User.findByPk(id, {
+      include: { model: Room }
+    })
       .then(user => {
         req.user = user;
         next();
@@ -186,9 +196,9 @@ app.use(passport.session()); // Used to persist login sessions
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.clientID,
-      clientSecret: process.env.clientSecret,
-      callbackURL: process.env.callbackURL,
+      clientID: googleKey.clientID || process.env.clientID,
+      clientSecret: googleKey.clientSecret || process.env.clientSecret,
+      callbackURL: googleKey.callbackURL || process.env.callbackURL,
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {

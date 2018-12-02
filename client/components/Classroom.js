@@ -1,15 +1,11 @@
 import React from 'react';
 import { IconButton, Icon, Typography } from '@material-ui/core';
 import { MicOff, Mic } from '@material-ui/icons';
-import {
-  MediaControls,
-  UserControls,
-  Video,
-  GridLayout,
-} from '@andyet/simplewebrtc';
+import { MediaControls, UserControls, GridLayout, Video } from '@andyet/simplewebrtc';
 import { connect } from 'react-redux';
 import VoiceRecognition from './VoiceRecognition';
 import StudentList from './StudentList';
+import ModifiedVideo from './ModifiedVideo'
 import SocketSingleton from '../utils/SocketSingleton';
 import { receiveSpeechText } from '../store/speechText';
 
@@ -29,13 +25,12 @@ class Classroom extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.localStream.id !== this.state.localStream.id) {
-      console.log(this.state);
-      console.log(this.props);
       const { auth } = this.props;
       if (auth.role === 'Teacher') {
-        //socket.emit('teacherStreamId', this.state.localStream.id)
-      } else if (auth.role === 'Student') {
-        //socket.emit('studentStreamId', this.state.localStream.id)
+        socket.emit('teacherStreamId', { teacherStreamId: this.state.localStream.id, /* roomId: auth.room.id */})
+      } else {
+        console.log(this.state.localStream.id)
+        socket.emit('studentStreamId', { studentStreamId: this.state.localStream.id })
       }
     }
   };
@@ -86,8 +81,7 @@ class Classroom extends React.Component {
               className="videoGrid"
               items={[...localVideo, ...remoteVideos]}
               renderCell={item => {
-                //console.log(item);
-                return <Video media={item} />;
+                return <ModifiedVideo media={item} />;
               }}
             />
           </div>
