@@ -46,10 +46,11 @@ class Classroom extends React.Component {
   }
 
   handleResult({ interimTranscript, finalTranscript }) {
-    //console.log(finalTranscript);
+    console.log(this.props.translation);
+    const { lngFrom, lngTo } = this.props.translation;
     const languageSetting = {
-      to: 'ru',
-      from: 'en',
+      to: lngTo,
+      from: lngFrom,
     };
     const auth = this.props.auth;
     const name = auth[0] ? auth[0].firstName : auth.firstName;
@@ -72,12 +73,11 @@ class Classroom extends React.Component {
     ) {
       this.setState({ localStream: localVideo[0] });
     }
-    //  console.log(localVideo);
+    console.log(localMedia);
     // console.log('Remote:', remoteVideos)
     return (
-      <div >
+      <div>
         <div className="screenContainer">
-          {/*{auth.role === 'Teacher' ? <StudentList /> : null}*/}
           <StudentList />
           <div className="screen">
             <GridLayout
@@ -101,9 +101,6 @@ class Classroom extends React.Component {
             }}
           />
         </div>
-        <Typography variant="h4" align="center">
-          {this.props.speechText.currMessage}
-        </Typography>
         <Typography variant="h3" align="center">
           {room.providedName}
         </Typography>
