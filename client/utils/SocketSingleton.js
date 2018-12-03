@@ -82,9 +82,9 @@ class SocketSingleton {
         });
         conn.on('student-stream', studentStreamId => {
           console.log('Student ID:', studentStreamId)
-          const { auth, streamId } = store.getState()  //look into simplewebrtc
+          const { auth, teacherStreamId } = store.getState()  //look into simplewebrtc
           if(auth.role === 'Teacher'){   //if this hits then we emit the teacherStreamId again
-            conn.emit('teacherStreamId', { teacherStreamId: streamId })
+            conn.emit('teacherStreamId', { teacherStreamId })
           }
          
         });
