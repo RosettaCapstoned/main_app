@@ -165,6 +165,24 @@ div .landingContainer {
   left: 15;
 }
 
+.msg {
+  opacity: 0.8;
+}
+.msgLine {
+  display: flex;
+  width: 70%;
+  object-fit: contain;
+  overflow-wrap: break-word;
+}
+
+.msgPrimary {
+  background-color: blue;
+}
+
+.msgOther {
+  background-color: yellow;
+}
+
 #muteButton {
   margin: 20px;
 }

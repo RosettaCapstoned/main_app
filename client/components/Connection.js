@@ -29,6 +29,7 @@ const styles = theme => ({
 class Connection extends Component {
   render(){
 		const { auth } = this.props
+		console.log(auth)
   	return (
 			<Provider configUrl={CONFIG_URL} userData={auth}>
 				<div>
@@ -47,7 +48,7 @@ class Connection extends Component {
 					</Grid>
 					<Grid item className="gridTranscript">				
 					<div>
-					  <Typography align='justify'>{auth.firstName || 'Anonymous'}</Typography>
+					  <Typography align='justify'>{auth.firstName || auth[0].firstName || 'Anonymous'}</Typography>
 					  <Transcription/>									
 					</div>
 					<Disconnected>

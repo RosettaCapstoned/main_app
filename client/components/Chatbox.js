@@ -1,10 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Typography, IconButton, Icon, Paper, Avatar } from '@material-ui/core';
+import { TextField, Typography, IconButton, Icon, Paper, Avatar, Snackbar, SnackbarContent } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 // import io from 'socket.io-client';
 import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage } from '../store/message';
 import SelectLanguage from './SelectLanguage';
+
+const styles = theme => ({
+  primary: {
+    backgroundColor: "#0F4FFE",
+    padding: 2,
+    margin: 3,
+    width: 70,
+    opacity: 0.6,
+    overflow: "auto",
+    overflowWrap: "break-word",
+    hyphens: "auto"
+  },
+  secondary: {
+    backgroundColor: "#FD9764",
+    width: 70,
+    padding: 2,
+    margin: 3,
+    opacity: 0.6,
+    overflow: "auto",
+    overflowWrap: "break-word",
+    hyphens: "auto"  
+  },
+  message: {
+  	display: 'flex',
+  	padding: 2,
+    margin: 0,
+    height: 55,
+  	border: "1px solid black"
+  },
+  msgLineLeft: {
+  	height: "auto",
+  	width: '60%',
+  	padding: 5,
+  },
+  msgLineRight: {
+  	height: "auto",
+  	width: '60%',
+    paddingLeft: 35,  	
+    border: "1px solid black"
+  }
+});
 
 const socket = new SocketSingleton().socket;
 
@@ -43,9 +87,10 @@ class Chatbox extends Component {
   }
 
   render(){
-		const { messages } = this.props;
+		const { messages, user, classes } = this.props;
 		const { handleChange, handleClick } = this;
 		// console.log(messages);
+		const name = user.firstName || user[0].firstName;
   	return (
   	  <div className="chat">
   	  	<Paper className="chatContainer">
@@ -53,29 +98,52 @@ class Chatbox extends Component {
 					console.log('This is the new message and user: ', each)
   	  	  return (
   	  	  	<div key={idx}>
-  	  	  		<Typography><b>{each.name ? each.name : each.message.name}</b>: {each.name ? each.message : each.message.message}</Typography> 
+  	  	  		{each.name ?
+  	  	  		(<div className={each.name===name ? classes.msgLineRight : classes.msgLineLeft}>
+  	  	  		  {each.name!==name && <Typography><b>{each.name}</b>: </Typography>}
+  	  	  		  <SnackbarContent aria-describedby="client-snackbar"
+  	  	  		    message={<body className={classes.message}>{each.message}</body>}
+  	  	  		    className={each.name === name ? 
+  	  	  			classNames(classes["primary"]) : 
+  	  	  			classNames(classes["secondary"])}/>
+  	  	  		</div>) :
+  	  	  		(<div className={each.message.name===name ? classes.msgLineRight : classes.msgLineLeft}>
+  	  	  		  {each.message.name!==name && <Typography><b>{each.message.name}</b>: </Typography>}
+					<SnackbarContent aria-describedby="client-snackbar"
+					  message={<body className={classes.message}>{each.message.message}</body>}
+  	  	  		      className={each.message.name === name ? 
+  	  	  			  classNames(classes["primary"]) : 
+  	  	  			  classNames(classes["secondary"])}/>
+  	  	  			</div>) 
+  	  	  	}
   	  	  	</div>
   	  	  )
   	  	})}
   	  	</Paper>
   	  	<div style={{height: '30%', display: 'flex', flexDirection: 'column'}}>
   	    <TextField placeholder="Write a message!"
-						 multiline
-						 value={this.state.textInput}
+				   multiline
+				   value={this.state.textInput}
   				   rows={8}
   				   rowsMax={12}
-  				   style={{ width:"auto", height: '350px', margin: '5px' }}
-  				   margin="normal"
+  				   style={{ width:"auto", height: '100%', margin: '0px 5px 0px 5px', backgroundColor: 'white' }}
           		   variant="outlined"
           		   onChange={handleChange}/>
         <div className="chatButtonContainer">
-	      <IconButton onClick={handleClick}><Icon>send</Icon></IconButton>
+	      <IconButton onClick={handleClick}><Icon style={{ color: '#FD9764'}}>send</Icon></IconButton>
 	    </div>
 	    </div>
   	  </div>
   	)
   }
 }
+
+Chatbox.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  message: PropTypes.node,
+  variant: PropTypes.oneOf(['primary', 'secondary']).isRequired,
+};
 
 const mapStateToProps = ({ message, auth, translation }) => {
   const { lngTo, lngFrom } = translation;
@@ -95,4 +163,4 @@ const mapDispatchToProps = dispatch => ({
 	// receiveMessage: (message) => dispatch(sendMessage({ message }))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chatbox);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Chatbox));
