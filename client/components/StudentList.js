@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import StudentAvatars from './StudentAvatars';
 import Chatbox from './Chatbox';
 
-const drawerWidth = 400;
+const drawerWidth = 375;
 
 const styles = theme => ({
   drawer: {

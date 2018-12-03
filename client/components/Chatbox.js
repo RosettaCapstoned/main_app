@@ -28,18 +28,25 @@ const styles = theme => ({
     opacity: 0.6,
     overflow: "auto",
     overflowWrap: "break-word",
-    hyphens: "auto"
+    hyphens: "auto"  
   },
   message: {
   	display: 'flex',
-  	padding: 0,
+  	padding: 2,
     margin: 0,
-    height: 70,
+    height: 55,
+  	border: "1px solid black"
   },
-  msgBox: {
+  msgLineLeft: {
   	height: "auto",
-  	width: '70%',
-  	padding: 3
+  	width: '60%',
+  	padding: 5,
+  },
+  msgLineRight: {
+  	height: "auto",
+  	width: '60%',
+    paddingLeft: 35,  	
+    border: "1px solid black"
   }
 });
 
@@ -90,18 +97,18 @@ class Chatbox extends Component {
   	  	{messages && messages.map((each, idx) => {
 					console.log('This is the new message and user: ', each)
   	  	  return (
-  	  	  	<div className={classes.msgBox} key={idx}>
+  	  	  	<div key={idx}>
   	  	  		{each.name ?
-  	  	  		(<div className="msgLine">
-  	  	  		  <Typography><b>{each.name}</b>: </Typography>
+  	  	  		(<div className={each.name===name ? classes.msgLineRight : classes.msgLineLeft}>
+  	  	  		  {each.name!==name && <Typography><b>{each.name}</b>: </Typography>}
   	  	  		  <SnackbarContent aria-describedby="client-snackbar"
   	  	  		    message={<body className={classes.message}>{each.message}</body>}
   	  	  		    className={each.name === name ? 
   	  	  			classNames(classes["primary"]) : 
   	  	  			classNames(classes["secondary"])}/>
   	  	  		</div>) :
-  	  	  		(<div className="msgLine">
-  	  	  		  <Typography><b>{each.message.name}</b>: </Typography>
+  	  	  		(<div className={each.message.name===name ? classes.msgLineRight : classes.msgLineLeft}>
+  	  	  		  {each.message.name!==name && <Typography><b>{each.message.name}</b>: </Typography>}
 					<SnackbarContent aria-describedby="client-snackbar"
 					  message={<body className={classes.message}>{each.message.message}</body>}
   	  	  		      className={each.message.name === name ? 
