@@ -8,7 +8,9 @@ const styles = {
   avatar: {
     margin: 10,
     padding: 10,
-    backgroundColor: '#FD9764'
+    backgroundColor: '#FD9764',
+    color: '#414C56',
+    fontWidth: 'bold'
   },
   popup: {
   	padding: 20
