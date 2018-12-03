@@ -7,7 +7,7 @@ class Transcription extends Component {
   render(){
   	const { messageLog } = this.props;
   	return (
-  	  <Paper className="transcriptionContainer">
+  	  <div className="transcriptionContainer">
   	  <Typography variant="h4"
   	  			  style={{fontFamily: 'Georgia, serif'}}>Lecture</Typography>
   	  <Divider />
@@ -18,7 +18,7 @@ class Transcription extends Component {
   	  	  </div>
   	  	)
   	  })}
-  	  </Paper>
+  	  </div>
   	)
   }
 }

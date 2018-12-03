@@ -10,7 +10,7 @@ const styles = {
     padding: 10,
     backgroundColor: '#FD9764',
     color: '#414C56',
-    fontWidth: 'bold'
+    fontWeight: 'bold'
   },
   popup: {
   	padding: 20
