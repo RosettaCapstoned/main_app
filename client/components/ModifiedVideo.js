@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var React = require("react");
-
+import { connect } from 'react-redux'
 
 /**
  * @description
@@ -52,4 +52,9 @@ var Video = /** @class */ (function (_super) {
     };
     return Video;
 }(React.Component));
+
+const mapStateToProps = ({ }) => {
+
+}
+
 exports.default = Video;
