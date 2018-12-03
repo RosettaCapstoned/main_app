@@ -2,8 +2,28 @@ import io from 'socket.io-client';
 import store, { dispatch } from '../store';
 import { sendMessage, receiveMessage } from '../store/message';
 import { receiveSpeechText } from '../store/speechText';
+import { addStreamId } from '../store/teacherStreamId'
 
 let conn = null;
+let state = store.getState();
+let { lngFrom, lngTo } = state.translation;
+const roomId = 'default';
+
+console.log('languages are: ', lngFrom, lngTo);
+
+console.log('SocketSingleton state is: ', state);
+
+store.subscribe(() => {
+  // console.log('state was updated: ', state);
+  let newState = store.getState();
+  if (newState.translation != state.translation) {
+    state = newState;
+    lngTo = state.translation.lngTo;
+    lngFrom = state.translation.lngFrom;
+    conn.emit('roomSettings', { lng: lngTo });
+    conn.emit('roomSettings', { lng: lngFrom });
+  }
+});
 
 //Identify Room
 
@@ -18,6 +38,8 @@ const _receiveSpeechText = speechText =>
 
 class SocketSingleton {
   constructor() {
+    // PopStateEvent
+    // console.log('SocketSingleton called with: ', state);
     // console.log(window.location.origin)
     if (!conn) {
       conn = io(window.location.origin);
@@ -33,15 +55,15 @@ class SocketSingleton {
           console.log('SocketId received ', id);
           //Set SocketId on User instance
           const roomId = 'default';
-          const lng = 'en';
-          conn.emit('roomSettings', { roomId, lng });
+          const lng = lngTo;
+          conn.emit('roomSettings', { lng });
         });
 
         conn.on('message', msg => {
           console.log('message is: ', msg);
           let { name, message } = msg;
           //hardcoding language for initial testing
-          message = message['es'];
+          message = message[lngTo];
           console.log('message received: ', message);
           _receiveMessage({ message, name });
         });
@@ -50,15 +72,21 @@ class SocketSingleton {
 
         conn.on('teacherSpeech', speechText => {
           let { name, message } = speechText;
-          message = message['ru'];
+          message = message[lngTo];
           _receiveSpeechText(message);
         });
 
         conn.on('teacher-stream', teacherStreamId => {
-          //will be used to filter video
+          console.log('Teacher ID:', teacherStreamId)
+          store.dispatch(addStreamId(teacherStreamId))
         });
         conn.on('student-stream', studentStreamId => {
-          //will be used to tell which students are logged in
+          console.log('Student ID:', studentStreamId)
+          const { auth, streamId } = store.getState()  //look into simplewebrtc
+          if(auth.role === 'Teacher'){   //if this hits then we emit the teacherStreamId again
+            conn.emit('teacherStreamId', { teacherStreamId: streamId })
+          }
+         
         });
       });
     }

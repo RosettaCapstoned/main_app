@@ -36,7 +36,7 @@ class SignUp extends Component {
   render() {
     const { email, password, firstName, lastName } = this.state;
     const { handleChange, handleClick } = this;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <Paper className="loginContainer">
         <div>
