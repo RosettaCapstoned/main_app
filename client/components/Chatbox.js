@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Typography, IconButton, Icon, Paper, Avatar, Snackbar, SnackbarContent } from '@material-ui/core';
+import { TextField, 
+		 Typography, 
+		 IconButton, 
+		 Icon, 
+		 Paper, 
+		 Avatar, 
+		 AppBar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 // import io from 'socket.io-client';
 import SocketSingleton from '../utils/SocketSingleton';
 import { sendMessage } from '../store/message';
@@ -12,42 +17,29 @@ import SelectLanguage from './SelectLanguage';
 const styles = theme => ({
   primary: {
     backgroundColor: "#0F4FFE",
-    padding: 2,
-    margin: 3,
-    width: 70,
-    opacity: 0.6,
+    opacity: 0.9,
     overflow: "auto",
     overflowWrap: "break-word",
     hyphens: "auto"
   },
   secondary: {
     backgroundColor: "#FD9764",
-    width: 70,
-    padding: 2,
-    margin: 3,
-    opacity: 0.6,
+    opacity: 0.9,
     overflow: "auto",
     overflowWrap: "break-word",
     hyphens: "auto"  
   },
   message: {
   	display: 'flex',
-  	padding: 2,
-    margin: 0,
-    height: 55,
-  	border: "1px solid black"
+  	paddingLeft: 20,
+  	paddingRight: 20
   },
-  msgLineLeft: {
-  	height: "auto",
-  	width: '60%',
-  	padding: 5,
+  avatar: {
+    margin: 2,
+    padding: 2,
+    backgroundColor: 'black',
+    color: 'white'
   },
-  msgLineRight: {
-  	height: "auto",
-  	width: '60%',
-    paddingLeft: 35,  	
-    border: "1px solid black"
-  }
 });
 
 const socket = new SocketSingleton().socket;
@@ -89,44 +81,47 @@ class Chatbox extends Component {
   render(){
 		const { messages, user, classes } = this.props;
 		const { handleChange, handleClick } = this;
-		// console.log(messages);
+		const { primary, secondary, message, avatar } = classes;
 		const name = user.firstName || user[0].firstName;
   	return (
-  	  <div className="chat">
-  	  	<Paper className="chatContainer">
-  	  	{messages && messages.map((each, idx) => {
+  	  <div >
+      <div className="chat-room">
+        <AppBar position="static" align='center' style={{ backgroundColor: '#FD9764'}}>
+          <Typography variant="h4" color="textPrimary" style={{ fontFamily: 'Georgia, serif', opacity: 0.8 }}>
+            rcsCHAT
+          </Typography>
+          </AppBar>
+ 		<Paper className="chatContainer">
+          <ul className="list-unstyled chat">
+          {messages && messages.map((each, idx) => {
 					console.log('This is the new message and user: ', each)
   	  	  return (
-  	  	  	<div key={idx}>
-  	  	  		{each.name ?
-  	  	  		(<div className={each.name===name ? classes.msgLineRight : classes.msgLineLeft}>
-  	  	  		  {each.name!==name && <Typography><b>{each.name}</b>: </Typography>}
-  	  	  		  <SnackbarContent aria-describedby="client-snackbar"
-  	  	  		    message={<body className={classes.message}>{each.message}</body>}
-  	  	  		    className={each.name === name ? 
-  	  	  			classNames(classes["primary"]) : 
-  	  	  			classNames(classes["secondary"])}/>
-  	  	  		</div>) :
-  	  	  		(<div className={each.message.name===name ? classes.msgLineRight : classes.msgLineLeft}>
-  	  	  		  {each.message.name!==name && <Typography><b>{each.message.name}</b>: </Typography>}
-					<SnackbarContent aria-describedby="client-snackbar"
-					  message={<body className={classes.message}>{each.message.message}</body>}
-  	  	  		      className={each.message.name === name ? 
-  	  	  			  classNames(classes["primary"]) : 
-  	  	  			  classNames(classes["secondary"])}/>
-  	  	  			</div>) 
-  	  	  	}
-  	  	  	</div>
-  	  	  )
-  	  	})}
-  	  	</Paper>
+            <li className="d-flex justify-content-between" style={{padding: 5}}>
+			  <Avatar className={avatar}>{each.name ? each.name[0] : each.message.name[0]}</Avatar>              
+				{each.name ? (<div className="chat-body pull-left card primary p-3 ml-2 z-depth-1">
+                <p className="mb-0">
+                  {each.message}
+                </p>
+              </div>) :
+              (<div className="chat-body pull-left card primary p-3 ml-2 z-depth-1">
+                <p className="mb-0">
+                  {each.message.message}
+                </p>
+              </div>)
+          }
+            </li>
+            )})
+      	  }
+          </ul>
+      </Paper>
+      </div>
   	  	<div style={{height: '30%', display: 'flex', flexDirection: 'column'}}>
   	    <TextField placeholder="Write a message!"
 				   multiline
 				   value={this.state.textInput}
   				   rows={8}
   				   rowsMax={12}
-  				   style={{ width:"auto", height: '100%', margin: '0px 5px 0px 5px', backgroundColor: 'white' }}
+  				   style={{ width:"auto", height: '90%', margin: '0px 7px 0px 7px', backgroundColor: 'white' }}
           		   variant="outlined"
           		   onChange={handleChange}/>
         <div className="chatButtonContainer">
@@ -140,9 +135,6 @@ class Chatbox extends Component {
 
 Chatbox.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  message: PropTypes.node,
-  variant: PropTypes.oneOf(['primary', 'secondary']).isRequired,
 };
 
 const mapStateToProps = ({ message, auth, translation }) => {

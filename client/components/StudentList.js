@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import StudentAvatars from './StudentAvatars';
 import Chatbox from './Chatbox';
 
-const drawerWidth = 375;
+const drawerWidth = 300;
 
 const styles = theme => ({
   drawer: {
@@ -23,7 +23,8 @@ class StudentList extends Component{
   state = {
     students: [{id: 1, firstName: "Harry", lastName: "Chen", nativeLng: "Chinese"}, 
                {id: 2, firstName: "Daniel", lastName: "Seeley", nativeLng: "Bengali"},
-               {id: 3, firstName: "Kaz", lastName: "K", nativeLng: "Russian"}],
+               {id: 3, firstName: "Kaz", lastName: "K", nativeLng: "Russian"},
+               {id: 4, firstName: "Kevin", lastName: "Hu", nativeLng: "Chinese"}],
     open: false
   }
 

@@ -47,10 +47,8 @@ class Connection extends Component {
 					</Connected>
 					</Grid>
 					<Grid item className="gridTranscript">				
-					<div>
-					  <Typography align='justify'>{auth.firstName || auth[0].firstName || 'Anonymous'}</Typography>
+					  {/*<Typography align='justify'>{auth.firstName || auth[0].firstName || 'Anonymous'}</Typography>*/}
 					  <Transcription/>									
-					</div>
 					<Disconnected>
 					  <CircularProgress />
 					</Disconnected>

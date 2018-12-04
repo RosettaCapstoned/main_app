@@ -8,10 +8,9 @@ export default class AboutUs extends Component {
   	return (
   	  <div className="sectionContainer whatwedo">
 				<Typography variant='h1' 
-  	  						color='primary' 
-  	  						align="left"
+  	  						  align="left"
   	  	  					className="footerLogo"
-  	  	  					style={{fontFamily: 'Georgia, serif'}}>
+  	  	  					style={{fontFamily: 'Georgia, serif', color: '#414C56'}}>
 					 What We Do
 				</Typography>
 				<Typography variant='h5' 

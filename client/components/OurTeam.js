@@ -8,9 +8,8 @@ export default class OurTeam extends Component {
   	return (
       <div className="sectionContainer bio">
 		<Typography variant='h1' 
-  						  color='primary' 
-  						  align="left"
-  	  					style={{fontFamily: 'Georgia, serif'}}>
+  					align="left"
+  	  				style={{fontFamily: 'Georgia, serif', color: '#414C56'}}>
 			 Our Team
 		</Typography>
 		<div className="profiles">
