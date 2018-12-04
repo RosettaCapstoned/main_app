@@ -16,14 +16,14 @@ const reducer = combineReducers({
   simplewebrtc: swrtcReducer,
   message: messageReducer,
   speechText: speechTextReducer,
-  streamId: streamIdReducer
+  teacherStreamId: streamIdReducer
 });
 
 const initial = {
   simplewebrtc: {},
 };
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(logger, thunk));
 
 export const { dispatch } = store;
 export default store;
