@@ -65,7 +65,7 @@
 }
 
 #chatList {
-  height: 100%;
+  height: auto;
 }
 
 .classroomContainer { 
@@ -79,6 +79,10 @@ div .description {
 
 .footerLogo {
   font-family: Georgia, serif; 
+}
+
+.gButton {
+  width: 300px;
 }
 
 .googleButton {

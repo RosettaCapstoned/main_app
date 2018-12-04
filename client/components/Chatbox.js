@@ -71,13 +71,9 @@ class Chatbox extends Component {
   	const name = user[0] ? user[0].firstName : user.firstName;
   	const languageSetting = { to, from };
 	this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
+    $("#chat").stop().animate({ scrollTop: $("#chat")[0].scrollHeight}, 1000);
 	this.setState({ textInput: '' });
 	TextField.value = '';
-  }
-
-  componentDidMount(){
-	var chat = document.getElementById("chatList");
-	window.scrollTo(0, chat.innerHeight);  
   }
 
   render(){

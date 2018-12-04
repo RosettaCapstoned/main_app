@@ -4,10 +4,14 @@ import { Paper, Typography, Divider } from '@material-ui/core';
 
 class Transcription extends Component {
 
+  // componentDidMount(){
+  // 	$("#tc").stop().animate({ scrollTop: $("#tc")[0].scrollHeight}, 1000);
+  // }
+
   render(){
   	const { messageLog } = this.props;
   	return (
-  	  <div className="transcriptionContainer">
+  	  <div className="transcriptionContainer tc">
   	  <Typography variant="h4"
   	  			  style={{fontFamily: 'Georgia, serif'}}>Lecture</Typography>
   	  <Divider />
