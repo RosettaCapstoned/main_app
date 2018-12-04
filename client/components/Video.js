@@ -11,13 +11,20 @@ const socket = new SocketSingleton().socket
 
 class Video extends React.Component{
   render(){
-    const { auth } = this.props
+    const { auth, teacherStreamId } = this.props
     return (
       <div className="video">
         <RequestUserMedia audio video auto/>    {/* set up a toggle later */}
         <Room name='ROOM_NAME'>
         {
           ({room, peers, localMedia, remoteMedia}) => {
+            // console.log(remoteMedia)
+            let remoteVideos = remoteMedia.filter(media => media.kind === 'video');
+            if(auth.role === 'Student'){
+              remoteVideos = remoteVideos.filter((video) => video.id === teacherStreamId)
+            }
+            
+            console.log(remoteVideos)
             if(!room.joined){
               return <CircularProgress />
             }
@@ -26,7 +33,7 @@ class Video extends React.Component{
                 room={room} 
                 peers={peers} 
                 localMedia={localMedia} 
-                remoteMedia={remoteMedia}
+                remoteVideos={remoteVideos}
               />)
           }
         }
@@ -36,9 +43,10 @@ class Video extends React.Component{
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ auth, teacherStreamId }) => {
 	return {
-		auth: state.auth
+    auth,
+    teacherStreamId
 	}
 }
 
