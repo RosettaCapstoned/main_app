@@ -57,9 +57,6 @@ class Chatbox extends Component {
 		}
 	}
 
-	componentDidMount = () => {
-	}
-
   handleChange = (evt) => {
   	this.setState({
 			textInput: evt.target.value
@@ -78,6 +75,11 @@ class Chatbox extends Component {
 	TextField.value = '';
   }
 
+  componentDidMount(){
+	var chat = document.getElementById("chatList");
+	window.scrollTo(0, chat.innerHeight);  
+  }
+
   render(){
 		const { messages, user, classes } = this.props;
 		const { handleChange, handleClick } = this;
@@ -91,8 +93,8 @@ class Chatbox extends Component {
             rcsCHAT
           </Typography>
           </AppBar>
- 		<Paper className="chatContainer">
-          <ul className="list-unstyled chat">
+ 		<Paper className="chatContainer" id="chat">
+          <ul className="list-unstyled chat" id="chatList">
           {messages && messages.map((each, idx) => {
 					console.log('This is the new message and user: ', each)
   	  	  return (
