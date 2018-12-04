@@ -104,6 +104,14 @@ div .description {
   opacity: 0.8;
 }
 
+.icons {
+  color: #414C56;
+  height: 20px;
+}
+
+.iconsbg {
+}
+
 .headerContainer {
   display: flex;
   justify-content: space-between;
@@ -314,6 +322,12 @@ div .landingContainer {
   padding: 15px;
   overflow: scroll;
   overflow-wrap: break-word;
+}
+
+.vidControlsContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5%;
 }
 
 video{
