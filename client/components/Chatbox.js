@@ -57,9 +57,6 @@ class Chatbox extends Component {
 		}
 	}
 
-	componentDidMount = () => {
-	}
-
   handleChange = (evt) => {
   	this.setState({
 			textInput: evt.target.value
@@ -74,6 +71,7 @@ class Chatbox extends Component {
   	const name = user[0] ? user[0].firstName : user.firstName;
   	const languageSetting = { to, from };
 	this.props.sendMessage(name, this.state.textInput, languageSetting || this.state.languageSetting);
+    $("#chat").stop().animate({ scrollTop: $("#chat")[0].scrollHeight}, 1000);
 	this.setState({ textInput: '' });
 	TextField.value = '';
   }
@@ -91,8 +89,8 @@ class Chatbox extends Component {
             rcsCHAT
           </Typography>
           </AppBar>
- 		<Paper className="chatContainer">
-          <ul className="list-unstyled chat">
+ 		<Paper className="chatContainer" id="chat">
+          <ul className="list-unstyled chat" id="chatList">
           {messages && messages.map((each, idx) => {
 					console.log('This is the new message and user: ', each)
   	  	  return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import Fullscreen from 'react-full-screen'
-import { IconButton, Icon, Typography } from '@material-ui/core';
+import { IconButton, Icon, Typography, Button } from '@material-ui/core';
 import { MicOff, Mic } from '@material-ui/icons';
 import { UserControls, GridLayout, Video } from '@andyet/simplewebrtc';
 import { connect } from 'react-redux';
@@ -96,20 +96,23 @@ class Classroom extends React.Component {
                 }}
               />
             </Fullscreen>
-            <button onClick={this.goFull}>Enter Fullscreen</button>
           </div>
+          <div className="vidControlsContainer">
           <UserControls
             render={({ isMuted, mute, unmute }) => {
               return (
                 <IconButton
+                  className="iconsbg"
                   id="muteButton"
                   onClick={() => (isMuted ? unmute() : mute())}
                 >
-                  {isMuted ? <Mic /> : <MicOff />}
+                  <Icon className="icons">{isMuted ? "mic" : "mic_off"}</Icon>
                 </IconButton>
               );
             }}
           />
+          <IconButton className="iconsbg" onClick={this.goFull}><Icon className="icons">desktop_windows</Icon></IconButton>
+          </div>
         </div>
         <Typography variant="h3" align="center">
           {'English 101'/* {room.providedName} */}

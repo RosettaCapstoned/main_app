@@ -31,7 +31,6 @@ class Login extends Component {
   handleClose = () => {
     this.props.history.push('/');
   };
-
   render() {
     const { email, password } = this.state;
     const { handleChange, handleClick } = this;
@@ -76,7 +75,7 @@ class Login extends Component {
                 Sign in
               </Button>
               <Paper className="googleButton">
-                <Button href="/auth/google">
+                <Button className="gButton" href="/auth/google">
                   <img
                     width="20px"
                     alt='Google "G" Logo'

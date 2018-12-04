@@ -57,10 +57,15 @@
   margin: 7px;
   overflow: scroll;
   overflow-wrap: break-word;
+  position: relative;
 }
 
 .chatDrawer {
   width: 500px;
+}
+
+#chatList {
+  height: auto;
 }
 
 .classroomContainer { 
@@ -74,6 +79,10 @@ div .description {
 
 .footerLogo {
   font-family: Georgia, serif; 
+}
+
+.gButton {
+  width: 300px;
 }
 
 .googleButton {
@@ -93,6 +102,14 @@ div .description {
   border: : 2px solid black;
   background-color: #FD9764;
   opacity: 0.8;
+}
+
+.icons {
+  color: #414C56;
+  height: 20px;
+}
+
+.iconsbg {
 }
 
 .headerContainer {
@@ -305,6 +322,12 @@ div .landingContainer {
   padding: 15px;
   overflow: scroll;
   overflow-wrap: break-word;
+}
+
+.vidControlsContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5%;
 }
 
 video{
