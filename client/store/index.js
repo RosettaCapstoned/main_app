@@ -23,7 +23,7 @@ const initial = {
   simplewebrtc: {},
 };
 
-const store = createStore(reducer, applyMiddleware(logger, thunk));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export const { dispatch } = store;
 export default store;
