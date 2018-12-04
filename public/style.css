@@ -1,7 +1,11 @@
 
+
 .about {
   background-size: cover;
-  background-color: #FBCCA7;
+  background-color: #FD9764;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .avatar {
@@ -22,14 +26,6 @@
   background-size: cover;
   background-color: #FBCCA7;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.about {
-  background-size: cover;
-  background-color: #FD9764;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,7 +314,6 @@ div .landingContainer {
   height: 80%;
   width: 100%;
   background-color: #FD9764;
-  opacity: 0.8;
   padding: 15px;
   overflow: scroll;
   overflow-wrap: break-word;
