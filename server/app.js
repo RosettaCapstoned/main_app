@@ -196,9 +196,9 @@ app.use(passport.session()); // Used to persist login sessions
 passport.use(
   new GoogleStrategy(
     {
-      clientID: googleKey.clientID || process.env.clientID,
-      clientSecret: googleKey.clientSecret || process.env.clientSecret,
-      callbackURL: googleKey.callbackURL || process.env.callbackURL,
+      clientID: '473333584039-2hnkf7ru65437gvu0lhu7qjjee2tr2b0.apps.googleusercontent.com',//googleKey.clientID || process.env.clientID,
+      clientSecret: 'UrJoGhevrm7hTIKAuKsjXWI9',//googleKey.clientSecret || process.env.clientSecret,
+      callbackURL: "http://localhost:3000/auth/google/callback",//googleKey.callbackURL || process.env.callbackURL,
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
