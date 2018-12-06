@@ -95,15 +95,15 @@ class Chatbox extends Component {
 					console.log('This is the new message and user: ', each)
   	  	  return (
             <li className="d-flex justify-content-between" style={{padding: 5}}>
-			  <Avatar className={avatar}>{each.name ? each.name[0] : each.message.name[0]}</Avatar>              
+			  <Avatar className={avatar}>{(each.name ? each.name[0] : each.message.name[0]) || 'R'}</Avatar>              
 				{each.name ? (<div className="chat-body pull-left card primary p-3 ml-2 z-depth-1">
                 <p className="mb-0">
-                  {each.message}
+                  {each.message || ''}
                 </p>
               </div>) :
               (<div className="chat-body pull-left card primary p-3 ml-2 z-depth-1">
                 <p className="mb-0">
-                  {each.message.message}
+                  {each.message.message || ''}
                 </p>
               </div>)
           }
