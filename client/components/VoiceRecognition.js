@@ -74,22 +74,22 @@ class VoiceRecognition extends Component {
   };
 
   audioStart = () => {
-    console.log('audiostart');
+    // console.log('audiostart');
   };
   soundStart = () => {
-    console.log('soundstart');
+    // console.log('soundstart');
   };
   speechStart = () => {
-    console.log('speechstart');
+    // console.log('speechstart');
   };
   audioEnd = () => {
-    console.log('audioend');
+    // console.log('audioend');
   };
   soundEnd = () => {
-    console.log('soundend');
+    // console.log('soundend');
   };
   speechEnd = () => {
-    console.log('speechend');
+    // console.log('speechend');
   };
 
   componentWillReceiveProps({ stop }) {
