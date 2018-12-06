@@ -36,7 +36,7 @@ class SelectLanguage extends Component {
 			      {lngItem:'日本人', lng: 'ja'}, 
 						{lngItem:'ਪੰਜਾਬੀ', lng: 'pa'}
 					]
-	console.log(this.state);
+	// console.log(this.state);
   	return (
   	  <FormControl className="selectLng" variant="outlined" >
           { this.props.idx >= 0 ? null : <InputLabel>Select a Language</InputLabel> }
