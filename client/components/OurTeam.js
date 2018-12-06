@@ -51,7 +51,7 @@ export default class OurTeam extends Component {
 			    I am a lingua-enthusiast and a Wisconsin fanatic. 
 			    My preference is backend engineering and it severely pains me when applications are built without security in mind.</Typography>
 			    <div className="avatarContainer">
-				  <a>
+				  <a target="_blank" and rel="noopener noreferrer" href='https://www.linkedin.com/in/kazniyaz/'>
 				    <Avatar className="avatar" src="../../public/linkedin_circle.png"></Avatar>
 				  </a>
 				  <a target="_blank" and rel="noopener noreferrer" href='https://github.com/Kazniyaz'>
