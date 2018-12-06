@@ -16,8 +16,8 @@ router.post('/signup', (req, res, next) => {
     password: signedPassword,
   })
     .then(user => {
-      console.log(user)
-      const send = {...user, password: jwt2.decode(user.password, process.env.JWT_SECRET)}
+      const { firstName, lastName, password, email, role} = user;
+      const send = {firstName, lastName, email, role, password: jwt2.decode(user.password, process.env.JWT_SECRET)}
       res.send(send);
     })
     .catch(next);
