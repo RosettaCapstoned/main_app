@@ -65,7 +65,7 @@ class Chatbox extends Component {
 
   handleClick = () => {
 	let { from, to, user } = this.props;
-	console.log('This is coming from click handler: ', to, from)
+	// console.log('This is coming from click handler: ', to, from)
 	to = to //|| 'es';
 	from = from //|| 'en';  
   	const name = user[0] ? user[0].firstName : user.firstName;
@@ -77,10 +77,11 @@ class Chatbox extends Component {
   }
 
   render(){
-		const { messages, user, classes } = this.props;
+		const { messages, user, classes, auth } = this.props;
 		const { handleChange, handleClick } = this;
 		const { primary, secondary, message, avatar } = classes;
-		const name = user.firstName || user[0].firstName;
+		const name = auth.role || 'Student'
+		// const name = user.firstName || 'Student'user[0].firstName;
   	return (
   	  <div >
       <div className="chat-room">
@@ -138,6 +139,7 @@ Chatbox.propTypes = {
 const mapStateToProps = ({ message, auth, translation }) => {
   const { lngTo, lngFrom } = translation;
   return {
+		auth,
 		messages: message,
 		from: lngFrom,
 		to: lngTo,
