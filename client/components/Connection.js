@@ -10,11 +10,8 @@ import Chatbox from './Chatbox';
 import Transcription from './Transcription';
 import SocketSingleton from '../utils/SocketSingleton'
 
-const API_KEY = '75558107906217b9a6192969';
 
-const ROOM_NAME = 'YOUR_ROOM_NAME';   //will change name based on teacher's id
-const ROOM_PASSWORD = 'YOUR_ROOM_PASSWORD'; //same with password
-const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
+const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${process.env.SWRTC_KEY}`
 
 const socket = new SocketSingleton().socket
 
@@ -29,7 +26,7 @@ const styles = theme => ({
 class Connection extends Component {
   render(){
 		const { auth } = this.props
-		console.log(auth)
+		// console.log(auth)
   	return (
 			<Provider configUrl={CONFIG_URL} userData={auth}>
 				<div>

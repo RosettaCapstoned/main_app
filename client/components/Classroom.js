@@ -81,7 +81,7 @@ class Classroom extends React.Component {
     }
 
     // console.log(localMedia);
-    console.log('Remote:', remoteVideos)
+    // console.log('Remote:', remoteVideos)
     return (
       <div>
         <div className="screenContainer">

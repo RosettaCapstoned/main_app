@@ -65,7 +65,7 @@ class Chatbox extends Component {
 
   handleClick = () => {
 	let { from, to, user } = this.props;
-	console.log('This is coming from click handler: ', to, from)
+	// console.log('This is coming from click handler: ', to, from)
 	to = to //|| 'es';
 	from = from //|| 'en';  
   	const name = user[0] ? user[0].firstName : user.firstName;
