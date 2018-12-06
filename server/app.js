@@ -3,9 +3,9 @@ const path = require('path');
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
 const { User, Room } = require('./db/').models;
-// const googleKey = require('./env');
+const googleKey = require('./env');
 
-const googleKey = {};
+// const googleKey = {};
 const cookieSession = require('cookie-session');
 const { userRouter, authRouter, translateRouter, roomRouter, messagesRouter } = require('./api');
 const { sync, seed } = require('./db/');
