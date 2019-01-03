@@ -18,7 +18,7 @@ class Menu extends Component {
     const { auth, logOut } = this.props;
     const loggedIn =
       auth.id || auth.token || window.localStorage.getItem('token');
-    console.log(loggedIn);
+    // console.log(loggedIn);
     return (
       <List className="menuList">
         <ListItem button component={Link} to="/" key="Home">

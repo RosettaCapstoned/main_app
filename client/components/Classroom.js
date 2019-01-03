@@ -81,11 +81,10 @@ class Classroom extends React.Component {
     }
 
     // console.log(localMedia);
-    console.log('Remote:', remoteVideos)
+    // console.log('Remote:', remoteVideos)
     return (
       <div>
-        <div className="screenContainer">
-          <StudentList />
+        <StudentList />
           <div className="screen">
             <Fullscreen enabled={this.state.isFull}>
               <GridLayout
@@ -111,13 +110,20 @@ class Classroom extends React.Component {
               );
             }}
           />
-          <IconButton className="iconsbg" onClick={this.goFull}><Icon className="icons">desktop_windows</Icon></IconButton>
+          <IconButton className="iconsbg" onClick={this.goFull}>
+            <Icon className="icons">desktop_windows</Icon>
+          </IconButton>
           </div>
-        </div>
-        <Typography variant="h3" align="center">
+        <Typography 
+          variant="h3" 
+          align="center" 
+          style={{fontFamily: 'Georgia, serif'}}>
           {'English 101'/* {room.providedName} */}
         </Typography>
-        <Typography variant="h6" align="center">
+        <Typography 
+          variant="h6" 
+          align="center" 
+          style={{fontFamily: 'Georgia, serif'}}>
           Total people in classroom: {peers.length + 1}
         </Typography>
         {this.props.user.role === 'Teacher' ||

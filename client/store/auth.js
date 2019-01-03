@@ -65,10 +65,6 @@ const checkOAuthToken = () => async dispatch => {
 
 const signUp = (credentials, history) => async dispatch => {
     const response = await axios.post('/api/auth/signup', credentials);
-    console.log(response.data)
-    const { email, password } = response.data
-    console.log('email', email)
-    return dispatch(login({ email, password }, history))
 };
 
 

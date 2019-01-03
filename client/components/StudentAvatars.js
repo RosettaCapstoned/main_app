@@ -35,7 +35,7 @@ class StudentAvatars extends Component{
     const { anchorEl } = this.state
     const { classes, student } = this.props;
     const open = Boolean(anchorEl);
-    console.log(student);
+    // console.log(student);
     return (
   	  <Fragment>
   		<Avatar className={classes.avatar}
