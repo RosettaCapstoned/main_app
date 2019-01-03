@@ -19,12 +19,13 @@ class Video extends React.Component{
         {
           ({room, peers, localMedia, remoteMedia}) => {
             // console.log(remoteMedia)
-            let remoteVideos = remoteMedia.filter(media => media.kind === 'video');
-            if(auth.role === 'Student'){
-              remoteVideos = remoteVideos.filter((video) => video.id === teacherStreamId)
-            }
+            // let remoteVideos = remoteMedia.filter(media => media.kind === 'video');
+            // if(auth.role === 'Student'){
+            //   remoteVideos = remoteVideos.filter((video) => video.id === teacherStreamId)
+            // }
+            const remoteVideos = remoteMedia.filter((video) => video.id === teacherStreamId)
             
-            console.log(remoteVideos)
+            // console.log(remoteVideos)
             if(!room.joined){
               return <CircularProgress />
             }

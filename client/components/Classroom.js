@@ -25,6 +25,7 @@ class Classroom extends React.Component {
     this.handleEnd = this.handleEnd.bind(this);
     this.handleResult = this.handleResult.bind(this);
     this.goFull = this.goFull.bind(this)
+    this.exitFull = this.exitFull.bind(this)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -42,7 +43,6 @@ class Classroom extends React.Component {
   goFull(){
     this.setState({ isFull: true })
   }
-
   handleStart() {
     // console.log('Speech recognition started');
   }
@@ -79,7 +79,6 @@ class Classroom extends React.Component {
     ) {
       this.setState({ localStream: localVideo[0] });
     }
-
     // console.log(localMedia);
     // console.log('Remote:', remoteVideos)
     return (
@@ -87,7 +86,7 @@ class Classroom extends React.Component {
         <div className="screenContainer">
           <StudentList />
           <div className="screen">
-            <Fullscreen enabled={this.state.isFull}>
+            <Fullscreen enabled={this.state.isFull} onChange={() => this.setState({ isFull : !this.state.isFull })}>
               <GridLayout
                 className="videoGrid"
                 items={[...localVideo, ...remoteVideos]}
