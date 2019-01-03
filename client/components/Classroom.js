@@ -86,7 +86,7 @@ class Classroom extends React.Component {
       <div>
         <StudentList />
           <div className="screen">
-            <Fullscreen enabled={this.state.isFull}>
+            <Fullscreen enabled={this.state.isFull} onChange={() => this.setState({ isFull : !this.state.isFull })}>
               <GridLayout
                 className="videoGrid"
                 items={[...localVideo, ...remoteVideos]}

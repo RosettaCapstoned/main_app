@@ -24,7 +24,7 @@ class Video extends React.Component{
               remoteVideos = remoteVideos.filter((video) => video.id === teacherStreamId)
             }
             
-            console.log(remoteVideos)
+            //console.log(remoteVideos)
             if(!room.joined){
               return <CircularProgress />
             }
