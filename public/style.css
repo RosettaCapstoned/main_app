@@ -1,7 +1,11 @@
 
+
 .about {
   background-size: cover;
-  background-color: #FBCCA7;
+  background-color: #FD9764;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .avatar {
@@ -22,14 +26,6 @@
   background-size: cover;
   background-color: #FBCCA7;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.about {
-  background-size: cover;
-  background-color: #FD9764;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -265,16 +261,10 @@ div .landingContainer {
 }
 
 .screen {
-  width: 80%;
-  height: 60%;
-}
-
-.screenContainer {
-  align-items: center;
-  margin: 35px;
-  min-height: 40%;
-  max-height: auto;
-  width: 65%;
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
 }
 
 .sectionContainer {
@@ -318,7 +308,6 @@ div .landingContainer {
   height: 80%;
   width: 100%;
   background-color: #FD9764;
-  opacity: 0.8;
   padding: 15px;
   overflow: scroll;
   overflow-wrap: break-word;
@@ -326,8 +315,7 @@ div .landingContainer {
 
 .vidControlsContainer {
   display: flex;
-  justify-content: flex-end;
-  padding: 5%;
+  justify-content: center;
 }
 
 video{

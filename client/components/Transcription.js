@@ -13,7 +13,7 @@ class Transcription extends Component {
   	return (
   	  <div className="transcriptionContainer tc">
   	  <Typography variant="h4"
-  	  			  style={{fontFamily: 'Georgia, serif'}}>Lecture</Typography>
+  	  			  style={{fontFamily: 'Georgia, serif', color: '#414C56'}}>Lecture</Typography>
   	  <Divider />
   	  {messageLog && messageLog.map(each => {
   	  	return (
